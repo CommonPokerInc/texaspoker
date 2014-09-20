@@ -1,0 +1,17 @@
+# android
+/gen
+/bin
+/proguard/
+
+
+# git
+*.orig
+
+#mac
+.DS_Store
+
+# editors
+*.swp
+*~
+
+
