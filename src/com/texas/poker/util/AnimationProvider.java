@@ -1,6 +1,8 @@
 
 package com.texas.poker.util;
 
+import android.graphics.Interpolator;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -31,7 +33,10 @@ public class AnimationProvider {
 			int multiple,int interplatorType,int duration){
 		
 		TranslateAnimation ta = null;
+		Interpolator interpolator  =null;
+		
 		float mFromX =0f,mFromY =0f,mToX= 0f,mToY =0f;
+		
 		switch(directionType){
 		case TYPE_ANIMATION_TOP_IN:
 			mFromY = -multiple;
@@ -48,6 +53,7 @@ public class AnimationProvider {
 		default:
 			break;
 		}
+		
 		ta = new TranslateAnimation
 				(TYPE, mFromX, TYPE, mToX, TYPE, mFromY, TYPE, mToY);
 		ta.setDuration(duration);

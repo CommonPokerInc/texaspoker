@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/dialog_help_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/dialog_img_help_bg"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <RadioGroup
+            android:id="@+id/dialog_radio_group"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                style="@style/dialog_radio_btn"
+                android:text="@string/dialog_help_rule"
+                android:id="@+id/dialog_btn_rule"
+                android:layout_width="fill_parent"
+                android:gravity="center"
+                android:layout_height="@dimen/dialog_help_radio_height"
+                android:layout_weight="1"
+                android:layout_margin="5dp" />
+            <RadioButton
+                style="@style/dialog_radio_btn"
+                android:text="@string/dialog_help_poker"
+                android:id="@+id/dialog_btn_poker"
+                android:layout_width="fill_parent"
+                android:gravity="center"
+                android:layout_height="@dimen/dialog_help_radio_height"
+                android:layout_weight="1"
+                android:layout_margin="5dp" />
+            <RadioButton
+                style="@style/dialog_radio_btn"
+                android:text="@string/dialog_help_pool"
+                android:id="@+id/dialog_btn_pool"
+                android:layout_width="fill_parent"
+                android:gravity="center"
+                android:layout_height="@dimen/dialog_help_radio_height"
+                android:layout_weight="1"
+                android:layout_margin="5dp" />
+            <RadioButton
+                style="@style/dialog_radio_btn"
+                android:text="@string/dialog_help_question"
+                android:id="@+id/dialog_btn_question"
+                android:layout_width="fill_parent"
+                android:gravity="center"
+                android:layout_height="@dimen/dialog_help_radio_height"
+                android:layout_weight="1"
+                android:layout_margin="5dp" />
+        </RadioGroup>
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/dialog_radio_group"
+            android:background="@drawable/dialog_layout_inner_bg" >
+        </ScrollView>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/dialog_btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/dialog_btn_close"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        style="@style/main_txt_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/dialog_img_header"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="15dp"
+        android:text="@string/dialog_help_title" />
+
+</RelativeLayout>

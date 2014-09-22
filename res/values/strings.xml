@@ -8,4 +8,11 @@
 	<string name="default_money">1000</string>
 	<string name="main_market">商城</string>
 	<string name="main_transfer_to_friends">给朋友传输安装包</string>
+	
+	<!-- 帮助 -->
+	<string name="dialog_help_title">帮助</string>
+	<string name="dialog_help_rule">规则介绍</string>
+	<string name="dialog_help_poker">牌型讲解</string>
+	<string name="dialog_help_pool">奖池分配</string>
+	<string name="dialog_help_question">常见问题</string>
 </resources>

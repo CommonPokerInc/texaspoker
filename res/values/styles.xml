@@ -76,4 +76,14 @@
         <item name="android:textStyle">bold</item>
         <item name="android:clickable">true</item> 
     </style>
+    
+    <!-- start——帮助 -->
+    <style name="dialog_radio_btn">
+        <item name="android:textColor">@color/main_txt_color</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item> 
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/dialog_btn_tab</item>
+        <item name="android:button">@null</item>
+    </style>
 </resources>
