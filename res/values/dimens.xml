@@ -6,4 +6,11 @@
     
     <!-- 默认对话框 -->
 	<dimen name="dialog_padding">25dp</dimen>
+	
+	
+	<!-- 首页 -->
+	<dimen name="main_btn_size">60dp</dimen>
+	<dimen name="main_btn_margin">15dp</dimen>
+	<dimen name="main_btn_big_height">60dp</dimen>
+	<dimen name="main_btn_big_width">220dp</dimen>
 </resources>

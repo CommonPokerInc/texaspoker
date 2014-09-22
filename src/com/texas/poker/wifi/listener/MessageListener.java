@@ -10,13 +10,13 @@ package com.texas.poker.wifi.listener;
  */
 public interface MessageListener {
 	
-	public void onServerReceive(PeopleMessage msg);
-	
-	public void onServerReceive(GameMessage msg);
-	
-	public void onClientReceive(PeopleMessage msg);
-	
-	public void onClientReceive(GameMessage msg);
+//	public void onServerReceive(PeopleMessage msg);
+//	
+//	public void onServerReceive(GameMessage msg);
+//	
+//	public void onClientReceive(PeopleMessage msg);
+//	
+//	public void onClientReceive(GameMessage msg);
 	
 	public void onServerSendFailure();
 	

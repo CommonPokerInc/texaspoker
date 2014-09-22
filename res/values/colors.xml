@@ -11,4 +11,9 @@
     <color name="dialog_default_btn_unpress_color">#FFc0392b</color>
     
     <!-- end——默认对话框 -->
+    
+    <!-- start——首页 -->
+    <color name="main_txt_color">#a63503</color>
+    <color name="main_txt_color_extra">#F5DEB3</color>
+    <color name="main_txt_color_extra_highlight">#ffffff</color>
 </resources>

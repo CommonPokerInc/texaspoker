@@ -116,7 +116,7 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
                 style="@style/dialog_default_btn"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
-                android:text="OK"
+                android:text="@string/app_name"
                 android:visibility="gone" />
 
             <Button
@@ -124,7 +124,7 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
                 style="@style/dialog_default_btn"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
-                android:text="Cancle"
+                android:text="@string/app_name"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
