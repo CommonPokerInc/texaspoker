@@ -1,6 +1,7 @@
 package com.texas.poker.ui.activity;
-
 import com.texas.poker.R;
+import com.texas.poker.ui.dialog.HelpDialog;
+import com.texas.poker.ui.dialog.TransferDialog;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,10 @@ public class MainActivity extends Activity implements OnClickListener{
 	private ImageButton btnHelp,btnCreate,btnJoin;
 	private TextView btnTransfer,btnMoney,btnMarket;
 	private ImageView imgTop,imgLeft,imgRight,imgDesk,imgLight;
+	
+	private HelpDialog mHelpDialog;
+	
+	private TransferDialog mTransferDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		imgRight.setOnClickListener(this);
 		imgDesk.setOnClickListener(this);
 		imgLight.setOnClickListener(this);
+		
 	}
 	
 	private void startAnimation(){
@@ -56,6 +62,16 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.main_btn_help:
+			if(null==mHelpDialog){
+				mHelpDialog =new HelpDialog(this);
+			}
+			mHelpDialog.show();
+			break;
+		case R.id.main_btn_transfer:
+			if(null==mTransferDialog){
+				mTransferDialog =new TransferDialog(this);
+			}
+			mTransferDialog.show();
 			break;
 		default:
 				break;

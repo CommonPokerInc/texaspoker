@@ -2,6 +2,7 @@
 <resources>
     
     <!-- start——默认对话框 -->
+    <color name="transparent">#00000000</color>
     <color name="dialog_default_text_color">#FFFFFF</color>
     <color name="dialog_default_divider_color">#11000000</color>
     <color name="dialog_default_msg_color">#FFFFFFFF</color>
@@ -16,4 +17,11 @@
     <color name="main_txt_color">#a63503</color>
     <color name="main_txt_color_extra">#F5DEB3</color>
     <color name="main_txt_color_extra_highlight">#ffffff</color>
+    
+    <!-- end——首页 -->
+    
+    <!-- start——对话框 -->
+    <color name="dialog_txt_color">#000000</color>
+    <color name="dialog_txt_color_point">#eb5b05</color>
+    <!-- end——对话框 -->
 </resources>

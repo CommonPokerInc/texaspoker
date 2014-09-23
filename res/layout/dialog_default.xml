@@ -31,7 +31,7 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/dialog_default_bg"
+        android:background="@color/transparent"
         android:clickable="false"
         android:orientation="vertical"
         android:visibility="visible">
@@ -40,7 +40,7 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
             android:id="@+id/topPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#22000000"
+            android:background="@color/transparent"
             android:orientation="vertical">
 
             <RelativeLayout

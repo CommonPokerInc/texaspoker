@@ -15,4 +15,20 @@
 	<string name="dialog_help_poker">牌型讲解</string>
 	<string name="dialog_help_pool">奖池分配</string>
 	<string name="dialog_help_question">常见问题</string>
+	
+	<string name="one">1.</string>
+	<string name="two">2.</string>
+	<string name="three">3.</string>
+	<string name="four">4.</string>
+	
+	<string name="dialog_rule_one">牌局开始后，每位玩家会得到两张底牌（仅自己可看）。荷官会分三次陆续发出5张所有玩家可见的公共牌（3张+1张+1张）</string>
+	<string name="dialog_rule_two">在经过3轮押注轮之后，如果仍不能分出胜负，游戏进入摊牌阶段。所有玩家亮出自己的底牌，从7张牌（2张底牌+5张公共牌）中选择5张牌比较大小，牌型大的玩家获胜。</string>
+	
+	<string name="dialog_pool_one">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;每个押注轮结束后，所有玩家的筹码会合成奖池。如果所有玩家下注额相同，则只有一个奖池。如果所有玩家全下后，依然无法达到另外玩家的加注额，则会形成分奖池。举例：</string>
+	<string name="dialog_pool_two">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;玩家A和玩家B剩余1000筹码，玩家C剩余300筹码。玩家A加注500，玩家B跟注500，玩家C全下。则会形成两个奖池。1号奖池共有300*3=900筹码。2号奖池共有（500 -300）*2=400筹码。在摊牌阶段，1号奖池由玩家A、B、C中牌型大的人获得。但2号奖池只由玩家A和B中牌型大的人，玩家C没有资格赢取2号奖池。</string>
+	    
+	<string name="dialog_question_one">A2345是顺子吗？\n您好，A2345是最小的顺子。</string>
+	<string name="dialog_question_two">为什么我的牌比其他玩家的大还输了？ \n您好，为了公平，德州扑克会根据玩家投入筹码将奖池分为几个池，玩家是不能赢取自己没有参与的奖池分配的。详细奖池分配规则可查看奖池分配。</string>
+	<string name="dialog_question_three">我怎么获得更高的成就？\n您好，成就的具体获得条件可以在您的个人信息看到，您可以努力实现需要的条件，也可以通过购买商城中的道具来帮助您更加快速获得更高的成就。</string>
+	<string name="dialog_question_four">我可以临时加入朋友的房间吗？\n您好，可以的，只是您进入房间后要等待下一局才能正式参与游戏</string>
 </resources>

@@ -37,7 +37,7 @@
         <item name="android:textColor">@color/dialog_default_text_color</item>
     </style>
 
-    <style name="dialog_tran" parent="android:style/Theme.Dialog">
+    <style name="dialog_tran">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -78,6 +78,19 @@
     </style>
     
     <!-- start——帮助 -->
+    <style name="dialog_txt_style">
+        <item name="android:textColor">@color/dialog_txt_color</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">3dp</item> 
+    </style>
+    <style name="dialog_txt_style_point">
+        <item name="android:textColor">@color/dialog_txt_color_point</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">3dp</item>  
+    </style>
+    
     <style name="dialog_radio_btn">
         <item name="android:textColor">@color/main_txt_color</item>
         <item name="android:textSize">20sp</item>
