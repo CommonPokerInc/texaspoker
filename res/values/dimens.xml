@@ -16,4 +16,8 @@
 	
 	<!-- 帮助 -->
 	<dimen name="dialog_help_radio_height">45dp</dimen>
+	<dimen name="dialog_helper_poker_height">250dp</dimen>
+	<dimen name="dialog_horizontal_margin">60dp</dimen>
+	<!-- 传包 -->
+	<dimen name="dialog_transfer_row_margin">8dp</dimen>
 </resources>

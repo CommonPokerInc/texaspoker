@@ -31,4 +31,35 @@
 	<string name="dialog_question_two">为什么我的牌比其他玩家的大还输了？ \n您好，为了公平，德州扑克会根据玩家投入筹码将奖池分为几个池，玩家是不能赢取自己没有参与的奖池分配的。详细奖池分配规则可查看奖池分配。</string>
 	<string name="dialog_question_three">我怎么获得更高的成就？\n您好，成就的具体获得条件可以在您的个人信息看到，您可以努力实现需要的条件，也可以通过购买商城中的道具来帮助您更加快速获得更高的成就。</string>
 	<string name="dialog_question_four">我可以临时加入朋友的房间吗？\n您好，可以的，只是您进入房间后要等待下一局才能正式参与游戏</string>
+
+	<string name="dialog_poker_one">1.皇家同花顺</string>
+	<string name="dialog_poker_two">2.同花顺</string>
+	<string name="dialog_poker_three">3.四条</string>
+	<string name="dialog_poker_four">4.葫芦</string>
+	<string name="dialog_poker_five">5.同花</string>
+	<string name="dialog_poker_six">6.顺子</string>
+	<string name="dialog_poker_seven">7.三条</string>
+	<string name="dialog_poker_eight">8.两条</string>
+	<string name="dialog_poker_nine">9.一对</string>
+	<string name="dialog_poker_ten">10.高牌</string>
+	
+	<string name="dialog_poker_one_extra">同一花色最大顺子</string>
+	<string name="dialog_poker_two_extra">同一花色的顺子</string>
+	<string name="dialog_poker_three_extra">4条相同+1张单张</string>
+	<string name="dialog_poker_four_extra">3条相同+1张单张</string>
+	<string name="dialog_poker_five_extra">3张花色相同</string>
+	<string name="dialog_poker_six_extra">花色不相同的顺子</string>
+	<string name="dialog_poker_seven_extra">2对+1张</string>
+	<string name="dialog_poker_eight_extra">两对</string>
+	<string name="dialog_poker_nine_extra">1对+3单张</string>
+	<string name="dialog_poker_ten_extra">5个单张</string>
+	
+	<!-- 传包 -->
+	<string name="dialog_transfer_title">Wifi传包</string>
+	<string name="dialog_transfer_line_one">第一步：</string>
+	<string name="dialog_transfer_line_two">请好友打开手机Wifi，连接无线网络</string>
+	<string name="dialog_transfer_line_three">Dezhou_joinme</string>
+	<string name="dialog_transfer_line_four">第二步：</string>
+	<string name="dialog_transfer_line_five">打开浏览器输入以下网址或者扫描二维码</string>
+	<string name="dialog_transfer_line_six">http://192.168.43.1:8888</string>
 </resources>

@@ -2,45 +2,214 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <LinearLayout 
-        android:id="@+id/dialog_help_rule_line1"
-        android:orientation="horizontal"
+    android:orientation="horizontal">
+    <RelativeLayout android:layout_weight="1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            style="@style/dialog_txt_style_point" 
-            android:text="@string/one"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="-10dp">
+		<LinearLayout
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:layout_alignParentRight="true"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignRight="@+id/dialog_help_poker_left"
+		    android:layout_alignBottom="@+id/dialog_help_poker_left">
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_one"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_one_extra" />
+		    </LinearLayout>
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_two"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_two_extra" />
+		    </LinearLayout>
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_three"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_three_extra" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1"
+		        android:gravity="bottom"
+		        android:orientation="vertical" >
+
+		        <TextView
+		            style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_four" />
+
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_four_extra" />
+		    </LinearLayout>
+
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_five"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_five_extra" />
+		    </LinearLayout>
+		</LinearLayout>
+        <ImageView
+            android:id="@+id/dialog_help_poker_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            style="@style/dialog_txt_style" 
-            android:layout_marginLeft="5dp"
-            android:text="@string/dialog_rule_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-	<LinearLayout
-        android:id="@+id/dialog_help_rule_line2"
-        android:orientation="horizontal"
+            android:layout_height="@dimen/dialog_helper_poker_height"
+            android:background="@drawable/dialog_img_help_poker_left"
+            android:contentDescription="@string/action_settings"
+            android:layout_marginRight="102dp"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
+    <RelativeLayout android:layout_weight="1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-        <TextView
-            style="@style/dialog_txt_style_point" 
-            android:text="@string/two"
+        android:layout_height="fill_parent"
+        android:paddingLeft="10dp">
+        <LinearLayout
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:layout_alignParentRight="true"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignRight="@+id/dialog_help_poker_right"
+		    android:layout_alignBottom="@+id/dialog_help_poker_right">
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_six"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_six_extra" />
+		    </LinearLayout>
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_seven"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_seven_extra" />
+		    </LinearLayout>
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_eight"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_eight_extra" />
+		    </LinearLayout>
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_nine"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_nine_extra" />
+		    </LinearLayout>
+		    <LinearLayout 
+		        android:gravity="bottom"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1">
+		        <TextView style="@style/dialog_txt_style_big_point"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_ten"/>
+		        <TextView
+		            style="@style/dialog_txt_small_style"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:text="@string/dialog_poker_ten_extra" />
+		    </LinearLayout>
+		</LinearLayout>
+		<ImageView
+            android:id="@+id/dialog_help_poker_right"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            style="@style/dialog_txt_style" 
-            android:layout_marginLeft="5dp"
-            android:text="@string/dialog_rule_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <ImageView 
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/dialog_img_rule"
-        android:contentDescription="@string/action_settings"/>
+            android:layout_height="@dimen/dialog_helper_poker_height"
+            android:background="@drawable/dialog_img_help_poker_right"
+            android:contentDescription="@string/action_settings"
+            android:layout_marginRight="102dp"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
 </LinearLayout>

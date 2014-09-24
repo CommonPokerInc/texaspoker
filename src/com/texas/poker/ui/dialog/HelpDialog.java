@@ -18,8 +18,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
  */
 public class HelpDialog extends BaseDialog implements OnClickListener, OnCheckedChangeListener{
 	
-	private AnimationDialogBuilder builder;
-	
 	private View view,ruleView,pokerView,poolView,questionView;
 	
 	private ImageView tab1,tab2,tab3,tab4;
@@ -28,16 +26,17 @@ public class HelpDialog extends BaseDialog implements OnClickListener, OnChecked
 	
 	private RadioGroup mGroup;
 	
+	private ScrollView scroller;
+	
 	private int latestId = 0;
 	
 	private View[]tabs;
 	
 	private View[]layouts;
 	
-	public HelpDialog(Context context) {
-		super(context);
+	public HelpDialog(Context context,int duration,Effectstype type) {
+		super(context,duration,type);
 		// TODO Auto-generated constructor stub
-		builder = AnimationDialogBuilder.getInstance(context);
 		view = LayoutInflater.from(context).inflate(R.layout.dialog_help, null);
 		ruleView= view.findViewById(R.id.dialog_layout_rule);
 		pokerView= view.findViewById(R.id.dialog_layout_poker);
@@ -53,22 +52,22 @@ public class HelpDialog extends BaseDialog implements OnClickListener, OnChecked
 		
 		btnClose = (ImageButton) view.findViewById(R.id.dialog_btn_close);
 		mGroup = (RadioGroup) view.findViewById(R.id.dialog_radio_group);
+		scroller = (ScrollView) view.findViewById(R.id.scroll_view);
 		
 		btnClose.setOnClickListener(this);
 		mGroup.setOnCheckedChangeListener(this);
 		builder.setCustomView(view, context);
-		builder.withEffect(Effectstype.Fadein);
-		builder.withDuration(500);
-		builder.setCanceledOnTouchOutside(true);
 	}
 	
 	public void show(){
+		super.show();
 		setTab(R.id.dialog_btn_rule);
-		builder.show();
+		scroller.scrollTo(10, 10);
 	}
 	
 	public void hide(){
-		builder.dismiss();
+		super.hide();
+		scroller.scrollTo(10, 10);
 	}
 
 	@Override
