@@ -4,18 +4,26 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.texas.poker.R;
 import com.texas.poker.ui.dialog.Effectstype;
 import com.texas.poker.ui.dialog.HelpDialog;
 import com.texas.poker.ui.dialog.TransferDialog;
+import com.texas.poker.util.AnimationProvider;
 import com.texas.poker.util.SettingHelper;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.*;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 
@@ -33,11 +41,22 @@ public class MainActivity extends Activity implements OnClickListener{
 	
 	private SettingHelper settingHelper;
 	
+	private ExecutorService mPool;
+	
+	private final static int MSG_SHOW_CURTAINS = 1;
+	
+	private final static int MSG_SHOW_LIGHTS = 2;
+	
+	private final static int MSG_SHOW_BOTTOM = 3;
+	
+	private final static int MSG_SHOW_BUTTONS = 4;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		settingHelper = new SettingHelper(this);
+		mPool = Executors.newFixedThreadPool(5);
 		initViews();
 		startAnimation();
 		if(Environment.getExternalStorageState()
@@ -73,9 +92,100 @@ public class MainActivity extends Activity implements OnClickListener{
 		
 	}
 	
-	private void startAnimation(){
-	}
+	
+	@SuppressLint("HandlerLeak")
+	private Handler mHandler = new Handler(){
 
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case MSG_SHOW_CURTAINS:
+				post(mCurtainsRunnable);
+				break;
+			case MSG_SHOW_BOTTOM:
+				post(mBottomRunnable);
+				break;
+			case MSG_SHOW_LIGHTS:
+				post(mLightRunnable);
+				break;
+			default:
+				break;
+			}
+		}
+		
+	};
+	
+	private void startAnimation(){
+		mHandler.sendEmptyMessageDelayed(MSG_SHOW_CURTAINS, 500);
+	}
+	
+	private Runnable mCurtainsRunnable = new Runnable() {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			startShowAnimation(imgTop, AnimationProvider
+					.getTranslateAnimation(AnimationProvider.TYPE_ANIMATION_TOP_IN,
+							1, AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1000));
+			startShowAnimation(imgLeft, AnimationProvider
+					.getTranslateAnimation(AnimationProvider.TYPE_ANIMATION_LEFT_IN,
+							1, AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE, 1500));
+			startShowAnimation(imgRight, AnimationProvider
+					.getTranslateAnimation(AnimationProvider.TYPE_ANIMATION_RIGHT_IN,
+							1, AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE, 1500));
+			mHandler.sendEmptyMessageDelayed(MSG_SHOW_BOTTOM, 500);
+		}
+	};
+	
+	private Runnable mLightRunnable = new Runnable() {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			startShowAnimation(imgLight, AnimationProvider.
+					getAlphaAnimation(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 300));
+		}
+	};
+	
+	private Runnable mBottomRunnable = new Runnable() {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			startShowAnimation(imgDesk, AnimationProvider
+					.getTranslateAnimation(AnimationProvider.TYPE_ANIMATION_BOTTOM_IN,
+							3, AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1000));
+			mHandler.sendEmptyMessageDelayed(MSG_SHOW_LIGHTS, 500);
+		}
+	};
+	
+	private void startShowAnimation(final View view,Animation animation){
+		view.clearAnimation();
+		animation.setFillAfter(true);
+		view.startAnimation(animation);
+	}
+	
+	private void startHideAnimation(final View view,Animation animation){
+		view.clearAnimation();
+		animation.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+				view.setEnabled(false);
+			}
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub	
+			}
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				// TODO Auto-generated method stub
+				view.setVisibility(View.INVISIBLE);
+			}
+		});
+		view.startAnimation(animation);
+	}
+	
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -91,6 +201,9 @@ public class MainActivity extends Activity implements OnClickListener{
 				mTransferDialog =new TransferDialog(this,500,Effectstype.Slideleft);
 			}
 			mTransferDialog.show();
+			break;
+		case R.id.main_btn_cretae:
+			startAnimation();
 			break;
 		default:
 			break;
