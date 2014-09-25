@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_img_bg"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:id="@+id/main_view" >
 
     <ImageView
         android:id="@+id/main_img_desk"

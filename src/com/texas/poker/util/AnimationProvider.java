@@ -1,10 +1,12 @@
 
 package com.texas.poker.util;
 
-import android.graphics.Interpolator;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.Interpolator;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
 /*
@@ -53,9 +55,18 @@ public class AnimationProvider {
 		default:
 			break;
 		}
-		
+		switch(interplatorType){
+			case TYPE_INTERPLATOR_ACCELERATE_DECELERATE:
+				interpolator = new AccelerateDecelerateInterpolator();
+				break;
+			case TYPE_INTERPLATOR_ACCELERATE:
+				interpolator = new AccelerateInterpolator();
+				break;
+		}
 		ta = new TranslateAnimation
 				(TYPE, mFromX, TYPE, mToX, TYPE, mFromY, TYPE, mToY);
+		if(null!=interpolator)
+			ta.setInterpolator(interpolator);
 		ta.setDuration(duration);
 		return ta;
 	} 
@@ -65,6 +76,12 @@ public class AnimationProvider {
 		AlphaAnimation aa = new AlphaAnimation(0.0f, 1.0f);
 		aa.setDuration(duration);
 		return aa;
+	}
+	
+	public static ScaleAnimation getScaleAnimation(int interplatorType,int duration){
+		ScaleAnimation sa = new ScaleAnimation(0.1f, 1.0f, 0.1f, 1.0f,TYPE,0.5f,TYPE,0.5f);
+		sa.setDuration(duration);
+		return sa;
 	}
 }
 
