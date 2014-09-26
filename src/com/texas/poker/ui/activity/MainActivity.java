@@ -5,15 +5,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.texas.poker.R;
 import com.texas.poker.ui.AbsBaseActivity;
+import com.texas.poker.ui.dialog.ConfirmDialog;
+import com.texas.poker.ui.dialog.ConfirmDialog.DialogConfirmInterface;
 import com.texas.poker.ui.dialog.Effectstype;
 import com.texas.poker.ui.dialog.HelpDialog;
 import com.texas.poker.ui.dialog.TransferDialog;
+import com.texas.poker.ui.dialog.TransferDialog.OnBackCallback;
 import com.texas.poker.util.AnimationProvider;
 import com.texas.poker.util.SettingHelper;
 
@@ -21,6 +23,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -29,7 +32,7 @@ import android.widget.*;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageInfo;
 
-public class MainActivity extends AbsBaseActivity implements OnClickListener {
+public class MainActivity extends AbsBaseActivity implements OnClickListener,DialogConfirmInterface,OnBackCallback{
 
 	private ImageButton btnSelf, btnHelp, btnCreate, btnJoin;
 
@@ -44,6 +47,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 	private HelpDialog mHelpDialog;
 
 	private TransferDialog mTransferDialog;
+	
+	private ConfirmDialog mConfirmDialog;
 
 	private SettingHelper settingHelper;
 
@@ -60,13 +65,17 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 	private final static int MSG_SHOW_EXTRA_BUTTONS = 4;
 
 	private final static int MSG_SHOW_MAIN_BUTTONS = 5;
+	
+	private final static int MSG_SHOW_EXPAND_VIEW = 6;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		settingHelper = new SettingHelper(this);
+		mTransferDialog = new TransferDialog(this, 500,Effectstype.Slideleft,this);
 		mPool = Executors.newFixedThreadPool(5);
+		
 		initViews();
 		startAnimation();
 		if (Environment.getExternalStorageState().equals(
@@ -118,7 +127,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 				post(mBackgroundRunnable);
 				break;
 			case MSG_SHOW_CURTAINS:
-				post(mCurtainsRunnable);
+				post(mCurtainRunnable);
 				break;
 			case MSG_SHOW_BOTTOM:
 				post(mBottomRunnable);
@@ -131,6 +140,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 				break;
 			case MSG_SHOW_MAIN_BUTTONS:
 				post(mMainBtnRunnable);
+				break;
+			case MSG_SHOW_EXPAND_VIEW:
+				post(mExpandRunnable);
 				break;
 			default:
 				break;
@@ -154,33 +166,37 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 			mHandler.sendEmptyMessageDelayed(MSG_SHOW_CURTAINS, 500);
 		}
 	};
-
-	private Runnable mCurtainsRunnable = new Runnable() {
+	
+	private Runnable mCurtainRunnable = new Runnable() {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			startShowAnimation(imgTop, AnimationProvider.getTranslateAnimation(
-					AnimationProvider.TYPE_ANIMATION_TOP_IN, 1,
-					AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1000));
+					AnimationProvider.TYPE_ANIMATION_TOP, 1,
+					AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1000,true));
 			startShowAnimation(
 					imgLeft,
 					AnimationProvider
 							.getTranslateAnimation(
-									AnimationProvider.TYPE_ANIMATION_LEFT_IN,
+									AnimationProvider.TYPE_ANIMATION_LEFT,
 									1,
 									AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE,
-									1500));
+									1500,true));
 			startShowAnimation(
 					imgRight,
 					AnimationProvider
 							.getTranslateAnimation(
-									AnimationProvider.TYPE_ANIMATION_RIGHT_IN,
+									AnimationProvider.TYPE_ANIMATION_RIGHT,
 									1,
 									AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE,
-									1500));
+									1500,true));
+			
 			mHandler.sendEmptyMessageDelayed(MSG_SHOW_BOTTOM, 500);
+			
 		}
 	};
+		
+	
 
 	private Runnable mLightRunnable = new Runnable() {
 		@Override
@@ -200,10 +216,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 					imgDesk,
 					AnimationProvider
 							.getTranslateAnimation(
-									AnimationProvider.TYPE_ANIMATION_BOTTOM_IN,
-									3,
+									AnimationProvider.TYPE_ANIMATION_BOTTOM,3,
 									AnimationProvider.TYPE_INTERPLATOR_ACCELERATE,
-									1000));
+									1000,true));
 			mHandler.sendEmptyMessageDelayed(MSG_SHOW_LIGHTS, 1100);
 		}
 	};
@@ -227,9 +242,6 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 		}
 	};
 
-	/**
-	 * 
-	 */
 	private Runnable mMainBtnRunnable = new Runnable() {
 
 		@Override
@@ -240,6 +252,21 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 		}
 	};
 
+	private Runnable mExpandRunnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			startShowAnimation(AnimationProvider.getAlphaAnimation
+					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 300, 1.0f, 0.0f),
+						btnCreate,btnHelp,btnJoin,btnMarket,btnMoney,btnSelf,btnTransfer);
+			startShowAnimation(imgLight, AnimationProvider.getAlphaAnimation
+					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1500, 1.0f, 0.0f));
+			startShowAnimation(mView, AnimationProvider.getExpandAnimation
+					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE,2000));
+		}
+	};
+	
 	private void startShowAnimation(View view, Animation animation) {
 		view.clearAnimation();
 		animation.setFillAfter(true);
@@ -252,29 +279,6 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 		}
 	}
 	
-	private void startHideAnimation(final View view, Animation animation) {
-		view.clearAnimation();
-		animation.setAnimationListener(new AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-				view.setEnabled(false);
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				// TODO Auto-generated method stub
-				view.setVisibility(View.INVISIBLE);
-			}
-		});
-		view.startAnimation(animation);
-	}
-
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -288,18 +292,20 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 		case R.id.main_btn_transfer:
 			if (null == mTransferDialog) {
 				mTransferDialog = new TransferDialog(this, 500,
-						Effectstype.Slideleft);
+						Effectstype.Slideleft,this);
 			}
 			mTransferDialog.show();
 			break;
 		case R.id.main_btn_cretae:
-			startAnimation();
+			mHandler.sendEmptyMessage(MSG_SHOW_EXPAND_VIEW);
 			break;
 		default:
 			break;
 		}
 	}
 
+	
+	
 	private Runnable copyRunnable = new Runnable() {
 
 		@Override
@@ -355,5 +361,48 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 			settingHelper.setCopied(false);
 		}
 
+	}
+
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getAction()==KeyEvent.ACTION_DOWN && 
+				event.getKeyCode()==KeyEvent.KEYCODE_BACK){
+			if(null==mConfirmDialog){
+				mConfirmDialog = new ConfirmDialog(this, 300, Effectstype.Fadein, this);
+			}
+			mConfirmDialog.setTopic(getString(R.string.main_exit_game));
+			mConfirmDialog.show();
+			return true;
+			
+		}
+		return super.dispatchKeyEvent(event);
+	}
+
+	@Override
+	public void onConfirm() {
+		// TODO Auto-generated method stub
+		if(mTransferDialog!=null&&mTransferDialog.isShown()){
+			//close AP
+			mTransferDialog.hide();
+		}else{
+			this.finish();
+			System.exit(0);
+		}
+	}
+
+	@Override
+	public void onCancel() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onBack() {
+		// TODO Auto-generated method stub
+		if(null==mConfirmDialog){
+			mConfirmDialog = new ConfirmDialog(this, 300, Effectstype.Fadein, this);
+		}
+		mConfirmDialog.setTopic(getString(R.string.main_exit_transfer));
+		mConfirmDialog.show();
 	}
 }

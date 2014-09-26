@@ -23,5 +23,7 @@
     <!-- start——对话框 -->
     <color name="dialog_txt_color">#000000</color>
     <color name="dialog_txt_color_point">#eb5b05</color>
+    
+    <color name="dialog_divider_color">#d09724</color>
     <!-- end——对话框 -->
 </resources>

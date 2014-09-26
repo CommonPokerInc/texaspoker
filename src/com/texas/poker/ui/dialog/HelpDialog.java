@@ -6,7 +6,6 @@ import com.texas.poker.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -16,7 +15,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
  * time 2014-9-22
  *
  */
-public class HelpDialog extends BaseDialog implements OnClickListener, OnCheckedChangeListener{
+public class HelpDialog extends BaseDialog implements OnCheckedChangeListener{
 	
 	private View view,ruleView,pokerView,poolView,questionView;
 	
@@ -38,6 +37,7 @@ public class HelpDialog extends BaseDialog implements OnClickListener, OnChecked
 		super(context,duration,type);
 		// TODO Auto-generated constructor stub
 		view = LayoutInflater.from(context).inflate(R.layout.dialog_help, null);
+		mBackground = view.findViewById(R.id.dialog_common_bg);
 		ruleView= view.findViewById(R.id.dialog_layout_rule);
 		pokerView= view.findViewById(R.id.dialog_layout_poker);
 		poolView= view.findViewById(R.id.dialog_layout_pool);
@@ -55,6 +55,7 @@ public class HelpDialog extends BaseDialog implements OnClickListener, OnChecked
 		scroller = (ScrollView) view.findViewById(R.id.scroll_view);
 		
 		btnClose.setOnClickListener(this);
+		mBackground.setOnClickListener(this);
 		mGroup.setOnCheckedChangeListener(this);
 		builder.setCustomView(view, context);
 	}
@@ -103,6 +104,8 @@ public class HelpDialog extends BaseDialog implements OnClickListener, OnChecked
 			break;
 		case R.id.dialog_btn_question:
 			latestId = 3;
+			break;
+		case R.id.dialog_common_bg:
 			break;
 		default:
 			break;

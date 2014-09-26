@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:id="@+id/dialog_common_bg">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="180dp"
+        android:background="@drawable/dialog_img_bg" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/dialog_layout_inner_bg" >
+
+            <TextView
+                android:id="@+id/dialog_confirm_title"
+                style="@style/dialog_txt_style_big_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:alpha="0.7"
+                android:text="@string/app_name" />
+
+            <ImageView
+                android:id="@+id/dialog_divider_line"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/dialog_confirm_title"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:alpha="0.5"
+                android:background="@color/dialog_divider_color"
+                android:contentDescription="@string/action_settings" />
+
+            <TextView
+                android:id="@+id/dialog_confirm_topic"
+                style="@style/dialog_txt_style_big_point"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/dialog_divider_line"
+                android:alpha="0.8"
+                android:gravity="center"
+                android:text="@string/main_exit_transfer" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/dialog_btn_confirm"
+                    style="@style/dialog_txt_style_point"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/dialog_btn_comfirm"
+                    android:text="@string/main_confirm" />
+
+                <Button
+                    android:id="@+id/dialog_btn_cancel"
+                    style="@style/dialog_txt_style_point"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/dialog_btn_comfirm"
+                    android:text="@string/main_cancel" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

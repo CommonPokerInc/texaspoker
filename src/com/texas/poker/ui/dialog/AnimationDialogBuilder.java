@@ -33,9 +33,7 @@ public class AnimationDialogBuilder extends Dialog implements DialogInterface {
 
     private final String defDialogColor="#FFE74C3C";
 
-
-
-    private Effectstype type=null;
+	private Effectstype type=null;
 
     private LinearLayout mLinearLayoutView;
 

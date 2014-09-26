@@ -4,6 +4,8 @@ package com.texas.poker.ui.dialog;
 import com.texas.poker.R;
 
 import android.content.Context;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 /*
  * author FrankChan
@@ -11,9 +13,11 @@ import android.content.Context;
  * time 2014-9-23
  *
  */
-public abstract class BaseDialog {
+public abstract class BaseDialog implements OnClickListener{
 	
 	protected AnimationDialogBuilder builder;
+	
+	protected View mBackground;
 	
 	public void show(){
 		builder.show();
@@ -27,7 +31,10 @@ public abstract class BaseDialog {
 		builder = new AnimationDialogBuilder(context, R.style.dialog_untran);
 		builder.withEffect(type);
 		builder.withDuration(duration);
-		builder.setCanceledOnTouchOutside(true);
+		builder.setCanceledOnTouchOutside(false);
+	}
+	public boolean isShown() {
+		return builder.isShowing();
 	}
 }
 

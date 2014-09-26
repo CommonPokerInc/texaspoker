@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TexasPoker</string>
+    <string name="app_name">德州扑克</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <!-- 首页 -->
 	<string name="default_money">1000</string>
 	<string name="main_market">商城</string>
 	<string name="main_transfer_to_friends">给朋友传输安装包</string>
+	
+	<string name="main_exit_game">您确定要退出游戏吗</string>
+	<string name="main_exit_transfer">关闭对话框，将无法传包 \n您确定吗</string>
+	<string name="main_confirm">确定</string>
+	<string name="main_cancel">取消</string>
 	
 	<!-- 帮助 -->
 	<string name="dialog_help_title">帮助</string>

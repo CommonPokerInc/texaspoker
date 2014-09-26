@@ -1,25 +1,20 @@
 
 package com.texas.poker.ui.dialog;
 
-import java.io.File;
-import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.os.Environment;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.os.Handler;
-import android.os.Message;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.texas.poker.R;
-import com.texas.poker.wifi.transfer.WebServer;
-import com.texas.poker.wifi.transfer.WebService;
 
 /*
  * author FrankChan
@@ -27,7 +22,7 @@ import com.texas.poker.wifi.transfer.WebService;
  * time 2014-9-24
  *
  */
-public class TransferDialog extends BaseDialog implements OnClickListener{
+public class TransferDialog extends BaseDialog implements OnKeyListener{
 
 	private View view;
 	
@@ -37,15 +32,21 @@ public class TransferDialog extends BaseDialog implements OnClickListener{
 	
 	private ImageView imgQRCode;
 	
-	public TransferDialog(Context context, int duration, Effectstype type) {
+	private OnBackCallback mCallback;
+	
+	public TransferDialog(Context context, int duration, Effectstype type,OnBackCallback callback) {
 		super(context, duration, type);
 		// TODO Auto-generated constructor stub
+		mCallback = callback;
 		view = LayoutInflater.from(context).inflate(R.layout.dialog_transfer, null);
+		mBackground = view.findViewById(R.id.dialog_common_bg);
 		scroller = (ScrollView) view.findViewById(R.id.scroll_view);
 		imgQRCode = (ImageView) view.findViewById(R.id.img_QRCode);
 		btnClose = (ImageButton) view.findViewById(R.id.dialog_btn_close);
 		btnClose.setOnClickListener(this);
+		mBackground.setOnClickListener(this);
 		builder.setCustomView(view, context);
+		builder.setOnKeyListener(this);
 		handler.sendEmptyMessage(1);
 	}
 	
@@ -66,13 +67,29 @@ public class TransferDialog extends BaseDialog implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.dialog_btn_close:
-			hide();
+			mCallback.onBack();
+			break;
+		case R.id.dialog_common_bg:
 			break;
 		default:
 			break;
 		}
 	}
 
+	public interface OnBackCallback{
+		void onBack();
+	}
+	
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getAction()==KeyEvent.ACTION_DOWN&&keyCode==KeyEvent.KEYCODE_BACK){
+			mCallback.onBack();
+		}
+		return false;
+	}
+
+	
 //	private Runnable runWithSDCard = new Runnable() {
 //		
 //		@Override
