@@ -1,11 +1,16 @@
 package com.texas.poker.ui;
 
+
+import com.texas.poker.PokerApplication;
+import com.texas.poker.wifi.WifiUtils;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 /**
  * 
  * @author Administrator
@@ -14,7 +19,12 @@ import android.support.v4.app.FragmentActivity;
 public abstract class AbsBaseActivity extends FragmentActivity {
 
 	private PowerManager powerManager = null;
+	
     private WakeLock wakeLock = null;
+    
+	protected WifiUtils mWifiUtils;
+	
+	protected PokerApplication app;
 	
 	@SuppressWarnings("deprecation")
 	@Override
@@ -23,6 +33,8 @@ public abstract class AbsBaseActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		powerManager = (PowerManager)this.getSystemService(Context.POWER_SERVICE);
         wakeLock = this.powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "My Lock");
+        app = (PokerApplication) getApplication();
+        mWifiUtils = WifiUtils.getInstance(app);
 	}
 
 	@Override
@@ -38,8 +50,6 @@ public abstract class AbsBaseActivity extends FragmentActivity {
 		super.onResume();
 		 wakeLock.acquire();
 	}
-
-
     
     @Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -53,5 +63,15 @@ public abstract class AbsBaseActivity extends FragmentActivity {
                  break;
         }
 	}
+    
+    protected void showToast(CharSequence chars){
+    	Toast.makeText(this, chars, Toast.LENGTH_SHORT).show();
+    }
+    
+    protected void showToast(int strId){
+    	showToast(this.getResources().getString(strId));
+    }
 	
+    
+    protected abstract void initViews();
 }

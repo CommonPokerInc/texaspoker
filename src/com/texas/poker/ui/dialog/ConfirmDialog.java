@@ -2,6 +2,7 @@
 package com.texas.poker.ui.dialog;
 
 import com.texas.poker.R;
+import com.texas.poker.ui.BaseDialog;
 
 import android.content.Context;
 import android.view.LayoutInflater;

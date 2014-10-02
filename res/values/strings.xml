@@ -5,66 +5,83 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <!-- 首页 -->
-	<string name="default_money">1000</string>
-	<string name="main_market">商城</string>
-	<string name="main_transfer_to_friends">给朋友传输安装包</string>
-	
-	<string name="main_exit_game">您确定要退出游戏吗</string>
-	<string name="main_exit_transfer">关闭对话框，将无法传包 \n您确定吗</string>
-	<string name="main_confirm">确定</string>
-	<string name="main_cancel">取消</string>
-	
-	<!-- 帮助 -->
-	<string name="dialog_help_title">帮助</string>
-	<string name="dialog_help_rule">规则介绍</string>
-	<string name="dialog_help_poker">牌型讲解</string>
-	<string name="dialog_help_pool">奖池分配</string>
-	<string name="dialog_help_question">常见问题</string>
-	
-	<string name="one">1.</string>
-	<string name="two">2.</string>
-	<string name="three">3.</string>
-	<string name="four">4.</string>
-	
-	<string name="dialog_rule_one">牌局开始后，每位玩家会得到两张底牌（仅自己可看）。荷官会分三次陆续发出5张所有玩家可见的公共牌（3张+1张+1张）</string>
-	<string name="dialog_rule_two">在经过3轮押注轮之后，如果仍不能分出胜负，游戏进入摊牌阶段。所有玩家亮出自己的底牌，从7张牌（2张底牌+5张公共牌）中选择5张牌比较大小，牌型大的玩家获胜。</string>
-	
-	<string name="dialog_pool_one">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;每个押注轮结束后，所有玩家的筹码会合成奖池。如果所有玩家下注额相同，则只有一个奖池。如果所有玩家全下后，依然无法达到另外玩家的加注额，则会形成分奖池。举例：</string>
-	<string name="dialog_pool_two">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;玩家A和玩家B剩余1000筹码，玩家C剩余300筹码。玩家A加注500，玩家B跟注500，玩家C全下。则会形成两个奖池。1号奖池共有300*3=900筹码。2号奖池共有（500 -300）*2=400筹码。在摊牌阶段，1号奖池由玩家A、B、C中牌型大的人获得。但2号奖池只由玩家A和B中牌型大的人，玩家C没有资格赢取2号奖池。</string>
-	    
-	<string name="dialog_question_one">A2345是顺子吗？\n您好，A2345是最小的顺子。</string>
-	<string name="dialog_question_two">为什么我的牌比其他玩家的大还输了？ \n您好，为了公平，德州扑克会根据玩家投入筹码将奖池分为几个池，玩家是不能赢取自己没有参与的奖池分配的。详细奖池分配规则可查看奖池分配。</string>
-	<string name="dialog_question_three">我怎么获得更高的成就？\n您好，成就的具体获得条件可以在您的个人信息看到，您可以努力实现需要的条件，也可以通过购买商城中的道具来帮助您更加快速获得更高的成就。</string>
-	<string name="dialog_question_four">我可以临时加入朋友的房间吗？\n您好，可以的，只是您进入房间后要等待下一局才能正式参与游戏</string>
+    <string name="default_money">1000</string>
+    <string name="main_market">商城</string>
+    <string name="main_transfer_to_friends">给朋友传输安装包</string>
+    <string name="main_exit_game">您确定要退出游戏吗</string>
+    <string name="main_exit_transfer">关闭对话框，将无法传包 \n您确定吗</string>
+    <string name="main_confirm">确定</string>
+    <string name="main_cancel">取消</string>
 
-	<string name="dialog_poker_one">1.皇家同花顺</string>
-	<string name="dialog_poker_two">2.同花顺</string>
-	<string name="dialog_poker_three">3.四条</string>
-	<string name="dialog_poker_four">4.葫芦</string>
-	<string name="dialog_poker_five">5.同花</string>
-	<string name="dialog_poker_six">6.顺子</string>
-	<string name="dialog_poker_seven">7.三条</string>
-	<string name="dialog_poker_eight">8.两条</string>
-	<string name="dialog_poker_nine">9.一对</string>
-	<string name="dialog_poker_ten">10.高牌</string>
-	
-	<string name="dialog_poker_one_extra">同一花色最大顺子</string>
-	<string name="dialog_poker_two_extra">同一花色的顺子</string>
-	<string name="dialog_poker_three_extra">4条相同+1张单张</string>
-	<string name="dialog_poker_four_extra">3条相同+1张单张</string>
-	<string name="dialog_poker_five_extra">3张花色相同</string>
-	<string name="dialog_poker_six_extra">花色不相同的顺子</string>
-	<string name="dialog_poker_seven_extra">2对+1张</string>
-	<string name="dialog_poker_eight_extra">两对</string>
-	<string name="dialog_poker_nine_extra">1对+3单张</string>
-	<string name="dialog_poker_ten_extra">5个单张</string>
-	
-	<!-- 传包 -->
-	<string name="dialog_transfer_title">Wifi传包</string>
-	<string name="dialog_transfer_line_one">第一步：</string>
-	<string name="dialog_transfer_line_two">请好友打开手机Wifi，连接无线网络</string>
-	<string name="dialog_transfer_line_three">Dezhou_joinme</string>
-	<string name="dialog_transfer_line_four">第二步：</string>
-	<string name="dialog_transfer_line_five">打开浏览器输入以下网址或者扫描二维码</string>
-	<string name="dialog_transfer_line_six">http://192.168.43.1:8888</string>
+    <!-- 帮助 -->
+    <string name="dialog_help_title">帮助</string>
+    <string name="dialog_help_rule">规则介绍</string>
+    <string name="dialog_help_poker">牌型讲解</string>
+    <string name="dialog_help_pool">奖池分配</string>
+    <string name="dialog_help_question">常见问题</string>
+    <string name="one">1.</string>
+    <string name="two">2.</string>
+    <string name="three">3.</string>
+    <string name="four">4.</string>
+    <string name="dialog_rule_one">牌局开始后，每位玩家会得到两张底牌（仅自己可看）。荷官会分三次陆续发出5张所有玩家可见的公共牌（3张+1张+1张）</string>
+    <string name="dialog_rule_two">在经过3轮押注轮之后，如果仍不能分出胜负，游戏进入摊牌阶段。所有玩家亮出自己的底牌，从7张牌（2张底牌+5张公共牌）中选择5张牌比较大小，牌型大的玩家获胜。</string>
+    <string name="dialog_pool_one">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;每个押注轮结束后，所有玩家的筹码会合成奖池。如果所有玩家下注额相同，则只有一个奖池。如果所有玩家全下后，依然无法达到另外玩家的加注额，则会形成分奖池。举例：</string>
+    <string name="dialog_pool_two">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;玩家A和玩家B剩余1000筹码，玩家C剩余300筹码。玩家A加注500，玩家B跟注500，玩家C全下。则会形成两个奖池。1号奖池共有300*3=900筹码。2号奖池共有（500 -300）*2=400筹码。在摊牌阶段，1号奖池由玩家A、B、C中牌型大的人获得。但2号奖池只由玩家A和B中牌型大的人，玩家C没有资格赢取2号奖池。</string>
+    <string name="dialog_question_one">A2345是顺子吗？\n您好，A2345是最小的顺子。</string>
+    <string name="dialog_question_two">为什么我的牌比其他玩家的大还输了？ \n您好，为了公平，德州扑克会根据玩家投入筹码将奖池分为几个池，玩家是不能赢取自己没有参与的奖池分配的。详细奖池分配规则可查看奖池分配。</string>
+    <string name="dialog_question_three">我怎么获得更高的成就？\n您好，成就的具体获得条件可以在您的个人信息看到，您可以努力实现需要的条件，也可以通过购买商城中的道具来帮助您更加快速获得更高的成就。</string>
+    <string name="dialog_question_four">我可以临时加入朋友的房间吗？\n您好，可以的，只是您进入房间后要等待下一局才能正式参与游戏</string>
+    <string name="dialog_poker_one">1.皇家同花顺</string>
+    <string name="dialog_poker_two">2.同花顺</string>
+    <string name="dialog_poker_three">3.四条</string>
+    <string name="dialog_poker_four">4.葫芦</string>
+    <string name="dialog_poker_five">5.同花</string>
+    <string name="dialog_poker_six">6.顺子</string>
+    <string name="dialog_poker_seven">7.三条</string>
+    <string name="dialog_poker_eight">8.两条</string>
+    <string name="dialog_poker_nine">9.一对</string>
+    <string name="dialog_poker_ten">10.高牌</string>
+    <string name="dialog_poker_one_extra">同一花色最大顺子</string>
+    <string name="dialog_poker_two_extra">同一花色的顺子</string>
+    <string name="dialog_poker_three_extra">4条相同+1张单张</string>
+    <string name="dialog_poker_four_extra">3条相同+1张单张</string>
+    <string name="dialog_poker_five_extra">3张花色相同</string>
+    <string name="dialog_poker_six_extra">花色不相同的顺子</string>
+    <string name="dialog_poker_seven_extra">2对+1张</string>
+    <string name="dialog_poker_eight_extra">两对</string>
+    <string name="dialog_poker_nine_extra">1对+3单张</string>
+    <string name="dialog_poker_ten_extra">5个单张</string>
+
+    <!-- 传包 -->
+    <string name="dialog_transfer_title">Wifi传包</string>
+    <string name="dialog_transfer_line_one">第一步：</string>
+    <string name="dialog_transfer_line_two">请好友打开手机Wifi，连接无线网络</string>
+    <string name="dialog_transfer_line_three">Dezhou_joinme</string>
+    <string name="dialog_transfer_line_four">第二步：</string>
+    <string name="dialog_transfer_line_five">打开浏览器输入以下网址或者扫描二维码</string>
+    <string name="dialog_transfer_line_six">http://192.168.43.1:8888</string>
+    <string name="title_activity_room_cretae">RoomCretaeActivity</string>
+
+    <!-- 创建房间页 -->
+    <string name="room_create_title">创建房间</string>
+    <string name="room_create_warning">创建房间要求关闭Wifi\n你确定吗</string>
+    <string name="room_create_not_support">您的手机不支持热点创建</string>
+    <string name="room_create_close_wifi">创建热点会关闭当前的WiFi\n确认继续吗</string>
+    <string name="room_create_close_current_ap">系统热点被占用\n要重新创建吗？</string>
+    <string name="room_create_close_same_ap">系统热点被占用\n要先关闭吗？</string>
+    <string name="room_cretae_close_wifi_toast">Wifi已经关闭，请重新创建房间</string>
+    <string name="room_create_waiting">正在为您创建房间，请稍后</string>
+    <string name="room_create_build_server">正在为您搭建服务器</string>
+    <string name="room_create_failure">抱歉，创建房间失败</string>
+    <string name="room_create_success">创建房间成功</string>
+    <string name="title_activity_room_search">RoomSearchActivity</string>
+
+    <!-- 搜索房间页 -->
+    <string name="room_search_title">加入房间</string>
+    <string name="room_searching">请稍后，正在为您搜索附近的房间</string>
+    <string name="room_search_over_time">搜索超时，未能搜索到附近的房间</string>
+    <string name="room_search_nothing">附近还没有人创建房间</string>
+    <string name="room_search_refresh">刷新</string>
+    <string name="room_connecting">正在为您连接该房间</string>
+    <string name="room_connect_failure">连接失败，游戏已经开始或者已经关闭</string>
 </resources>

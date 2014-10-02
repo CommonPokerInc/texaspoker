@@ -27,9 +27,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.*;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 
 public class MainActivity extends AbsBaseActivity implements OnClickListener,DialogConfirmInterface,OnBackCallback{
@@ -67,6 +67,10 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 	private final static int MSG_SHOW_MAIN_BUTTONS = 5;
 	
 	private final static int MSG_SHOW_EXPAND_VIEW = 6;
+	
+	private final static int MSG_CREATE_ROOM =7;
+	
+	private final static int MGS_ENTER_ROOM = 8;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +88,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		}
 	}
 
-	private void initViews() {
+	protected void initViews() {
 		btnHelp = (ImageButton) findViewById(R.id.main_btn_help);
 		btnCreate = (ImageButton) findViewById(R.id.main_btn_cretae);
 		btnJoin = (ImageButton) findViewById(R.id.main_btn_join);
@@ -143,6 +147,12 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 				break;
 			case MSG_SHOW_EXPAND_VIEW:
 				post(mExpandRunnable);
+				break;
+			case MSG_CREATE_ROOM:
+				startActivity(new Intent(MainActivity.this,RoomCretaeActivity.class));
+				break;
+			case MGS_ENTER_ROOM:
+				startActivity(new Intent(MainActivity.this,RoomSearchActivity.class));
 				break;
 			default:
 				break;
@@ -264,6 +274,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1500, 1.0f, 0.0f));
 			startShowAnimation(mView, AnimationProvider.getExpandAnimation
 					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE,2000));
+			mHandler.sendEmptyMessageDelayed(MSG_CREATE_ROOM, 2000);
 		}
 	};
 	
@@ -298,6 +309,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			break;
 		case R.id.main_btn_cretae:
 			mHandler.sendEmptyMessage(MSG_SHOW_EXPAND_VIEW);
+			break;
+		case R.id.main_btn_join:
+			mHandler.sendEmptyMessage(MGS_ENTER_ROOM);
 			break;
 		default:
 			break;

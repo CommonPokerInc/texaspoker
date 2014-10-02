@@ -7,8 +7,8 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-    
-	<!-- 手机权限定义 -->
+
+    <!-- 手机权限定义 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" >
@@ -25,22 +25,34 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    
-    
+
     <application
+        android:name="com.texas.poker.PokerApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
             android:name="com.texas.poker.ui.activity.MainActivity"
-        	android:screenOrientation="landscape"
-        	android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.texas.poker.ui.activity.RoomCretaeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_room_cretae"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.texas.poker.ui.activity.RoomSearchActivity"
+            android:label="@string/title_activity_room_search" >
+        </activity>
     </application>
+
 </manifest>

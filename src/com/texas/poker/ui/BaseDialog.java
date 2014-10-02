@@ -1,7 +1,9 @@
 
-package com.texas.poker.ui.dialog;
+package com.texas.poker.ui;
 
 import com.texas.poker.R;
+import com.texas.poker.ui.dialog.AnimationDialogBuilder;
+import com.texas.poker.ui.dialog.Effectstype;
 
 import android.content.Context;
 import android.view.View;

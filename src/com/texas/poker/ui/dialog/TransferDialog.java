@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.texas.poker.R;
+import com.texas.poker.ui.BaseDialog;
 
 /*
  * author FrankChan
