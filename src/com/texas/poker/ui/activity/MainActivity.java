@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.texas.poker.R;
+import com.texas.poker.entity.LocalUser;
 import com.texas.poker.ui.AbsBaseActivity;
 import com.texas.poker.ui.dialog.ConfirmDialog;
 import com.texas.poker.ui.dialog.ConfirmDialog.DialogConfirmInterface;
@@ -17,12 +18,14 @@ import com.texas.poker.ui.dialog.HelpDialog;
 import com.texas.poker.ui.dialog.TransferDialog;
 import com.texas.poker.ui.dialog.TransferDialog.OnBackCallback;
 import com.texas.poker.util.AnimationProvider;
+import com.texas.poker.util.DatabaseUtil;
 import com.texas.poker.util.SettingHelper;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,6 +74,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 	private final static int MSG_CREATE_ROOM =7;
 	
 	private final static int MGS_ENTER_ROOM = 8;
+	
+	private final static int MSG_UPDATE_USER_INFO =9;;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +87,14 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		
 		initViews();
 		startAnimation();
-		if (Environment.getExternalStorageState().equals(
-				android.os.Environment.MEDIA_MOUNTED)) {
+		if (DatabaseUtil.isSDCardExists()) {
 			mPool.execute(copyRunnable);
 		}
+		mPool.execute(mUserRunnable);
 	}
 
+	
+	
 	protected void initViews() {
 		btnHelp = (ImageButton) findViewById(R.id.main_btn_help);
 		btnCreate = (ImageButton) findViewById(R.id.main_btn_cretae);
@@ -154,17 +161,47 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			case MGS_ENTER_ROOM:
 				startActivity(new Intent(MainActivity.this,RoomSearchActivity.class));
 				break;
+			case MSG_UPDATE_USER_INFO:
+				Log.i("frankchan", "首页收到更新UI请求");
+				break;
 			default:
 				break;
 			}
 		}
 
 	};
-
+	
 	private void startAnimation() {
 		mHandler.sendEmptyMessage(MSG_SHOW_BACKGROUND);
 	}
 
+	private Runnable mUserRunnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			if(DatabaseUtil.isSDCardExists()){
+				if(DatabaseUtil.isUserExists()){
+					app.user = DatabaseUtil.getUserFromDB();
+				}else{
+					//首次登陆保存数据
+					DatabaseUtil.createUserFile();
+					LocalUser user = new LocalUser();
+					app.user = user;
+					DatabaseUtil.storeUsertoDB(user);
+				}
+			}else{
+				//必须进行用户不存在SD的提示，否则用户信息无法保存
+				LocalUser user = new LocalUser();
+				app.user = user;
+			}
+			Message msg = mHandler.obtainMessage(MSG_UPDATE_USER_INFO,app.user.getAvatar(),app.user.getMoney());
+			mHandler.sendMessage(msg);
+		}
+	};
+	
+	
+	
 	private Runnable mBackgroundRunnable = new Runnable() {
 
 		@Override

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView android:id="@+id/game_player_avatar_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/game_avatar_s1"
+        android:contentDescription="@string/app_name"/>
+	<TextView android:id="@+id/game_player_brand_small"
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/game_brand_s1"
+        android:layout_below="@+id/game_player_avatar_small"
+        android:gravity="center"
+        style="@style/game_txt_style_small"
+        android:text="@string/app_name"/>
+	<TextView android:id="@+id/game_player_money"
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/game_player_money"
+        android:layout_above="@id/game_player_brand_small"
+        android:gravity="center_vertical|right"
+        android:layout_alignRight="@id/game_player_brand_small"
+        style="@style/game_txt_style_small"
+        android:text="@string/default_money"/>
+</RelativeLayout>

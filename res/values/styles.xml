@@ -111,4 +111,18 @@
         <item name="android:background">@drawable/dialog_btn_tab</item>
         <item name="android:button">@null</item>
     </style>
+    
+    <!-- 游戏 -->
+    <style name="game_txt_style_big">
+        <item name="android:textColor">@color/main_txt_color</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item> 
+        <item name="android:clickable">true</item>
+    </style>
+    
+    <style name="game_txt_style_small">
+        <item name="android:textColor">@color/main_txt_color</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:clickable">true</item>
+    </style>
 </resources>

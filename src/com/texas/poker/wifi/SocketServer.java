@@ -7,10 +7,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import com.texas.poker.wifi.listener.CommunicationListener;
 import com.texas.poker.wifi.listener.WifiClientListener;

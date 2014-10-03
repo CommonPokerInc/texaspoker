@@ -22,6 +22,10 @@ public class UserInfo implements Serializable{
 	
 	private int avatar;
 	
+	private int level;
+	
+	private int proertyNum = -1;
+	
 	private boolean isQuit ;
 	
 	private int baseMoney;
@@ -33,6 +37,10 @@ public class UserInfo implements Serializable{
 	private int cardType = 0;
 	
 	private ArrayList<Poker> pokerBack;
+	
+	public boolean hasProperty(){
+		return proertyNum ==-1;
+	}
 	
 	public int getCardType() {
 		return cardType;
@@ -112,6 +120,22 @@ public class UserInfo implements Serializable{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getProertyNum() {
+		return proertyNum;
+	}
+
+	public void setProertyNum(int proertyNum) {
+		this.proertyNum = proertyNum;
 	}
 }
 

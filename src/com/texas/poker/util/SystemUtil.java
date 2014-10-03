@@ -1,23 +1,12 @@
 package com.texas.poker.util;
 
+import com.texas.poker.PokerApplication;
+
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
 
-/**
- *
- * ��˵��
- *
- * @author RinfonChen:
- * @Day 2014��8��27�� 
- * @Time ����4:51:00
- * @Declaration :
- *
- */
 public class SystemUtil {
-
-    
-//   ��ȡIMEI
- // Requires READ_PHONE_STATE
     public static String getIMEI(Context mContext){
         TelephonyManager TelephonyMgr = (TelephonyManager)mContext.getSystemService(mContext.TELEPHONY_SERVICE); 
         return TelephonyMgr.getDeviceId(); 
@@ -27,4 +16,34 @@ public class SystemUtil {
         return getIMEI(mContext)+System.currentTimeMillis();
     }
     
+    /**
+     * 获取屏幕高度dip
+     */
+    public static int getScreenWidthDip(){
+    	DisplayMetrics dm = PokerApplication.getContext().getResources().getDisplayMetrics();
+    	return dm.widthPixels;
+    }
+    
+    /**
+     * 获取屏幕高度px
+     */
+    public static int getScreenWidthPx(){
+    	return px2dip(getScreenWidthDip());
+    }
+    /**  
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)  
+     */  
+    public static int dip2px(float dpValue) {   
+        final float scale = PokerApplication.getContext().getResources().getDisplayMetrics().density;   
+        return (int) (dpValue * scale + 0.5f);   
+    }   
+    
+    /**  
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp  
+     */  
+    public static int px2dip(float pxValue) {   
+        final float scale = PokerApplication.getContext().getResources().getDisplayMetrics().density;   
+        return (int) (pxValue / scale + 0.5f);   
+    }  
+
 }

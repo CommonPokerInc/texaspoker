@@ -84,4 +84,21 @@
     <string name="room_search_refresh">刷新</string>
     <string name="room_connecting">正在为您连接该房间</string>
     <string name="room_connect_failure">连接失败，游戏已经开始或者已经关闭</string>
+    
+    <!-- 道具属性 -->
+    <string-array name="property_name">
+        <item>德州小妹</item>
+        <item>清纯佳人</item>
+        <item>巾帼美人</item>
+        <item>红颜知己</item>
+        <item>女王陛下</item>
+    </string-array>
+    <string-array name="property_descrption">
+        <item>陪你赌到天荒地老</item>
+        <item>赢了奖励所得筹码的5%，输了弥补所损失的筹码的5%</item>
+        <item>赢了奖励所得筹码的20%</item>
+        <item>输了弥补所损失筹码的20%</item>
+        <item>赢了奖励所得筹码的25%，输了弥补所损失的筹码的25%</item>
+    </string-array>
+    
 </resources>

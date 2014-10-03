@@ -146,4 +146,6 @@
         android:background="@drawable/main_btn_market"
         android:contentDescription="@string/app_name"
         android:visibility="invisible"  />
+	<com.texas.poker.custom.PlayerView android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"></com.texas.poker.custom.PlayerView>
 </RelativeLayout>

@@ -51,7 +51,9 @@
         </activity>
         <activity
             android:name="com.texas.poker.ui.activity.RoomSearchActivity"
-            android:label="@string/title_activity_room_search" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_room_search"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 
