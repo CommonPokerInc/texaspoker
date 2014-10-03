@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@color/game_img_bg"
+    tools:context=".GameActivity" >
+	<ImageView android:id="@+id/game_desk"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:background="@drawable/game_img_bg"
+	    android:layout_marginLeft="@dimen/game_desk_magin_left"
+	    android:layout_marginTop="@dimen/game_desk_magin_top"
+	    android:contentDescription="@string/app_name"/>
+	<include layout="@layout/activity_game_player"/>
+	<ImageButton android:id="@+id/game_btn_exit"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/game_btn_exit"
+	    android:contentDescription="@string/action_settings"/>
+	<ImageButton android:id="@+id/game_btn_help"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/game_btn_help"
+	    android:layout_alignParentRight="true"
+	    android:contentDescription="@string/action_settings"/>
+</RelativeLayout>

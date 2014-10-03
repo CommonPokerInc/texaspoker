@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginRight="50dp" >
+    <com.texas.poker.custom.PlayerView 
+        android:id="@+id/player2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/game_player_margin_top6">
+    </com.texas.poker.custom.PlayerView>
+	<com.texas.poker.custom.PlayerView 
+        android:id="@+id/player3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/game_player_margin_top5">
+    </com.texas.poker.custom.PlayerView>
+    <com.texas.poker.custom.PlayerView 
+        android:id="@+id/player4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/game_player_margin_top4">
+    </com.texas.poker.custom.PlayerView>
+    <com.texas.poker.custom.PlayerView 
+        android:id="@+id/player5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/game_player_margin_top3">
+    </com.texas.poker.custom.PlayerView>
+    <com.texas.poker.custom.PlayerView 
+        android:id="@+id/player6"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/game_player_margin_top2">
+    </com.texas.poker.custom.PlayerView>
+</LinearLayout>

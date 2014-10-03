@@ -24,6 +24,8 @@ public class LocalUser {
 	
 	private int proertyNum = -1;
 	
+	public static final int LEVEL_SUM = 4;
+	
 	public static final int AVATAR_SUM = 6;
 	
 	private ArrayList<Property>mPropertyList;
@@ -31,7 +33,7 @@ public class LocalUser {
 	public LocalUser(){
 		name=Build.BRAND;;
 		money=10000;
-		level=1;
+		level=0;
 		avatar = new Random().nextInt(AVATAR_SUM);
 		mPropertyList = new ArrayList<Property>();
 	}

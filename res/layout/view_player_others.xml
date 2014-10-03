@@ -9,17 +9,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" >
 
-        <ImageView
+        <TextView
             android:id="@+id/game_player_avatar_girl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/game_player_brand_big"
             android:layout_alignLeft="@+id/game_player_brand_big"
-            android:layout_marginLeft="@dimen/game_player_padding_side"
             android:background="@drawable/game_avatar_g2"
             android:contentDescription="@string/app_name" />
 
-        <ImageView
+        <TextView
             android:id="@+id/game_player_avatar_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,9 +42,10 @@
         android:id="@+id/game_player_inner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" >
+        android:layout_centerInParent="true"
+        android:visibility="invisible" >
 
-        <ImageView
+        <TextView
             android:id="@+id/game_player_avatar_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

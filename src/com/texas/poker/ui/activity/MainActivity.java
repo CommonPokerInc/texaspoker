@@ -350,6 +350,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		case R.id.main_btn_join:
 			mHandler.sendEmptyMessage(MGS_ENTER_ROOM);
 			break;
+		case R.id.main_btn_market:
+			startActivity(new Intent(MainActivity.this,GameActivity.class));
+			break;
 		default:
 			break;
 		}

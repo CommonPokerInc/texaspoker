@@ -22,5 +22,12 @@
 	<dimen name="dialog_transfer_row_margin">8dp</dimen>
 	
 	<!-- 游戏 -->
-	<dimen name="game_player_padding_side">15dp</dimen>
+	<dimen name="game_player_padding_side">0dp</dimen>
+	<dimen name="game_desk_magin_left">30dp</dimen>
+	<dimen name="game_desk_magin_top">80dp</dimen>
+	<dimen name="game_player_margin_top2">5dp</dimen>
+	<dimen name="game_player_margin_top3">5dp</dimen>
+	<dimen name="game_player_margin_top4">5dp</dimen>
+	<dimen name="game_player_margin_top5">20dp</dimen>
+	<dimen name="game_player_margin_top6">70dp</dimen>
 </resources>

@@ -55,6 +55,12 @@
             android:label="@string/title_activity_room_search"
             android:screenOrientation="landscape" >
         </activity>
+        <activity
+            android:name="com.texas.poker.ui.activity.GameActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_game"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>

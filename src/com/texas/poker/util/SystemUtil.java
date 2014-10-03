@@ -19,16 +19,16 @@ public class SystemUtil {
     /**
      * 获取屏幕高度dip
      */
-    public static int getScreenWidthDip(){
+    public static int getScreenHeightPx(){
     	DisplayMetrics dm = PokerApplication.getContext().getResources().getDisplayMetrics();
-    	return dm.widthPixels;
+    	return dm.heightPixels>dm.widthPixels?dm.heightPixels:dm.widthPixels;
     }
     
     /**
      * 获取屏幕高度px
      */
-    public static int getScreenWidthPx(){
-    	return px2dip(getScreenWidthDip());
+    public static int getScreenHeightDip(){
+    	return px2dip(getScreenHeightPx());
     }
     /**  
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)  

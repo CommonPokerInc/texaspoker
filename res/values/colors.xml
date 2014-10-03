@@ -26,4 +26,6 @@
     
     <color name="dialog_divider_color">#d09724</color>
     <!-- end——对话框 -->
+    
+    <color name="game_img_bg">#8e5858</color>
 </resources>
