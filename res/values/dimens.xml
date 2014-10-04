@@ -30,4 +30,9 @@
 	<dimen name="game_player_margin_top4">5dp</dimen>
 	<dimen name="game_player_margin_top5">20dp</dimen>
 	<dimen name="game_player_margin_top6">70dp</dimen>
+	
+	<dimen name="game_btn_height">40dp</dimen>
+	<dimen name="game_btn_width">100dp</dimen>
+	<dimen name="game_img_bet_side">30dp</dimen>
+	<dimen name="game_pool_width">80dp</dimen>
 </resources>

@@ -5,8 +5,11 @@ import com.texas.poker.Constant;
 import com.texas.poker.R;
 import com.texas.poker.adapter.RoomAdapter;
 import com.texas.poker.adapter.RoomAdapter.OnGridItemClickListener;
+import com.texas.poker.entity.ClientPlayer;
 import com.texas.poker.entity.SearchResult;
+import com.texas.poker.entity.UserInfo;
 import com.texas.poker.ui.AbsBaseActivity;
+import com.texas.poker.util.SystemUtil;
 import com.texas.poker.wifi.SocketClient;
 import com.texas.poker.wifi.SocketClient.ClientConnectListener;
 import com.texas.poker.wifi.WifiApConst;
@@ -15,6 +18,7 @@ import com.texas.poker.wifi.WifiapBroadcast.EventHandler;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
@@ -183,7 +187,17 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
                 break;
             case MSG_CONNECT_SOCKET_SUCCESS:
                 mProgressDialog.dismiss();
+                app.setClient(client);
+                UserInfo info = app.user.convertToUserInfo();
+                info.setIp(client.getLocalAddress().toString().substring(1));
+				info.setId(SystemUtil.getIMEI(getApplicationContext()));
+				app.cp = new ClientPlayer(info,app.getClient());
+				showToast(getString(R.string.room_join_success));
             	//进入游戏界面
+				Intent intent =new Intent(RoomSearchActivity.this,GameActivity.class);
+				intent.putExtra("IpAddress", info.getIp());
+				startActivity(intent);
+				RoomSearchActivity.this.finish();
             	break;
             case MSG_CONNECT_SOCKET_FAILURE:
                 mProgressDialog.dismiss();

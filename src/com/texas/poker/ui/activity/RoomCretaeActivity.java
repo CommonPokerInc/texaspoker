@@ -1,20 +1,8 @@
 package com.texas.poker.ui.activity;
-import com.texas.poker.Constant;
-import com.texas.poker.R;
-import com.texas.poker.entity.Room;
-import com.texas.poker.ui.AbsBaseActivity;
-import com.texas.poker.ui.dialog.ConfirmDialog;
-import com.texas.poker.ui.dialog.ConfirmDialog.DialogConfirmInterface;
-import com.texas.poker.ui.dialog.Effectstype;
-import com.texas.poker.util.RoomCreator;
-import com.texas.poker.util.TextUtils;
-import com.texas.poker.wifi.SocketServer;
-import com.texas.poker.wifi.SocketServer.SocketCreateListener;
-import com.texas.poker.wifi.WifiApConst;
-import com.texas.poker.wifi.WifiapBroadcast;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -24,6 +12,23 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.texas.poker.Constant;
+import com.texas.poker.R;
+import com.texas.poker.entity.Room;
+import com.texas.poker.entity.ServerPlayer;
+import com.texas.poker.entity.UserInfo;
+import com.texas.poker.ui.AbsBaseActivity;
+import com.texas.poker.ui.dialog.ConfirmDialog;
+import com.texas.poker.ui.dialog.ConfirmDialog.DialogConfirmInterface;
+import com.texas.poker.ui.dialog.Effectstype;
+import com.texas.poker.util.RoomCreator;
+import com.texas.poker.util.SystemUtil;
+import com.texas.poker.util.TextUtils;
+import com.texas.poker.wifi.SocketServer;
+import com.texas.poker.wifi.SocketServer.SocketCreateListener;
+import com.texas.poker.wifi.WifiApConst;
+import com.texas.poker.wifi.WifiapBroadcast;
 
 public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirmInterface,OnClickListener{
 
@@ -38,6 +43,10 @@ public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirm
 	private WifiapBroadcast mWifiapBroadcast;
 	
 	private int mRoomType = RoomCreator.TYPE_ONE;
+	
+	private String mSSID = "";
+	
+	private Room room;
 	
 	private final static int MSG_CREATE_SERVER_SOCKET = 8;
 	
@@ -209,8 +218,18 @@ public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirm
             case MSG_SUCCESS_JUMP_GAME:
             	mProgressDialog.dismiss();
             	Log.i("frankchan","服务器Socket创建成功");
-            	showToast(R.string.room_create_success);
+            	app.setServer(SocketServer.newInstance());
+            	UserInfo info = app.user.convertToUserInfo();
+            	info.setIp("192.168.43.1");
+        		info.setId(SystemUtil.getIMEI(getApplicationContext()));
+        		app.sp = new ServerPlayer(info,app.getServer());
+        		showToast(R.string.room_create_success);
             	//游戏跳转
+        		Intent intent = new Intent(RoomCretaeActivity.this,GameActivity.class);
+        		intent.putExtra("Room", room);
+        		intent.putExtra("SSID", mSSID);
+        		startActivity(intent);
+            	
             	break;
             case MSG_SHOW_CREATE_SOCKET_ERROR:
             	Log.i("frankchan","服务器Socket创建失败");
@@ -244,9 +263,11 @@ public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirm
             break;
 		case WifiApConst.CREATE:
 			mWifiUtils.closeWifi();
+			String roomName = getLocalHostName()+mRoomType;
+			mSSID = WifiApConst.WIFI_AP_HEADER + roomName;
+			room = RoomCreator.getRoom(mRoomType, roomName);
             mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
-                    WifiApConst.WIFI_AP_HEADER + getLocalHostName()+mRoomType,
-                    WifiApConst.WIFI_AP_PASSWORD, 3, "ap"), true);
+                    mSSID,WifiApConst.WIFI_AP_PASSWORD, 3, "ap"), true);
             if (mCreateApProcess == null) {
                 mCreateApProcess = new CreateAPProcess();
             }

@@ -23,4 +23,37 @@
 	    android:background="@drawable/game_btn_help"
 	    android:layout_alignParentRight="true"
 	    android:contentDescription="@string/action_settings"/>
+	<com.texas.poker.custom.PersonView 
+	    android:id="@+id/player1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true">
+	</com.texas.poker.custom.PersonView>
+
+	<include
+	    android:id="@+id/game_layout_pool"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignTop="@id/game_desk"
+	    layout="@layout/activity_game_pool" />
+	
+
+	<include android:visibility="gone"
+	    android:id="@+id/game_layout_choice"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_toRightOf="@id/player1"
+	    layout="@layout/activity_game_choice" />
+	<include android:id="@+id/game_layout_poker"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignTop="@id/game_desk"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignLeft="@id/game_desk"
+	    layout="@layout/activity_game_poker"/>
 </RelativeLayout>

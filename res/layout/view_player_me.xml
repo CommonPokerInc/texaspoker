@@ -2,6 +2,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
-    
+    <TextView
+            android:id="@+id/game_player_avatar_girl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/game_player_brand_big"
+            android:layout_alignLeft="@+id/game_player_brand_big"
+            android:background="@drawable/game_avatar_g2"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/game_player_avatar_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/game_player_brand_big"
+            android:layout_marginRight="@dimen/game_player_padding_side"
+            android:background="@drawable/game_avatar_b1"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/game_player_brand_big"
+            style="@style/game_txt_style_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/game_player_avatar_big"
+            android:background="@drawable/game_brand_b1"
+            android:gravity="center"
+            android:text="@string/app_name" />
+		<ImageView android:id="@+id/game_me_card1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/club10"
+		    android:layout_toRightOf="@id/game_player_brand_big"
+		    android:layout_alignBottom="@id/game_player_brand_big"
+		    android:contentDescription="@string/app_name"/>
+		<ImageView android:id="@+id/game_me_card2"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/club10"
+		    android:layout_alignBottom="@id/game_player_brand_big"
+		    android:layout_toRightOf="@id/game_me_card1"
+		    android:contentDescription="@string/app_name"/>
+		<RelativeLayout 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_toRightOf="@id/game_player_avatar_big"
+		    android:layout_above="@id/game_me_card1"
+		    android:layout_alignStart="@id/game_me_card1"
+		    android:layout_alignParentTop="true">
+		    
+			<TextView style="@style/game_txt_style_small"
+		    android:id="@+id/game_me_bet"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_centerHorizontal="true"
+		    android:layout_alignParentBottom="true"
+		    android:background="@drawable/game_player_round_bet"
+		    android:gravity="center"
+		    android:text="@string/default_money" />
+		</RelativeLayout>
 
 </RelativeLayout>

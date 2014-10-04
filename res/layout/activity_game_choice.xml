@@ -1,7 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:baselineAligned="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center" >
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+	<TextView android:id="@+id/game_btn_quit"
+	    style="@style/game_txt_style_big"
+	    android:layout_width="@dimen/game_btn_width"
+	    android:layout_height="@dimen/game_btn_height"
+	    android:background="@drawable/game_btn_choice"
+	    android:text="@string/game_action_quit"
+	    android:gravity="center"
+	    android:layout_centerHorizontal="true"
+	    android:layout_alignParentBottom="true"/>
+	</RelativeLayout>
+	<RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+	<TextView android:id="@+id/game_btn_follow"
+	    style="@style/game_txt_style_big"
+	    android:layout_width="@dimen/game_btn_width"
+	    android:layout_height="@dimen/game_btn_height"
+	    android:background="@drawable/game_btn_choice"
+	    android:text="@string/game_action_follow"
+	    android:gravity="center"
+	    android:layout_centerHorizontal="true"
+	    android:layout_alignParentBottom="true"/>
+	</RelativeLayout>
 
+	<RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1" >
+	<com.texas.poker.custom.VerticalSeekBar
+        android:id="@+id/game_seekbar"
+        android:layout_width="21dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:maxHeight="9dip"
+        android:minHeight="9dip"
+        android:progressDrawable="@drawable/bg_bar"
+        android:thumb="@drawable/thumb_bar"
+        android:layout_above="@+id/game_btn_add"
+        android:thumbOffset="0dip"></com.texas.poker.custom.VerticalSeekBar>
+	<TextView android:id="@+id/game_btn_add"
+	    style="@style/game_txt_style_big"
+	    android:layout_width="@dimen/game_btn_width"
+	    android:layout_height="@dimen/game_btn_height"
+	    android:background="@drawable/game_btn_choice"
+	    android:text="@string/game_action_add"
+	    android:gravity="center"
+	    android:layout_centerHorizontal="true"
+	    android:layout_alignParentBottom="true"/>
+	<ImageView android:id="@+id/game_img_allin"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/addnumber_allin"
+	    android:layout_above="@id/game_seekbar"
+	    android:contentDescription="@string/app_name"/>
+	</RelativeLayout>
 </LinearLayout>

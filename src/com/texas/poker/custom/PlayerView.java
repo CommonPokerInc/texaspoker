@@ -9,7 +9,6 @@ import com.texas.poker.util.SystemUtil;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
@@ -49,8 +48,8 @@ public class PlayerView extends RelativeLayout {
 
 
 	private void changeLayout(TextView txtView,int stardard,float wRate,float hRate){
-	txtView.getLayoutParams().width= (int) (stardard*wRate);
-	txtView.getLayoutParams().height= (int) (stardard*hRate);
+		txtView.getLayoutParams().width= (int) (stardard*wRate);
+		txtView.getLayoutParams().height= (int) (stardard*hRate);
 	}
 
 	public void showAsNormal(){

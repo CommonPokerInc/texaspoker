@@ -13,10 +13,11 @@ public class RoomCreator {
 	
 	public final static int TYPE_ONE =1;;
 	
-	public static Room getRoom(int type){
+	public static Room getRoom(int type,String name){
 		Room room = new Room();
 		switch(type){
 		case TYPE_ONE:
+			room.setName(name);
 			room.setType(Room.TYPE_LIMIT);
 			room.setBasicChips(1000);
 			room.setCount(6);
