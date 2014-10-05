@@ -84,14 +84,14 @@ public class RoomAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mListener.onGridItemClick(result.getFullName());
+				mListener.onGridItemClick(result.getFullName(),result.getType());
 			}
 		});
 		return convertView;
 	}
 
 	public interface OnGridItemClickListener{
-		void onGridItemClick(String fullName);
+		void onGridItemClick(String fullName,int roomType);
 	}
 	
 }

@@ -31,7 +31,9 @@ public class PersonView extends RelativeLayout {
 	
 	private ImageView mCard1,mCard2;
 	
-	private String mName,mMoney;
+	private String mName;
+	
+	private int mMoney;
 	
 	private void initView(Context context){
 		View view = LayoutInflater.from(context).inflate(R.layout.view_player_me, this);
@@ -71,17 +73,19 @@ public class PersonView extends RelativeLayout {
 			level = info.getLevel();
 		}
 		mBrand.setBackgroundResource(ImageUtil.BRAND_BIG[level]);
-		mMoney = String.valueOf(info.getBaseMoney());
+		mMoney = info.getBaseMoney();
 		mName = info.getName();
 		mBrand.setText(mName+"-"+mMoney);
 		txtBet.setText("0");
+		hideCards();
 	}
 	
-	public void setBet(String bet){
-		txtBet.setText(bet);
+	public void setBet(int bet){
+		txtBet.setText(bet+"");
 	}
 	
-	public void setMoney(String money){
+	public void setMoney(int money){
+		mMoney = money;
 		mBrand.setText(mName+"-"+money);
 	}
 	
@@ -97,6 +101,15 @@ public class PersonView extends RelativeLayout {
 			setCards(list.get(0), list.get(1));
 	}
 	
+	public void hideCards(){
+		mCard1.setVisibility(View.INVISIBLE);
+		mCard1.setVisibility(View.INVISIBLE);
+	}
+	
+	public void showCards(){
+		mCard1.setVisibility(View.VISIBLE);
+		mCard1.setVisibility(View.VISIBLE);
+	}
 	
 	public PersonView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);

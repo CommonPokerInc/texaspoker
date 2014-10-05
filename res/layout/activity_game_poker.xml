@@ -38,4 +38,5 @@
         android:layout_height="wrap_content"
         android:background="@drawable/club1"
         android:contentDescription="@string/app_name"/>
+	
 </LinearLayout>

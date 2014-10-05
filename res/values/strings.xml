@@ -108,4 +108,9 @@
     <string name="game_action_quit">弃牌</string>
     <string name="game_action_follow">跟注</string>
     <string name="game_action_add">加注</string>
+    <string name="game_room_name">房间名:</string>
+    <string name="game_room_start">开始游戏</string>
+    <string name="game_room_waiting">等待房主开始游戏</string>
+    <string name="game_kick_by_owner">你已被房主踢出</string>
+    <string name="game_player_not_enough">人数还不足以开始游戏</string>
 </resources>

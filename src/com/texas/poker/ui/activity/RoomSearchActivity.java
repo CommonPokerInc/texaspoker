@@ -6,9 +6,11 @@ import com.texas.poker.R;
 import com.texas.poker.adapter.RoomAdapter;
 import com.texas.poker.adapter.RoomAdapter.OnGridItemClickListener;
 import com.texas.poker.entity.ClientPlayer;
+import com.texas.poker.entity.Room;
 import com.texas.poker.entity.SearchResult;
 import com.texas.poker.entity.UserInfo;
 import com.texas.poker.ui.AbsBaseActivity;
+import com.texas.poker.util.RoomCreator;
 import com.texas.poker.util.SystemUtil;
 import com.texas.poker.wifi.SocketClient;
 import com.texas.poker.wifi.SocketClient.ClientConnectListener;
@@ -31,6 +33,8 @@ import android.view.View.OnClickListener;
 import android.widget.GridView;
 
 public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemClickListener,EventHandler {
+	
+	private Room room;
 	
 	private SocketClient client;
 	
@@ -131,7 +135,7 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
 	}
 
 	@Override
-	public void onGridItemClick(String fullName) {
+	public void onGridItemClick(String fullName,int roomType) {
 		// 点击开始连接房间
 		WifiConfiguration localWifiConfiguration = mWifiUtils.createWifiInfo(fullName,
                 WifiApConst.WIFI_AP_PASSWORD, 3, "wt");
@@ -139,6 +143,7 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
         mProgressDialog.setMessage(getString(R.string.room_connecting));
         mProgressDialog.show();
         mConnectProcess.start();
+        room = RoomCreator.getRoom(roomType, fullName.substring(WifiApConst.WIFI_AP_HEADER.length()));
 	}
 	
 	/** handler 异步更新UI **/
@@ -196,6 +201,7 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
             	//进入游戏界面
 				Intent intent =new Intent(RoomSearchActivity.this,GameActivity.class);
 				intent.putExtra("IpAddress", info.getIp());
+				intent.putExtra("Room", room);
 				startActivity(intent);
 				RoomSearchActivity.this.finish();
             	break;
