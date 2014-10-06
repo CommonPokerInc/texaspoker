@@ -13,6 +13,7 @@ import com.texas.poker.entity.Poker;
 import com.texas.poker.entity.Room;
 import com.texas.poker.ui.AbsGameActivity;
 import com.texas.poker.util.PokerUtil;
+import com.texas.poker.util.SystemUtil;
 import com.texas.poker.wifi.message.GameMessage;
 import com.texas.poker.wifi.message.MessageFactory;
 import com.texas.poker.wifi.message.PeopleMessage;
@@ -108,6 +109,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 		registerListener();
 		findViews();
 		initViews();
+		adaptToScreen();
 	}
 
 	
@@ -146,8 +148,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 		
 		int[]resIds = {R.id.game_pool1,R.id.game_pool2,R.id.game_pool3,
 				R.id.game_pool4,R.id.game_pool5,R.id.game_pool6};
+		txtPools = new TextView[resIds.length];
 		for(int i= 0;i<resIds.length;i++){
-			txtPools[0] = (TextView) findViewById(resIds[i]);
+			txtPools[i] = (TextView) findViewById(resIds[i]);
 		}
 		
 		btnBack.setOnClickListener(this);
@@ -178,9 +181,20 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
             playerList.add(currentPlayer); 
             updateRoom(room, true);
         }
+		playerView1.showAsFirst(app.user.convertToUserInfo(),room);
 	}
 
+	private void adaptToScreen(){
+		int stardardWidth = SystemUtil.getScreenHeightPx()/5;
+		changeLayout(stardardWidth, 0.40f, 0.5f, poker1,poker2,poker3,poker4,poker5);
+	}
 	
+	private void changeLayout(int stardard,float wRate,float hRate,View...views){
+		for(View view:views){
+			view.getLayoutParams().width= (int) (stardard*wRate);
+			view.getLayoutParams().height= (int) (stardard*hRate);
+		}
+	}
 	
 	private void hideRoom(){
 		waitView.setVisibility(View.INVISIBLE);
@@ -252,37 +266,37 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 	public void updateChairByPlayer(int index,ClientPlayer play){
         switch (index) {
            case 0:
-               playerView1.showAsFirst(play.getInfo());
+               playerView1.showAsFirst(play.getInfo(),room);
                playerView1.setTag(findPlayer(play));
                if(playerView1.getVisibility()!=View.VISIBLE)
             	   playerView1.setVisibility(View.VISIBLE);
                break;
            case 1:
-        	   playerView2.showAsNormal(play.getInfo());
+        	   playerView2.showAsNormal(play.getInfo(),room);
                playerView2.setTag(findPlayer(play));
                if(playerView1.getVisibility()!=View.VISIBLE)
             	   playerView1.setVisibility(View.VISIBLE);
                break;
            case 2:
-        	   playerView3.showAsNormal(play.getInfo());
+        	   playerView3.showAsNormal(play.getInfo(),room);
                playerView3.setTag(findPlayer(play));
                if(playerView3.getVisibility()!=View.VISIBLE)
             	   playerView3.setVisibility(View.VISIBLE);
                break;
            case 3:
-        	   playerView4.showAsNormal(play.getInfo());
+        	   playerView4.showAsNormal(play.getInfo(),room);
                playerView4.setTag(findPlayer(play));
                if(playerView4.getVisibility()!=View.VISIBLE)
             	   playerView4.setVisibility(View.VISIBLE);
                break;
            case 4:
-        	   playerView5.showAsNormal(play.getInfo());
+        	   playerView5.showAsNormal(play.getInfo(),room);
                playerView5.setTag(findPlayer(play));
                if(playerView5.getVisibility()!=View.VISIBLE)
             	   playerView5.setVisibility(View.VISIBLE);
                break;
            case 5:
-        	   playerView6.showAsNormal(play.getInfo());
+        	   playerView6.showAsNormal(play.getInfo(),room);
                playerView6.setTag(findPlayer(play));
                if(playerView6.getVisibility()!=View.VISIBLE)
             	   playerView6.setVisibility(View.VISIBLE);
@@ -414,6 +428,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
                 Log.i("checkIsMeOption","currentOptionPerson:"+currentOptionPerson+"--1");
                 optionChoice(false);
                 return ;
+           }else{
+        	   //CQF轮到的是未弃权的其他人时
+        	   //CQF前一个人头像变小，此人头像变大
            }
             
            if(currentOptionPerson == maxChipIndex){

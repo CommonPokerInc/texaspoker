@@ -2,11 +2,10 @@
 package com.texas.poker.ui.dialog;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
-import android.os.Handler;
+import android.graphics.Bitmap;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +34,8 @@ public class TransferDialog extends BaseDialog implements OnKeyListener{
 	
 	private OnBackCallback mCallback;
 	
+	private boolean isQRCodeSet = false;
+	
 	public TransferDialog(Context context, int duration, Effectstype type,OnBackCallback callback) {
 		super(context, duration, type);
 		// TODO Auto-generated constructor stub
@@ -48,14 +49,7 @@ public class TransferDialog extends BaseDialog implements OnKeyListener{
 		mBackground.setOnClickListener(this);
 		builder.setCustomView(view, context);
 		builder.setOnKeyListener(this);
-		handler.sendEmptyMessage(1);
 	}
-	
-	@SuppressLint("HandlerLeak")
-	private Handler handler = new Handler();
-	
-	
-	
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
@@ -90,42 +84,14 @@ public class TransferDialog extends BaseDialog implements OnKeyListener{
 		return false;
 	}
 
+	public void setQRCodeBitmap(Bitmap bitmap){
+		imgQRCode.setImageBitmap(bitmap);
+		isQRCodeSet = true;
+	}
 	
-//	private Runnable runWithSDCard = new Runnable() {
-//		
-//		@Override
-//		public void run() {
-//			// TODO Auto-generated method stub
-//
-//			String strDir = Environment.getExternalStorageDirectory().getPath()
-//					+"/.poker";
-//			String strFile = strDir +"/commonpoker.apk";
-//			File target =new File(strFile);
-//			createImage("http://192.168.43.1:"+WebService.PORT+target.getPath());
-//		}
-//	};
-    
-//    private Runnable runNoSDCard = new Runnable() {
-//		
-//		@Override
-//		public void run() {
-//			// TODO Auto-generated method stub
-//			List<PackageInfo> packs = getPackageManager().getInstalledPackages(0);
-//			String path = "";
-//			for(PackageInfo info:packs){
-//				if(info.applicationInfo.packageName.contains("com.poker.common")){
-//					path = info.applicationInfo.publicSourceDir;
-//					break;
-//				}
-//			}
-//			File file = new File(path);
-//			
-//			if(file.exists()){
-//				createImage("http://192.168.43.1:"+WebService.PORT+path);
-//			}
-//		}
-//	};
-	
+	public boolean isQRCodeSet(){
+		return isQRCodeSet;
+	}
 }
 
 

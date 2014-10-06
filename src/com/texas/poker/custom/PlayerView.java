@@ -3,6 +3,7 @@ package com.texas.poker.custom;
 
 import com.texas.poker.R;
 import com.texas.poker.entity.LocalUser;
+import com.texas.poker.entity.Room;
 import com.texas.poker.entity.UserInfo;
 import com.texas.poker.util.ImageUtil;
 import com.texas.poker.util.SystemUtil;
@@ -57,7 +58,7 @@ public class PlayerView extends RelativeLayout {
 	}
 	
 	//仅用于第一次显示
-	public void showAsNormal(UserInfo info){
+	public void showAsNormal(UserInfo info,Room room){
 		int avatar = 0;
 		if(info.getAvatar()>=0&&info.getAvatar()<ImageUtil.AVATAR_BIG.length){
 			avatar = info.getAvatar();
@@ -82,7 +83,7 @@ public class PlayerView extends RelativeLayout {
 		smallBrand.setBackgroundResource(ImageUtil.BRAND_SMALL[level]);
 		smallBrand.setText(info.getName());
 		
-		txtMoney.setText(String.valueOf(info.getBaseMoney()));
+		txtMoney.setText(String.valueOf(room.getBasicChips()));
 		txtBet.setText("0");
 		setVisibility(View.VISIBLE);
 	}

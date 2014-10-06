@@ -4,10 +4,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.texas.poker.Constant;
 import com.texas.poker.R;
 import com.texas.poker.entity.LocalUser;
 import com.texas.poker.ui.AbsBaseActivity;
@@ -22,7 +29,6 @@ import com.texas.poker.util.DatabaseUtil;
 import com.texas.poker.util.SettingHelper;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -34,6 +40,7 @@ import android.widget.*;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.graphics.Bitmap;
 
 public class MainActivity extends AbsBaseActivity implements OnClickListener,DialogConfirmInterface,OnBackCallback{
 
@@ -57,6 +64,10 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 
 	private ExecutorService mPool;
 
+	private final static int QR_WIDTH =200;
+	
+	private final static int QR_HEIGHT =200;
+	
 	private final static int MSG_SHOW_BACKGROUND = 0;
 
 	private final static int MSG_SHOW_CURTAINS = 1;
@@ -76,6 +87,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 	private final static int MGS_ENTER_ROOM = 8;
 	
 	private final static int MSG_UPDATE_USER_INFO =9;;
+	
+	private final static int MSG_TOAST_FOR_SDCARD_STATUS = 10;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +176,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 				break;
 			case MSG_UPDATE_USER_INFO:
 				Log.i("frankchan", "首页收到更新UI请求");
+				break;
+			case MSG_TOAST_FOR_SDCARD_STATUS:
+				//CQF如果没有SDCARD，需要提醒用户信息不能保存，传包可能有误
 				break;
 			default:
 				break;
@@ -296,6 +312,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			// TODO Auto-generated method stub
 			startShowAnimation(AnimationProvider.getAlphaAnimation
 					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 800), btnCreate,btnJoin);
+			mHandler.sendEmptyMessageDelayed(MSG_TOAST_FOR_SDCARD_STATUS, 800);
 		}
 	};
 
@@ -327,6 +344,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		}
 	}
 	
+	
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -343,6 +362,14 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 						Effectstype.Slideleft,this);
 			}
 			mTransferDialog.show();
+			//防止多次设置二维码图片导致资源浪费
+			if(mTransferDialog.isQRCodeSet())
+				return;
+			if(DatabaseUtil.isSDCardExists()){
+				mPool.execute(runWithSDCard);
+			}else{
+				mPool.execute(runNoSDCard);
+			}
 			break;
 		case R.id.main_btn_cretae:
 			mHandler.sendEmptyMessage(MSG_SHOW_EXPAND_VIEW);
@@ -351,7 +378,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			mHandler.sendEmptyMessage(MGS_ENTER_ROOM);
 			break;
 		case R.id.main_btn_market:
-			startActivity(new Intent(MainActivity.this,GameActivity.class));
+			
 			break;
 		default:
 			break;
@@ -364,9 +391,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 
 		@Override
 		public void run() {
-			String strDir = Environment.getExternalStorageDirectory().getPath()
-					+ "/.texas";
-			String strFile = strDir + "/texaspoker.apk";
+			String strDir = Constant.DIRECTORY;
+			String strFile = strDir + Constant.APK_NAME;
 			File target = new File(strFile);
 
 			if (settingHelper.isFirstStart()
@@ -377,7 +403,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 				String path = "";
 				for (PackageInfo info : packs) {
 					if (info.applicationInfo.packageName
-							.contains("com.texas.poker")) {
+							.contains(Constant.APP_PACKAGE_NAME)) {
 						path = info.applicationInfo.publicSourceDir;
 						break;
 					}
@@ -459,4 +485,89 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		mConfirmDialog.setTopic(getString(R.string.main_exit_transfer));
 		mConfirmDialog.show();
 	}
+	
+	private Runnable runWithSDCard = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+
+			String strFile = Constant.DIRECTORY+Constant.APK_NAME;
+			File target =new File(strFile);
+			createImage(Constant.LOCAL_HOST+Constant.SOCKET_PORT+target.getPath());
+		}
+	};
+    
+    private Runnable runNoSDCard = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			List<PackageInfo> packs = getPackageManager().getInstalledPackages(0);
+			String path = "";
+			for(PackageInfo info:packs){
+				if(info.applicationInfo.packageName.contains(Constant.APP_PACKAGE_NAME)){
+					path = info.applicationInfo.publicSourceDir;
+					break;
+				}
+			}
+			File file = new File(path);
+			
+			if(file.exists()){
+				createImage(Constant.LOCAL_HOST+Constant.SOCKET_PORT+path);
+			}
+		}
+	};
+	
+	private void createImage(String text) {
+        try {
+            QRCodeWriter writer = new QRCodeWriter();
+
+            Log.i("Frankchan", "创建二维码内容：" + text);
+            if (text == null || "".equals(text) || text.length() < 1) {
+                return;
+            }
+            
+            BitMatrix martix = writer.encode(text, BarcodeFormat.QR_CODE,
+                    QR_WIDTH, QR_HEIGHT);
+
+            System.out.println("w:" + martix.getWidth() + "h:"
+                    + martix.getHeight());
+
+            Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
+            hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+            BitMatrix bitMatrix = new QRCodeWriter().encode(text,
+                    BarcodeFormat.QR_CODE, QR_WIDTH, QR_HEIGHT, hints);
+            int[] pixels = new int[QR_WIDTH * QR_HEIGHT];
+            for (int y = 0; y < QR_HEIGHT; y++) {
+                for (int x = 0; x < QR_WIDTH; x++) {
+                    if (bitMatrix.get(x, y)) {
+                        pixels[y * QR_WIDTH + x] = 0xff000000;
+                    } else {
+                        pixels[y * QR_WIDTH + x] = 0xffffffff;
+                    }
+
+                }
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT,
+                    Bitmap.Config.ARGB_8888);
+
+            bitmap.setPixels(pixels, 0, QR_WIDTH, 0, 0, QR_WIDTH, QR_HEIGHT);
+            refreshImage(bitmap);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void refreshImage(final Bitmap bitmap){
+    	mHandler.post(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+		        mTransferDialog.setQRCodeBitmap(bitmap);
+			}
+		});
+    }
 }

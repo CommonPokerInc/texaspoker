@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.texas.poker.R;
 import com.texas.poker.entity.LocalUser;
 import com.texas.poker.entity.Poker;
+import com.texas.poker.entity.Room;
 import com.texas.poker.entity.UserInfo;
 import com.texas.poker.util.ImageUtil;
 import com.texas.poker.util.PokerUtil;
@@ -37,23 +38,27 @@ public class PersonView extends RelativeLayout {
 	
 	private void initView(Context context){
 		View view = LayoutInflater.from(context).inflate(R.layout.view_player_me, this);
-		mBrand = (TextView) view.findViewById(R.id.game_player_avatar_big);
+		mBrand = (TextView) view.findViewById(R.id.game_player_brand_big);
 		mAvatar = (TextView) findViewById(R.id.game_player_avatar_big);
 		imgGirl = (TextView) findViewById(R.id.game_player_avatar_girl);
 		mCard1 = (ImageView) findViewById(R.id.game_me_card1);
 		mCard2 = (ImageView) findViewById(R.id.game_me_card2);
 		txtBet = (TextView) view.findViewById(R.id.game_me_bet);
 		int stardardWidth = SystemUtil.getScreenHeightPx()/5;
-		changeLayout(mCard1, stardardWidth, 0.4f, 0.5f);
-		changeLayout(mCard2, stardardWidth, 0.4f, 0.5f);
+		mBrand.getLayoutParams().width = stardardWidth;
+		changeLayout(imgGirl, stardardWidth, 0.72f, 0.74f);
+		changeLayout(mAvatar, stardardWidth, 0.67f, 0.72f);
+		changeLayout(mCard1, stardardWidth, 0.31f, 0.38f);
+		changeLayout(mCard2, stardardWidth, 0.31f, 0.38f);
 	}
+	
 	
 	private void changeLayout(View view,int stardard,float wRate,float hRate){
 		view.getLayoutParams().width= (int) (stardard*wRate);
 		view.getLayoutParams().height= (int) (stardard*hRate);
 	}
 	
-	public void showAsFirst(UserInfo info){
+	public void showAsFirst(UserInfo info,Room room){
 		int avatar = 0;
 		if(info.getAvatar()>=0&&info.getAvatar()<ImageUtil.AVATAR_BIG.length){
 			avatar = info.getAvatar();
@@ -73,7 +78,7 @@ public class PersonView extends RelativeLayout {
 			level = info.getLevel();
 		}
 		mBrand.setBackgroundResource(ImageUtil.BRAND_BIG[level]);
-		mMoney = info.getBaseMoney();
+		mMoney = room.getBasicChips();
 		mName = info.getName();
 		mBrand.setText(mName+"-"+mMoney);
 		txtBet.setText("0");
@@ -103,12 +108,12 @@ public class PersonView extends RelativeLayout {
 	
 	public void hideCards(){
 		mCard1.setVisibility(View.INVISIBLE);
-		mCard1.setVisibility(View.INVISIBLE);
+		mCard2.setVisibility(View.INVISIBLE);
 	}
 	
 	public void showCards(){
 		mCard1.setVisibility(View.VISIBLE);
-		mCard1.setVisibility(View.VISIBLE);
+		mCard2.setVisibility(View.VISIBLE);
 	}
 	
 	public PersonView(Context context, AttributeSet attrs, int defStyle) {

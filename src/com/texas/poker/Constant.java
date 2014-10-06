@@ -11,13 +11,19 @@ import android.os.Environment;
  */
 public class Constant {
 	
+	public final static String LOCAL_HOST = "http://192.168.43.1:";
+	
 	public final static String WIFI_SUFFIX = "Poker_";
 	
 	public final static int SOCKET_PORT = 10086; 
 	
-	public final static String  DIRECTORY = Environment.getExternalStorageDirectory().getPath()+"/.poker/";
+	public final static String  DIRECTORY = Environment.getExternalStorageDirectory().getPath()+"/.texas/";
 	
 	public final static String USER_INFO_NAME = "userinfo";
+	
+	public final static String APK_NAME = "TexasPoker.apk";
+	
+	public final static String APP_PACKAGE_NAME = "com.texas.poker";
 }
 
 
