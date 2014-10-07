@@ -3,6 +3,7 @@ package com.texas.poker.wifi.message;
 
 import java.util.ArrayList;
 
+import com.texas.poker.entity.ClientPlayer;
 import com.texas.poker.entity.Poker;
 
 /*
@@ -44,6 +45,9 @@ public class GameMessage extends BaseMessage{
 
 	public final static int ACTION_GAME_OVER = 14;
 
+	public final static int ACTION_CLIENT_EXIT = 15;
+	
+	public final static int ACTION_SERVER_EXIT = 16;
 	
 	private int id;
 	
@@ -51,6 +55,8 @@ public class GameMessage extends BaseMessage{
 	
 	private ArrayList<Poker>pokerList;
 
+	private ArrayList<ClientPlayer>playerList;
+	
 	private int amount;
 	
 	public int getId() {
@@ -84,7 +90,17 @@ public class GameMessage extends BaseMessage{
     public void setPokerList(ArrayList<Poker> pokerList) {
         this.pokerList = pokerList;
     }
+
+	public ArrayList<ClientPlayer> getPlayerList() {
+		return playerList;
+	}
+
+	public void setPlayerList(ArrayList<ClientPlayer> playerList) {
+		this.playerList = playerList;
+	}
 	
+    
+    
 }
 
 

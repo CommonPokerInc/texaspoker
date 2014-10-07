@@ -60,6 +60,10 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
 	
 	private final static int MGS_BEGIN_CONNECT_SERVER_SOCKET = 6;
 	
+	private boolean isSearching = false;
+	
+	private boolean isConnecting = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -119,6 +123,7 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
         mSearchApProcess.start();
         mWifiUtils.startScan();
         mProgressDialog.show();
+        isSearching = true;
     }
     
 
@@ -144,6 +149,7 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
         mProgressDialog.show();
         mConnectProcess.start();
         room = RoomCreator.getRoom(roomType, fullName.substring(WifiApConst.WIFI_AP_HEADER.length()));
+        isConnecting = true;
 	}
 	
 	/** handler 异步更新UI **/
@@ -153,13 +159,18 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
             switch (msg.what) {
             // 搜索超时
             case WifiApConst.ApSearchTimeOut:
+            	if(!isSearching)
+            		return;
             	Log.i("frankchan", "搜索超时无响应");
-                mSearchApProcess.stop();
-                mProgressDialog.dismiss();
-                showToast(R.string.room_search_over_time);
+            	mSearchApProcess.stop();
+            	mProgressDialog.dismiss();
+            	showToast(R.string.room_search_over_time);
+            	isSearching = false;
                 break;
             // 搜索结果
             case WifiApConst.ApScanResult:
+            	if(!isSearching)
+            		return;
             	Log.i("frankchan", "搜索成功");
                 mProgressDialog.dismiss();
                 mSearchApProcess.stop();
@@ -177,17 +188,23 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
                 }else{
                 	showToast(R.string.room_search_nothing);
                 }
+                isSearching = false;
                 break;
             // 连接成功
             case WifiApConst.ApConnectResult:
                 mWifiUtils.setNewWifiManagerInfo(); // 更新wifiInfo
                 mSearchApProcess.stop();
                 mConnectProcess.stop();
-                if (mWifiUtils.getSSID().startsWith(WifiApConst.WIFI_AP_HEADER)) {
-                	Log.i("frankchan", "连接Wifi成功");
+                Log.i("frankchan",mWifiUtils.getSSID());
+                if (mWifiUtils.getSSID().startsWith('"'+WifiApConst.WIFI_AP_HEADER)) {
+                	Log.i("frankchan", "连接本应用的Wifi成功");
+                	if(isConnecting){
+                        handler.sendEmptyMessage(MGS_BEGIN_CONNECT_SERVER_SOCKET);
+                	}
                 }else{
+                	isConnecting = false;
                 	Log.e("frankchan", "连接的不是本应用的wifi");
-                	showToast(R.string.room_connect_failure);
+                	//showToast(R.string.room_connect_failure);
                 }
                 break;
             case MSG_CONNECT_SOCKET_SUCCESS:
@@ -206,10 +223,17 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
 				RoomSearchActivity.this.finish();
             	break;
             case MSG_CONNECT_SOCKET_FAILURE:
-                mProgressDialog.dismiss();
-                showToast(getString(R.string.room_connect_failure));
+            	if(isConnecting){
+            		mProgressDialog.dismiss();
+            		mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
+                        mWifiUtils.getApSSID(), WifiApConst.WIFI_AP_PASSWORD,
+                        3, "ap"), false);
+            		showToast(getString(R.string.room_connect_failure));
+                	isConnecting = false;
+            	}
             	break;
             case MSG_CONNECT_ROOM_OVER_TIME:
+            	isConnecting = false;
             	mProgressDialog.dismiss();
             	showToast(R.string.room_connect_failure);
             	break;

@@ -8,7 +8,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/game_player_brand_big"
             android:layout_alignLeft="@+id/game_player_brand_big"
-            android:background="@drawable/game_avatar_g2"
+            android:background="@drawable/game_avatar_g3"
             android:contentDescription="@string/app_name" />
 
         <TextView

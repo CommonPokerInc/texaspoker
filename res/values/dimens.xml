@@ -9,7 +9,7 @@
 	
 	
 	<!-- 首页 -->
-	<dimen name="main_btn_size">60dp</dimen>
+	<dimen name="main_btn_size">50dp</dimen>
 	<dimen name="main_btn_margin">15dp</dimen>
 	<dimen name="main_btn_big_height">60dp</dimen>
 	<dimen name="main_btn_big_width">220dp</dimen>

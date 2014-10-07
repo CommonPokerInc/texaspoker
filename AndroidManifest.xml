@@ -39,12 +39,12 @@
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+				<action android:name="Action.intent.close.MainPage"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.texas.poker.ui.activity.RoomCretaeActivity"
+            android:name="com.texas.poker.ui.activity.RoomCreateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_room_cretae"
             android:screenOrientation="landscape" >
@@ -60,6 +60,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_game"
             android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.texas.poker.UserActivity"
+            android:label="@string/title_activity_user" >
         </activity>
     </application>
 

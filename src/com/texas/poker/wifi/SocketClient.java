@@ -117,7 +117,7 @@ public class SocketClient {
 		}
 	}
 
-	//��ʼ������Ϣ
+
 	public void beganAcceptMessage(final CommunicationListener listener) {
 		setCommunicationListener(listener);
 		new Thread(new Runnable() {
@@ -130,6 +130,9 @@ public class SocketClient {
 								try {
 									in = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
 									String chatMsg = in.readLine();
+									if(chatMsg==null){
+										stopAcceptMessage();
+									}
 									Log.i(TAG, "into acceptMsg()  chatMsg =" + chatMsg);
 									if (chatMsg != null && !chatMsg.equals("")) {
 										listener.onStringReceive(chatMsg);

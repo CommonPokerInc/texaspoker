@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <!-- 首页 -->
     <string name="default_money">1000</string>
+    <string name="main_self">个人</string>
     <string name="main_market">商城</string>
     <string name="main_transfer_to_friends">给朋友传输安装包</string>
     <string name="main_exit_game">您确定要退出游戏吗</string>
@@ -108,9 +109,12 @@
     <string name="game_action_quit">弃牌</string>
     <string name="game_action_follow">跟注</string>
     <string name="game_action_add">加注</string>
+    <string name="game_all_in">全下</string>
     <string name="game_room_name">房间名:</string>
     <string name="game_room_start">开始游戏</string>
     <string name="game_room_waiting">等待房主开始游戏</string>
     <string name="game_kick_by_owner">你已被房主踢出</string>
     <string name="game_player_not_enough">人数还不足以开始游戏</string>
+    <string name="title_activity_user">UserActivity</string>
+
 </resources>

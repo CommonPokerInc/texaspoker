@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.texas.poker.Constant;
 import com.texas.poker.R;
 import com.texas.poker.custom.PersonView;
 import com.texas.poker.custom.PlayerView;
@@ -12,26 +13,38 @@ import com.texas.poker.entity.ClientPlayer;
 import com.texas.poker.entity.Poker;
 import com.texas.poker.entity.Room;
 import com.texas.poker.ui.AbsGameActivity;
+import com.texas.poker.ui.dialog.ConfirmDialog;
+import com.texas.poker.ui.dialog.ConfirmDialog.DialogConfirmInterface;
+import com.texas.poker.ui.dialog.Effectstype;
+import com.texas.poker.util.AnimationProvider;
 import com.texas.poker.util.PokerUtil;
 import com.texas.poker.util.SystemUtil;
+import com.texas.poker.wifi.WifiApConst;
 import com.texas.poker.wifi.message.GameMessage;
 import com.texas.poker.wifi.message.MessageFactory;
 import com.texas.poker.wifi.message.PeopleMessage;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
 
-public class GameActivity extends AbsGameActivity implements OnClickListener{
+public class GameActivity extends AbsGameActivity implements OnClickListener,DialogConfirmInterface{
 
+	
+	private ConfirmDialog mConfirmDialog;
+	
+	private PopupWindow mPopIntro;
+	
 	//公共牌区域，操作区域，奖池区域,等待区域
-	private View pokerView,actionView,poolView,waitView;
+	private View actionView,poolView,waitView,seekView;
 	
 	//退出和帮助按钮
 	private ImageButton btnBack,btnHelp;
@@ -46,7 +59,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 	private PlayerView playerView2,playerView3,playerView4,playerView5,playerView6;
 	
 	//5张工牌,AllIn图片
-	private ImageView poker1,poker2,poker3,poker4,poker5,imgAllIn;
+	private ImageView poker1,poker2,poker3,poker4,poker5;
 	
 	//3种动作按钮和开始游戏按钮
 	private TextView btnQuit,btnFollow,btnAdd,btnStart,txtHint,txtInfo;
@@ -100,24 +113,30 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 	
 	private int mMaxAddBetCan,mPreAddBet,mCurAddBet;
 	
+	private int minChip;
+	
 	private final static int ABANDOM_TRANSPARENT = 180;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-		registerListener();
 		findViews();
 		initViews();
 		adaptToScreen();
+		sendBroadcastToMain();
+		registerListener();
 	}
 
+	private void sendBroadcastToMain(){
+		this.sendBroadcast(new Intent(Constant.ACTON_CLOSE_MAIN));
+	}
 	
 	private void findViews(){
-		pokerView = findViewById(R.id.game_layout_poker);
 		actionView = findViewById(R.id.game_layout_choice);
 		poolView = findViewById(R.id.game_layout_pool);
 		waitView = findViewById(R.id.game_layout_info);
+		seekView = findViewById(R.id.game_layout_seek);
 		
 		btnBack = (ImageButton) findViewById(R.id.game_btn_exit);
 		btnHelp = (ImageButton) findViewById(R.id.game_btn_help);
@@ -134,8 +153,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 		poker3 = (ImageView) findViewById(R.id.game_public_poker3);
 		poker4 = (ImageView) findViewById(R.id.game_public_poker4);
 		poker5 = (ImageView) findViewById(R.id.game_public_poker5);
-		
-		imgAllIn = (ImageView) findViewById(R.id.game_img_allin);
 		
 		btnQuit = (TextView) findViewById(R.id.game_btn_quit);
 		btnFollow = (TextView) findViewById(R.id.game_btn_follow);
@@ -159,14 +176,16 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 		btnHelp.setOnClickListener(this);
 		btnQuit.setOnClickListener(this);
 		btnStart.setOnClickListener(this);
+		seekbar.setOnSeekBarChangeListener(mBarChangeListener);
 	}
-
+	
 
 	@Override
 	protected void initViews() {
 		// TODO Auto-generated method stub
 		wHandler = new WorkHandler(getMainLooper());
 		room = getIntent().getParcelableExtra("Room");
+		chipList = new ArrayList<Integer>();
 		playerList = new ArrayList<ClientPlayer>();
 		if (!app.isServer()) {
             currentPlayer = app.cp;
@@ -181,7 +200,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
             playerList.add(currentPlayer); 
             updateRoom(room, true);
         }
+		minChip = room.getBasicChips()/200;
 		playerView1.showAsFirst(app.user.convertToUserInfo(),room);
+		mConfirmDialog = new ConfirmDialog(this, 300, Effectstype.Shake, this);
 	}
 
 	private void adaptToScreen(){
@@ -195,6 +216,37 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 			view.getLayoutParams().height= (int) (stardard*hRate);
 		}
 	}
+	
+	private SeekBar.OnSeekBarChangeListener mBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+		
+		@Override
+		public void onStopTrackingTouch(SeekBar seekBar) {
+			// TODO Auto-generated method stub
+		}
+		
+		@Override
+		public void onStartTrackingTouch(SeekBar seekBar) {
+			// TODO Auto-generated method stub
+			seekBar.setMax(playerView1.getMoney()/minChip+1);
+			mCurAddBet = seekBar.getProgress();
+		}
+		
+		@Override
+		public void onProgressChanged(SeekBar seekBar, int progress,
+				boolean fromUser) {
+			// TODO Auto-generated method stub
+			if(fromUser){
+				if(playerView1.getMoney()<=progress*minChip){
+					mCurAddBet = playerView1.getMoney();
+					btnAdd.setText(getString(R.string.game_all_in));
+				}else{
+					mCurAddBet = progress*minChip;
+					btnAdd.setText(mCurAddBet+"");
+				}
+				
+			}
+		}
+	};
 	
 	private void hideRoom(){
 		waitView.setVisibility(View.INVISIBLE);
@@ -240,11 +292,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
         	   playerView1.setTag(-1);
                break;
            case 1:
-        	   playerView1.setVisibility(View.INVISIBLE);
-        	   playerView1.setTag(-1);
+        	   playerView2.setVisibility(View.INVISIBLE);
+        	   playerView2.setTag(-1);
                break;
            case 2:
-        	   playerView1.setVisibility(View.INVISIBLE);
+        	   playerView3.setVisibility(View.INVISIBLE);
         	   playerView3.setTag(-1);
                break;
            case 3:
@@ -274,8 +326,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
            case 1:
         	   playerView2.showAsNormal(play.getInfo(),room);
                playerView2.setTag(findPlayer(play));
-               if(playerView1.getVisibility()!=View.VISIBLE)
-            	   playerView1.setVisibility(View.VISIBLE);
+               if(playerView2.getVisibility()!=View.VISIBLE)
+            	   playerView2.setVisibility(View.VISIBLE);
                break;
            case 2:
         	   playerView3.showAsNormal(play.getInfo(),room);
@@ -451,8 +503,12 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
    }
     //是否显示出操作栏
     public void optionChoice(boolean choice){
-    	//如果是轮到自己此处应有震动
-        actionView.setVisibility(choice?View.VISIBLE:View.INVISIBLE);
+    	//CQF如果是轮到自己此处应有震动
+    	if(choice){
+    		showActionView();
+    	}else{
+    		hideActionView();
+    	}
     }
     //获取当前尚未弃牌的人数
     public int currentPlayCount(){
@@ -709,7 +765,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
                             DIndex = DIndex%playerList.size();
                         }
                         allPokerList = PokerUtil.getPokers(playerList.size());
-                        sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_RESET_ROUND, -1, String.valueOf(DIndex), allPokerList));
+                        sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_RESET_ROUND, -1, String.valueOf(DIndex), allPokerList,null));
                         wHandler.removeMessages(WorkHandler.MSG_RESET_ROUND);
                         wHandler.sendEmptyMessage(WorkHandler.MSG_RESET_ROUND);
                     }else{
@@ -881,6 +937,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 			msg.setPlayerList(playerList);
 			msg.setRoom(room);
 			sendMessage(msg);
+			Log.i("frankchan", "服务器转发");
             wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
             wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
 		}
@@ -951,6 +1008,17 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
           wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
           wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
             break;
+//        case GameMessage.ACTION_CLIENT_EXIT:
+//    		if(msg.isExit()){
+//                int exitIndex = findPlayer(msg.getPlayerList().get(0));
+//                if(exitIndex!=-1){
+//                	sendMessage(msg);
+//                    playerList.remove(exitIndex);
+//                    wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
+//                    wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
+//                }
+//    		}
+//        	break;
     	}
 	}
 
@@ -1081,7 +1149,26 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
         	wHandler.removeMessages(WorkHandler.MSG_GAME_OVER);
             wHandler.sendEmptyMessage(WorkHandler.MSG_GAME_OVER);
         	break;    
-            
+//        case GameMessage.ACTION_CLIENT_EXIT:
+//        	if (msg.isExit()&&msg.getExtra().equals("client exit")) {
+//            	playerList.remove(msg.getPlayerList().get(0));
+//                wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
+//                wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
+//        	}
+//        	break;
+//        case GameMessage.ACTION_SERVER_EXIT:
+//        	if (msg.isExit()&&msg.getExtra().equals("server exit")) {
+//            	showToast("服务器退出游戏");
+//            	wHandler.postDelayed(new Runnable() {
+//					
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						restartApplication();
+//					}
+//				}, 2000);
+//        	}
+//        	break;
         }
 	}
 
@@ -1218,10 +1305,21 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 	
     private void hideIntroView(){
 	//CQF关闭牌型介绍	
-	}
+    }
 	
 	private void showIntroView(){
 		//开启牌型介绍
+	}
+	
+	//操作栏滑入
+	private void showActionView(){
+		Log.i("frankchan", "操作栏滑入");
+		actionView.setVisibility(View.VISIBLE);
+	}
+	//操作栏滑出
+	private void hideActionView(){
+		Log.i("frankchan", "操作栏滑出");
+		actionView.setVisibility(View.INVISIBLE);
 	}
 	
 	@Override
@@ -1229,7 +1327,14 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.game_btn_add:
-			seekbar.setVisibility(View.VISIBLE);
+			if(seekbar.getVisibility()==View.INVISIBLE){
+				seekView.setVisibility(View.VISIBLE);
+			}else{
+				btnAdd.setText(getString(R.string.game_action_add));
+				seekView.setVisibility(View.GONE);
+				addChipAction();
+			}
+			seekbar.setProgress(0);
 			break;
 		case R.id.game_btn_follow:
 			doOption(v.getId());
@@ -1252,14 +1357,66 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 			break;
 		case R.id.game_btn_exit:
 			//CQF弹窗提示后进行下面的代码
-//			playerList.clear();
-//            playerList.add(currentPlayer);
-//            sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
-//    		restartApplication();
+			mConfirmDialog.show();
 			break;
 		default:
 			break;
 		}
+	}
+
+	
+	
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if (keyCode == KeyEvent.KEYCODE_BACK)  
+        {  
+			mConfirmDialog.show();
+        }
+		return false;
+	}
+
+
+	@Override
+	public void onConfirm() {
+		// TODO Auto-generated method stub
+		playerList.clear();
+        playerList.add(currentPlayer);
+        if(app.isServer()){
+        	//if(!app.isGameStarted){
+        		sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
+//        	}else{
+//        		sendMessage(MessageFactory.newGameMessage(true, GameMessage.ACTION_SERVER_EXIT,-1,"server exit", playerList));
+//        	}
+        	if(mWifiUtils.getWifiApState()){
+        		mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
+                        mWifiUtils.getApSSID(), WifiApConst.WIFI_AP_PASSWORD,
+                        3, "ap"), false);
+        	}
+        }
+        else{
+            //if(!app.isGameStarted){
+                sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"client exit"));
+//        	}else{
+//        		sendMessage(MessageFactory.newGameMessage(true, GameMessage.ACTION_CLIENT_EXIT,-1,"client exit", playerList));
+//        	}
+        }
+		restartApplication();
+	}
+
+	private void doServerExit(){
+		
+	}
+	
+	private void doClientExit(){
+		
+	}
+	
+	@Override
+	public void onCancel() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

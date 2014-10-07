@@ -15,7 +15,7 @@ public class Constant {
 	
 	public final static String WIFI_SUFFIX = "Poker_";
 	
-	public final static int SOCKET_PORT = 10086; 
+	public final static int SOCKET_PORT = 9527; 
 	
 	public final static String  DIRECTORY = Environment.getExternalStorageDirectory().getPath()+"/.texas/";
 	
@@ -24,6 +24,12 @@ public class Constant {
 	public final static String APK_NAME = "TexasPoker.apk";
 	
 	public final static String APP_PACKAGE_NAME = "com.texas.poker";
+	
+	public final static String WIFI_NAME_TRANSFER = "Dezhou_Joinme";
+	
+	
+	
+	public final static String ACTON_CLOSE_MAIN = "Action.intent.close.MainPage";
 }
 
 

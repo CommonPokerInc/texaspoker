@@ -61,6 +61,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	private HashMap<String, Long>timeMap = new HashMap<String,Long>();
 	
 	protected void registerListener(){
+		try{
 		mSSID = getIntent().getStringExtra("SSID");
 		app.ssid = mSSID;
 		if(app.isServer()){
@@ -71,7 +72,11 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 			app.getClient().beganAcceptMessage(this);
 			mReceiveTime = System.currentTimeMillis();
 		}
-		initBackHandler();
+		//initBackHandler();
+		}catch(Exception ex){
+			Log.i("frankchan", "连接基础出错");
+		}
+		
 	}
 	
 	@SuppressLint("HandlerLeak")
@@ -183,14 +188,18 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	}
 	
 	private void initBackHandler(){
-		mThread = new HandlerThread("BeatDetector");
-		mThread.start();
-		mHandler = new BackHandler(mThread.getLooper());
-		mTimer =new Timer();
+		try{
+			mThread = new HandlerThread("BeatDetector");
+			mThread.start();
+			mHandler = new BackHandler(mThread.getLooper());
+			mTimer =new Timer();
 		if(app.isServer()){
 			mHandler.postDelayed(new SendRunnable(),INTERVAL_AFTER_START);
 		}
-		mHandler.postDelayed(new AckRunnable(), INTERVAL_AFTER_SEND);
+			mHandler.postDelayed(new AckRunnable(), INTERVAL_AFTER_SEND);
+		}catch(Exception ex){
+			Log.e("frankchan", "脉搏器出错\n"+ex.getMessage());
+		}
 	}
 
 	private void initTimeMap(){
@@ -219,7 +228,9 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			mTimer.schedule(mSendTask, 0,INTERVAL_SEND_MSG);
+			if(mTimer!=null){
+				mTimer.schedule(mSendTask, 0,INTERVAL_SEND_MSG);
+			}
 		}
 		
 	}
@@ -229,7 +240,9 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			mTimer.schedule(mCheckTask, 0,INTERVAL_MAX_ACK);
+			if(mTimer!=null){
+				mTimer.schedule(mCheckTask, 0,INTERVAL_MAX_ACK);
+			}
 		}
 		
 	}
@@ -256,8 +269,16 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	private void stopBeatSendAndCheck(){
 		allowAck = false;
 		allowSend = false;
-		mCheckTask.cancel();
-		mSendTask.cancel();
+		if(mCheckTask!=null){
+			mCheckTask.cancel();
+		}
+		if(mSendTask!=null){
+			mSendTask.cancel();
+		}
+		if(mTimer!=null){
+			mTimer.cancel();
+			mTimer= null;
+		}
 	}
 	
 	private CheckTask mCheckTask =new CheckTask();
@@ -274,8 +295,8 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 						if(System.currentTimeMillis()-timeMap.get(key)>INTERVAL_MAX_ACK){
 							Log.e("frankchan", "用户地址为"+key+"的用户没有及时应答");
 							//frankchan 丢失用户的处理Socket和Client回调，交由子类实现
-							removeClientByTag(key);
-							clientDecrease(key);
+//							removeClientByTag(key);
+//							clientDecrease(key);
 						}else{
 							Log.i("frankchan", key+"客户端按时应答");
 							timeMap.put(key, Long.valueOf(System.currentTimeMillis()));
@@ -285,11 +306,11 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 					long mInterval = System.currentTimeMillis()-mReceiveTime;
 					if(mInterval>INTERVAL_MAX_ACK){
 						Log.e("frankchan", "没有及时收到服务器的消息");
-						app.getClient().stopAcceptMessage();
-						disconnectFromServer((int)mInterval/1000);
+//						app.getClient().stopAcceptMessage();
+//						disconnectFromServer((int)mInterval/1000);
 					}else{
 						Log.i("frankchan", "Server及时应答");
-						mReceiveTime = System.currentTimeMillis();
+						
 					}
 				}
 			}
@@ -317,14 +338,20 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	
 	
 	public void restartApplication() {  
+		stopBeatSendAndCheck();
+		if(app.isServer()){
+			app.getServer().stopListner();
+			app.getServer().clearServer();
+		}
+		
         final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());  
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
         startActivity(intent);  
+        this.finish();
 	}
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		stopBeatSendAndCheck();
 //		try{
 //		if(null!=mThread){
 //			mThread.quit();

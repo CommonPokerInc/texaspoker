@@ -47,7 +47,7 @@ public class PersonView extends RelativeLayout {
 		int stardardWidth = SystemUtil.getScreenHeightPx()/5;
 		mBrand.getLayoutParams().width = stardardWidth;
 		changeLayout(imgGirl, stardardWidth, 0.72f, 0.74f);
-		changeLayout(mAvatar, stardardWidth, 0.67f, 0.72f);
+		changeLayout(mAvatar, stardardWidth, 0.75f, 0.75f);
 		changeLayout(mCard1, stardardWidth, 0.31f, 0.38f);
 		changeLayout(mCard2, stardardWidth, 0.31f, 0.38f);
 	}
@@ -92,6 +92,10 @@ public class PersonView extends RelativeLayout {
 	public void setMoney(int money){
 		mMoney = money;
 		mBrand.setText(mName+"-"+money);
+	}
+	
+	public int getMoney(){
+		return mMoney; 
 	}
 	
 	public void setCards(Poker poker1,Poker poker2){

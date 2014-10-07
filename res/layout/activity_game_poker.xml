@@ -10,33 +10,38 @@
         android:layout_height="wrap_content"
         android:background="@drawable/club10"
         android:contentDescription="@string/app_name"
-        android:layout_marginRight="2dp"/>
+        android:layout_marginRight="2dp"
+        android:visibility="invisible"/>
 	<ImageView 
         android:id="@+id/game_public_poker2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/club11"
         android:contentDescription="@string/app_name"
-        android:layout_marginRight="2dp"/>
+        android:layout_marginRight="2dp"
+        android:visibility="invisible"/>
 	<ImageView 
         android:id="@+id/game_public_poker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/club12"
         android:contentDescription="@string/app_name"
-        android:layout_marginRight="2dp"/>
+        android:layout_marginRight="2dp"
+        android:visibility="invisible"/>
 	<ImageView 
         android:id="@+id/game_public_poker3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/club13"
         android:contentDescription="@string/app_name"
-        android:layout_marginRight="2dp"/>
+        android:layout_marginRight="2dp"
+        android:visibility="invisible"/>
 	<ImageView 
         android:id="@+id/game_public_poker5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/club1"
-        android:contentDescription="@string/app_name"/>
+        android:contentDescription="@string/app_name"
+        android:visibility="invisible"/>
 	
 </LinearLayout>

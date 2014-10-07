@@ -16,10 +16,14 @@ import com.texas.poker.entity.Room;
 public class MessageFactory {
 	
 	public static GameMessage newGameMessage(boolean exit,int type,int money,String extra){
-	    return newGameMessage(exit,type,money,extra,null);
+	    return newGameMessage(exit,type,money,extra,null,null);
 	}
 	
-	public static GameMessage newGameMessage(boolean exit,int type,int money,String extra,ArrayList<Poker> pokerList){
+	public static GameMessage newGameMessage(boolean exit,int type,int money,String extra,ArrayList<ClientPlayer>playerList){
+		return newGameMessage(exit,type,money,extra,null,playerList);
+	}
+	
+	public static GameMessage newGameMessage(boolean exit,int type,int money,String extra,ArrayList<Poker> pokerList,ArrayList<ClientPlayer>playerList){
         GameMessage msg = new GameMessage();
         msg.setSource(BaseMessage.MESSAGE_SOURCE);
         msg.setAction(type);
@@ -27,6 +31,7 @@ public class MessageFactory {
         msg.setAmount(money);
         msg.setExtra(extra);
         msg.setPokerList(pokerList);
+        msg.setPlayerList(playerList);
         return msg;
     }
 	

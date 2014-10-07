@@ -30,7 +30,7 @@ import com.texas.poker.wifi.SocketServer.SocketCreateListener;
 import com.texas.poker.wifi.WifiApConst;
 import com.texas.poker.wifi.WifiapBroadcast;
 
-public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirmInterface,OnClickListener{
+public class RoomCreateActivity extends AbsBaseActivity implements DialogConfirmInterface,OnClickListener{
 
 	private ConfirmDialog mDialog;
 	
@@ -47,6 +47,8 @@ public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirm
 	private String mSSID = "";
 	
 	private Room room;
+	
+	private boolean isCreating = false;
 	
 	private final static int MSG_CREATE_SERVER_SOCKET = 8;
 	
@@ -195,6 +197,8 @@ public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirm
                 	Log.i("frankchan", "Success in creating Ap");
                 	mProgressDialog.setMessage(getString(R.string.room_create_build_server));
                 	sendEmptyMessage(MSG_CREATE_SERVER_SOCKET);
+                	//CQF按钮不可用，防止手快者点击多一次按钮
+                    findViewById(R.id.btn_create_room).setEnabled(false);
                 } else {
                     //创建失败
                 	Log.i("frankchan", "fail to create Ap");
@@ -225,11 +229,11 @@ public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirm
         		app.sp = new ServerPlayer(info,app.getServer());
         		showToast(R.string.room_create_success);
             	//游戏跳转
-        		Intent intent = new Intent(RoomCretaeActivity.this,GameActivity.class);
+        		Intent intent = new Intent(RoomCreateActivity.this,GameActivity.class);
         		intent.putExtra("Room", room);
         		intent.putExtra("SSID", mSSID);
         		startActivity(intent);
-            	
+            	RoomCreateActivity.this.finish();
             	break;
             case MSG_SHOW_CREATE_SOCKET_ERROR:
             	Log.i("frankchan","服务器Socket创建失败");
@@ -262,6 +266,7 @@ public class RoomCretaeActivity extends AbsBaseActivity implements DialogConfirm
             showToast(R.string.room_cretae_close_wifi_toast);
             break;
 		case WifiApConst.CREATE:
+			isCreating = true;
 			mWifiUtils.closeWifi();
 			String roomName = getLocalHostName()+mRoomType;
 			mSSID = WifiApConst.WIFI_AP_HEADER + roomName;

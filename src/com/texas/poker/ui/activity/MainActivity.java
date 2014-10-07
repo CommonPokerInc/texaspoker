@@ -26,7 +26,9 @@ import com.texas.poker.ui.dialog.TransferDialog;
 import com.texas.poker.ui.dialog.TransferDialog.OnBackCallback;
 import com.texas.poker.util.AnimationProvider;
 import com.texas.poker.util.DatabaseUtil;
+import com.texas.poker.util.ImageUtil;
 import com.texas.poker.util.SettingHelper;
+import com.texas.poker.wifi.WifiApConst;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,19 +40,22 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.widget.*;
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
 
 public class MainActivity extends AbsBaseActivity implements OnClickListener,DialogConfirmInterface,OnBackCallback{
 
-	private ImageButton btnSelf, btnHelp, btnCreate, btnJoin;
+	private ImageButton btnHelp, btnCreate, btnJoin;
 
 	private TextView btnTransfer, btnMoney, btnMarket;
 
-	private ImageView imgTop, imgLeft, imgRight, imgDesk, imgLight;
+	private ImageView imgTop, imgLeft, imgRight, imgDesk, imgLight,imgAvatar;
 
-	private View mView;
+	private View mView,btnSelf;
 	
 	private View[] mViews;
 
@@ -104,15 +109,30 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			mPool.execute(copyRunnable);
 		}
 		mPool.execute(mUserRunnable);
+		registerGameReceiver();
 	}
 
+	private void registerGameReceiver(){
+		IntentFilter filter = new IntentFilter(Constant.ACTON_CLOSE_MAIN);
+		registerReceiver(mReceiver, filter);
+	}
 	
+	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			if(intent.getAction()==Constant.ACTON_CLOSE_MAIN){
+				Log.i("frankchan", "主页收到关闭通知");
+				MainActivity.this.finish();
+			}
+		}
+	};
 	
 	protected void initViews() {
 		btnHelp = (ImageButton) findViewById(R.id.main_btn_help);
 		btnCreate = (ImageButton) findViewById(R.id.main_btn_cretae);
 		btnJoin = (ImageButton) findViewById(R.id.main_btn_join);
-		btnSelf = (ImageButton) findViewById(R.id.main_btn_self);
+		btnSelf = findViewById(R.id.main_btn_self);
 		btnTransfer = (TextView) findViewById(R.id.main_btn_transfer);
 		btnMoney = (TextView) findViewById(R.id.main_btn_money);
 		btnMarket = (TextView) findViewById(R.id.main_btn_market);
@@ -121,6 +141,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		imgRight = (ImageView) findViewById(R.id.main_img_curtain_right);
 		imgDesk = (ImageView) findViewById(R.id.main_img_desk);
 		imgLight = (ImageView) findViewById(R.id.main_img_light);
+		imgAvatar = (ImageView)findViewById(R.id.main_img_avatar);
 		mView = findViewById(R.id.main_view);
 		
 		mViews = new View[]{btnTransfer,btnHelp,btnSelf,btnMoney,btnMarket};
@@ -169,13 +190,15 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 				post(mExpandRunnable);
 				break;
 			case MSG_CREATE_ROOM:
-				startActivity(new Intent(MainActivity.this,RoomCretaeActivity.class));
+				startActivity(new Intent(MainActivity.this,RoomCreateActivity.class));
 				break;
 			case MGS_ENTER_ROOM:
 				startActivity(new Intent(MainActivity.this,RoomSearchActivity.class));
 				break;
 			case MSG_UPDATE_USER_INFO:
 				Log.i("frankchan", "首页收到更新UI请求");
+				btnMoney.setText(app.user.getMoney()+"");
+				imgAvatar.setImageResource(ImageUtil.AVATAR_SMALL[app.user.getAvatar()]);
 				break;
 			case MSG_TOAST_FOR_SDCARD_STATUS:
 				//CQF如果没有SDCARD，需要提醒用户信息不能保存，传包可能有误
@@ -361,6 +384,13 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 				mTransferDialog = new TransferDialog(this, 500,
 						Effectstype.Slideleft,this);
 			}
+			//关闭原有的热点，开启新的热点
+			mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
+                    mWifiUtils.getApSSID(), WifiApConst.WIFI_AP_PASSWORD,
+                    3, "ap"), false);
+			mWifiUtils.closeWifi();
+			mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
+                    Constant.WIFI_NAME_TRANSFER,WifiApConst.WIFI_AP_PASSWORD, 3, "ap"), true);
 			mTransferDialog.show();
 			//防止多次设置二维码图片导致资源浪费
 			if(mTransferDialog.isQRCodeSet())
@@ -464,6 +494,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		// TODO Auto-generated method stub
 		if(mTransferDialog!=null&&mTransferDialog.isShown()){
 			//close AP
+			mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
+                    mWifiUtils.getApSSID(), WifiApConst.WIFI_AP_PASSWORD,
+                    3, "ap"), false);
 			mTransferDialog.hide();
 		}else{
 			this.finish();
@@ -570,4 +603,12 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			}
 		});
     }
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		unregisterReceiver(mReceiver);
+		super.onDestroy();
+	}
+    
 }

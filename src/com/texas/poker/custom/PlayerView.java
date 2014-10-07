@@ -38,7 +38,7 @@ public class PlayerView extends RelativeLayout {
 		imgGirl = (TextView) view.findViewById(R.id.game_player_avatar_girl);
 		
 		int stardardWith = SystemUtil.getScreenHeightPx()/5;
-		changeLayout(bigAvatar, stardardWith, 0.56f, 0.62f);
+		changeLayout(bigAvatar, stardardWith, 0.63f, 0.63f);
 		changeLayout(smallAvatar,stardardWith,0.40f,0.44f);
 		changeLayout(imgGirl, stardardWith, 0.60f, 0.56f);
 		changeLayout(smallBrand, stardardWith, 0.56f, 0.17f);

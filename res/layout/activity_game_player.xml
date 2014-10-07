@@ -9,34 +9,39 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/game_player_margin_top6">
+        android:layout_marginTop="@dimen/game_player_margin_top6"
+        android:visibility="invisible">
     </com.texas.poker.custom.PlayerView>
 	<com.texas.poker.custom.PlayerView 
         android:id="@+id/player3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/game_player_margin_top5">
+        android:layout_marginTop="@dimen/game_player_margin_top5"
+        android:visibility="invisible">
     </com.texas.poker.custom.PlayerView>
     <com.texas.poker.custom.PlayerView 
         android:id="@+id/player4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/game_player_margin_top4">
+        android:layout_marginTop="@dimen/game_player_margin_top4"
+        android:visibility="invisible">
     </com.texas.poker.custom.PlayerView>
     <com.texas.poker.custom.PlayerView 
         android:id="@+id/player5"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/game_player_margin_top3">
+        android:layout_marginTop="@dimen/game_player_margin_top3"
+        android:visibility="invisible">
     </com.texas.poker.custom.PlayerView>
     <com.texas.poker.custom.PlayerView 
         android:id="@+id/player6"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/game_player_margin_top2">
+        android:layout_marginTop="@dimen/game_player_margin_top2"
+        android:visibility="invisible">
     </com.texas.poker.custom.PlayerView>
 </LinearLayout>

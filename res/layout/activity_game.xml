@@ -55,8 +55,7 @@
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentRight="true"
 	    android:layout_alignLeft="@id/game_desk"
-	    layout="@layout/activity_game_poker"
-	    android:visibility="invisible"/>
+	    layout="@layout/activity_game_poker"/>
 	<include android:id="@+id/game_layout_info"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
