@@ -150,6 +150,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		
 		mViews = new View[]{btnTransfer,btnHelp,btnSelf,btnMoney,btnMarket};
 		
+		btnSelf.setOnClickListener(this);
 		btnHelp.setOnClickListener(this);
 		btnCreate.setOnClickListener(this);
 		btnJoin.setOnClickListener(this);
@@ -432,6 +433,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			mHandler.sendEmptyMessage(MSG_SHOW_EXPAND_VIEW);
 			break;
 		case R.id.main_btn_market:
+			startActivity(new Intent(MainActivity.this,MarketActivity.class));
+			break;
+		case R.id.main_btn_self	:
 			
 			break;
 		default:

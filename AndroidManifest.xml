@@ -39,7 +39,8 @@
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-				<action android:name="Action.intent.close.MainPage"/>
+                <action android:name="Action.intent.close.MainPage" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -62,8 +63,14 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="com.texas.poker.UserActivity"
+            android:name="com.texas.poker.ui.activity.UserActivity"
             android:label="@string/title_activity_user" >
+        </activity>
+        <activity
+            android:name="com.texas.poker.ui.activity.MarketActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_market"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

@@ -88,6 +88,10 @@
     <string name="room_join_success">加入房间成功</string>
 
     <!-- 道具属性 -->
+    <string name="market_confirm_to_buy">购买的道具可以在游戏中使用\n确定购买该道具吗</string>
+    <string name="market_own_property">已经拥有相同的道具</string>
+    <string name="market_money_not_enough">抱歉您的筹码不足</string>
+    <string name="market_buy_success">购买成功</string>
     <string-array name="property_name">
         <item>德州小妹</item>
         <item>清纯佳人</item>
@@ -95,14 +99,17 @@
         <item>红颜知己</item>
         <item>女王陛下</item>
     </string-array>
+    <string name="market_girl_default_name">德州小妹</string>
+    <string name="market_txt_buy">购买</string>
+    <string name="market_girl_description">陪你赌到天荒地老</string>
     <string-array name="property_descrption">
-        <item>陪你赌到天荒地老</item>
-        <item>赢了奖励所得筹码的5%，输了弥补所损失的筹码的5%</item>
-        <item>赢了奖励所得筹码的20%</item>
-        <item>输了弥补所损失筹码的20%</item>
-        <item>赢了奖励所得筹码的25%，输了弥补所损失的筹码的25%</item>
+        <item>携我同行倍有面子地老天荒一赌到底</item>
+        <item>赢局奖励筹码5%输局弥补筹码5%</item>
+        <item>赢局奖励筹码20%</item>
+        <item>输局弥补筹码20%</item>
+        <item>赢局奖励筹码25%，输局弥补筹码25%</item>
     </string-array>
-
+	<string name="market_txt_none">更多道具\n敬请期待</string>
     <string name="title_activity_game">GameActivity</string>
 
     <!-- 游戏 -->
@@ -116,5 +123,6 @@
     <string name="game_kick_by_owner">你已被房主踢出</string>
     <string name="game_player_not_enough">人数还不足以开始游戏</string>
     <string name="title_activity_user">UserActivity</string>
+    <string name="title_activity_market">MarketActivity</string>
 
 </resources>

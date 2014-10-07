@@ -22,6 +22,11 @@ public class ImageUtil {
 	public static int[]BRAND_SMALL = {R.drawable.game_brand_s1,R.drawable.game_brand_s2,R.drawable.game_brand_s3,R.drawable.game_brand_s4};;
 	
 	public static int[]GIRLS = {R.drawable.game_avatar_g1,R.drawable.game_avatar_g2,R.drawable.game_avatar_g3,R.drawable.game_avatar_g4,R.drawable.game_avatar_g5};
+	
+	public static int[]PROPERTY = {R.drawable.market_sg1,R.drawable.market_sg2,R.drawable.market_sg3,R.drawable.market_sg4,R.drawable.market_sg5,0};
+	
+	public static int[]PROPERTY_BIG = {R.drawable.market_bg1,R.drawable.market_bg2,R.drawable.market_bg3,R.drawable.market_bg4,R.drawable.market_bg5,0};
+	
 }
 
 

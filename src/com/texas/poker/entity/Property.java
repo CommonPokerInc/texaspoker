@@ -25,7 +25,7 @@ public class Property {
 	
 	private final float[]RATES = {1f,1.05f, 1.2f,0.8f,1.25f};
 	
-	private final int[]COSTS ={30000,100000,200000,200000,300000};
+	public final static int[]COSTS ={30000,100000,200000,200000,300000};
 	
 	private final String[]DESCRIPTION = PokerApplication.
 					getContext().getResources().getStringArray(R.array.property_descrption);
@@ -39,24 +39,30 @@ public class Property {
 	
 	private String name;
 	
+	private String money;
+	
 	private String description;
 
 	public Property(int type){
-		if(type>RATES.length){
+		this.type = type;
+		if(type>=RATES.length){
 			return;
 		}
-		this.type = type;
 		switch(type){
 		case TYPE_ONE:
-			name= "德州小妹";
+			money = "3W";
 			break;
 		case TYPE_TWO:
+			money = "10W";
 			break;
 		case TYPE_THREE:
+			money = "20W";
 			break;
 		case TYPE_FOUR:
+			money = "20W";
 			break;
 		case TYPE_FIVE:
+			money = "30W";
 			break;
 		}
 		cost = COSTS[type];
@@ -78,6 +84,10 @@ public class Property {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public String getMoney() {
+		return money;
 	}
 }
 

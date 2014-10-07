@@ -106,7 +106,7 @@ public class LocalUser {
 	public ArrayList<Property> getPropertyList() {
 		return mPropertyList;
 	}
-
+	
 	public void addPropertyList(Property property) {
 		this.mPropertyList.add(property);
 	}

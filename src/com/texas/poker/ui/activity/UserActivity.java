@@ -1,4 +1,8 @@
-package com.texas.poker;
+package com.texas.poker.ui.activity;
+
+import com.texas.poker.R;
+import com.texas.poker.R.layout;
+import com.texas.poker.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/dialog_common_bg"
+    android:background="@color/transparent" >
+
+    <RelativeLayout
+        android:id="@+id/dialog_help_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/dialog_img_bg"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        
+		<RelativeLayout android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/dialog_layout_inner_bg">
+
+        <GridView
+            android:id="@+id/grid_market"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/dialog_layout_bottom"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/market_layout_description"
+            android:layout_toRightOf="@id/market_layout_description"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="10dp"
+            android:scrollbars="none"
+            android:numColumns="auto_fit"
+            android:cacheColorHint="@color/transparent"
+            android:listSelector="@color/transparent" >
+            
+        </GridView>
+
+        <RelativeLayout android:id="@+id/market_layout_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/dialog_layout_bottom"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/main_btn_margin"
+            android:background="@drawable/market_detail" >
+            <TextView android:id="@+id/market_txt_girl_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/main_txt_style"
+                android:text="@string/market_girl_default_name"
+                android:layout_marginTop="@dimen/market_txt_margin_top"
+                android:layout_centerHorizontal="true"/>
+            
+            <Button android:id="@+id/market_btn_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/main_btn_size"
+                style="@style/main_txt_style"
+                android:text="@string/market_txt_buy"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@id/market_btn_buy"
+                android:background="@drawable/market_btn_buy"/>
+
+			 <TextView
+			     android:id="@+id/market_txt_girl_description"
+			     style="@style/market_txt_style"
+			     android:layout_width="wrap_content"
+			     android:layout_height="wrap_content"
+			     android:layout_centerHorizontal="true"
+			     android:layout_above="@id/market_btn_buy"
+			     android:gravity="center"
+			     android:maxLength="8" />
+
+			 <ImageView
+			     android:id="@+id/market_img_girl"
+			     android:layout_width="wrap_content"
+			     android:layout_height="wrap_content"
+			     android:layout_centerInParent="true"
+            	 android:src="@drawable/market_bg1"
+			     android:contentDescription="@string/app_name" />
+
+        </RelativeLayout>
+        <LinearLayout android:id="@+id/dialog_layout_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="10dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/dialog_img_bottom">
+            
+        </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/market_btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/dialog_btn_close"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        style="@style/main_txt_style"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/dialog_img_header"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="8dp"
+        android:text="@string/main_market" />
+
+</RelativeLayout>
