@@ -62,7 +62,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 	private ImageView poker1,poker2,poker3,poker4,poker5;
 	
 	//3种动作按钮和开始游戏按钮
-	private TextView btnQuit,btnFollow,btnAdd,btnStart,txtHint,txtInfo;
+	private TextView btnStart,txtHint,txtInfo;
+	
+	private Button btnQuit,btnFollow,btnAdd;
 	
 	//加注拉动条
 	private VerticalSeekBar seekbar;
@@ -115,6 +117,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 	
 	private int minChip;
 	
+	private boolean isAllowClick = false;
+	
 	private final static int ABANDOM_TRANSPARENT = 180;
 	
 	@Override
@@ -154,9 +158,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 		poker4 = (ImageView) findViewById(R.id.game_public_poker4);
 		poker5 = (ImageView) findViewById(R.id.game_public_poker5);
 		
-		btnQuit = (TextView) findViewById(R.id.game_btn_quit);
-		btnFollow = (TextView) findViewById(R.id.game_btn_follow);
-		btnAdd = (TextView) findViewById(R.id.game_btn_add);
+		btnQuit = (Button) findViewById(R.id.game_btn_quit);
+		btnFollow = (Button) findViewById(R.id.game_btn_follow);
+		btnAdd = (Button) findViewById(R.id.game_btn_add);
 		btnStart = (TextView) findViewById(R.id.game_btn_start);
 		txtHint = (TextView) findViewById(R.id.game_txt_waiting);
 		txtInfo = (TextView) findViewById(R.id.game_room_name);
@@ -495,7 +499,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
                //showToast("一轮游戏结束");
                return;
            }else{
-               optionChoice(true);
+        	   if(poker5.getVisibility()==View.VISIBLE&&isEnd&&maxChipIndex!=findPlayer(currentPlayer)){
+        		   optionChoice(false);
+        	   }else{
+        		   optionChoice(true);
+        	   }
            }
        }else{
            optionChoice(false);
@@ -503,8 +511,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
    }
     //是否显示出操作栏
     public void optionChoice(boolean choice){
-    	//CQF如果是轮到自己此处应有震动
     	if(choice){
+    		//CQF如果是轮到自己此处应有震动
     		showActionView();
     	}else{
     		hideActionView();
@@ -679,7 +687,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
     
     //分钱
     public void shareMoney(){
-//        optionChoice(false);
+        optionChoice(false);
         HashMap<String,ArrayList<ClientPlayer>> winSet = PokerUtil.getWinner(playerList, allPokerList);
         if(winSet.get("0").contains(currentPlayer)){
         	closeWinView();
@@ -920,6 +928,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 	@Override
 	public void onServerReceive(PeopleMessage msg) {
 		// TODO Auto-generated method stub
+		Log.e("frankchan", "收到");
 		if(msg.isExit()){
             int exitIndex = findPlayer(msg.getPlayerList().get(0));
             if(exitIndex!=-1){
@@ -946,6 +955,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 	@Override
 	public void onServerReceive(GameMessage msg) {
 		// TODO Auto-generated method stub
+		Log.e("frankchan", "收到");
 		switch(msg.getAction()){
     	case GameMessage.ACTION_FINISH_OPTIOIN://Y
     		currentOptionPerson = (currentOptionPerson+1)%playerList.size();
@@ -1008,22 +1018,23 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
           wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
           wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
             break;
-//        case GameMessage.ACTION_CLIENT_EXIT:
-//    		if(msg.isExit()){
-//                int exitIndex = findPlayer(msg.getPlayerList().get(0));
-//                if(exitIndex!=-1){
-//                	sendMessage(msg);
-//                    playerList.remove(exitIndex);
-//                    wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
-//                    wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
-//                }
-//    		}
-//        	break;
+        case GameMessage.ACTION_CLIENT_EXIT:
+    		if(msg.isExit()){
+                int exitIndex = findPlayer(msg.getPlayerList().get(0));
+                if(exitIndex!=-1){
+                	sendMessage(msg);
+                    playerList.remove(exitIndex);
+                    wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
+                    wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
+                }
+    		}
+        	break;
     	}
 	}
 
 	@Override
 	public void onClientReceive(PeopleMessage msg) {
+		Log.e("frankchan", "收到");
 		// TODO Auto-generated method stub
 		if (msg.isExit()) {
         	if("server exit".equals(msg.getExtra())){
@@ -1069,6 +1080,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 
 	@Override
 	public void onClientReceive(GameMessage msg) {
+		Log.e("frankchan", "收到");
 		// TODO Auto-generated method stub
 		int cmd = msg.getAction();
     	Log.i("onClientReceive","action id :"+cmd);
@@ -1149,40 +1161,41 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
         	wHandler.removeMessages(WorkHandler.MSG_GAME_OVER);
             wHandler.sendEmptyMessage(WorkHandler.MSG_GAME_OVER);
         	break;    
-//        case GameMessage.ACTION_CLIENT_EXIT:
-//        	if (msg.isExit()&&msg.getExtra().equals("client exit")) {
-//            	playerList.remove(msg.getPlayerList().get(0));
-//                wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
-//                wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
-//        	}
-//        	break;
-//        case GameMessage.ACTION_SERVER_EXIT:
-//        	if (msg.isExit()&&msg.getExtra().equals("server exit")) {
-//            	showToast("服务器退出游戏");
-//            	wHandler.postDelayed(new Runnable() {
-//					
-//					@Override
-//					public void run() {
-//						// TODO Auto-generated method stub
-//						restartApplication();
-//					}
-//				}, 2000);
-//        	}
-//        	break;
+        case GameMessage.ACTION_CLIENT_EXIT:
+        	if (msg.isExit()&&msg.getExtra().equals("client exit")) {
+            	playerList.remove(msg.getPlayerList().get(0));
+                wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
+        	}
+        	break;
+        case GameMessage.ACTION_SERVER_EXIT:
+        	if (msg.isExit()&&msg.getExtra().equals("server exit")) {
+            	showToast("服务器退出游戏");
+            	wHandler.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						restartApplication();
+					}
+				}, 2000);
+        	}
+        	break;
         }
 	}
 
 	public void doOption(int cmd){
     	if(!currentPlayer.getInfo().isQuit()){
     		if(currentPlayer.getInfo().getBaseMoney()>0){
-    			if(cmd == R.id.game_btn_follow){
+    			if(cmd == R.id.game_btn_follow&&isAllowClick){
     				followAction();
-    			}else if(cmd == R.id.game_btn_add){
+    			}else if(cmd == R.id.game_btn_add&&isAllowClick){
     				addChipAction();
-    			}else if(cmd == R.id.game_btn_quit){
+    			}else if(cmd == R.id.game_btn_quit&&isAllowClick){
     				doQuit();
     			}
     		}
+    		isAllowClick = false;
     	}
 	}
 	
@@ -1314,11 +1327,13 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 	//操作栏滑入
 	private void showActionView(){
 		Log.i("frankchan", "操作栏滑入");
+		isAllowClick = true;
 		actionView.setVisibility(View.VISIBLE);
 	}
 	//操作栏滑出
 	private void hideActionView(){
 		Log.i("frankchan", "操作栏滑出");
+		isAllowClick = false;
 		actionView.setVisibility(View.INVISIBLE);
 	}
 	
@@ -1384,11 +1399,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 		playerList.clear();
         playerList.add(currentPlayer);
         if(app.isServer()){
-        	//if(!app.isGameStarted){
+        	if(!app.isGameStarted){
         		sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
-//        	}else{
-//        		sendMessage(MessageFactory.newGameMessage(true, GameMessage.ACTION_SERVER_EXIT,-1,"server exit", playerList));
-//        	}
+        	}else{
+        		sendMessage(MessageFactory.newGameMessage(true, GameMessage.ACTION_SERVER_EXIT,-1,"server exit", playerList));
+        	}
         	if(mWifiUtils.getWifiApState()){
         		mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
                         mWifiUtils.getApSSID(), WifiApConst.WIFI_AP_PASSWORD,
@@ -1396,11 +1411,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
         	}
         }
         else{
-            //if(!app.isGameStarted){
+            if(!app.isGameStarted){
                 sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"client exit"));
-//        	}else{
-//        		sendMessage(MessageFactory.newGameMessage(true, GameMessage.ACTION_CLIENT_EXIT,-1,"client exit", playerList));
-//        	}
+        	}else{
+        		sendMessage(MessageFactory.newGameMessage(true, GameMessage.ACTION_CLIENT_EXIT,-1,"client exit", playerList));
+        	}
         }
 		restartApplication();
 	}

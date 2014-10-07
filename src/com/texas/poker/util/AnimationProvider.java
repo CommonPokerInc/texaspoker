@@ -91,6 +91,15 @@ public class AnimationProvider {
 		return set;
 	}
 	
+	public static AnimationSet getShrankAnimation(int interplatorType,int duration){
+		AnimationSet set = new AnimationSet(true);
+		ScaleAnimation sa = new ScaleAnimation(3.0f, 1.0f, 3.0f, 1.0f,TYPE,0.5f,TYPE,0.2f);
+		sa.setInterpolator(getInterpolator(interplatorType));
+		sa.setDuration(duration);
+		set.addAnimation(sa);
+		return set;
+	}
+	
 	public static Interpolator getInterpolator(int interplatorType){
 		Interpolator interpolator  =null;
 		switch(interplatorType){

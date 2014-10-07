@@ -69,6 +69,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 
 	private ExecutorService mPool;
 
+	private int type = 0;
+	
 	private final static int QR_WIDTH =200;
 	
 	private final static int QR_HEIGHT =200;
@@ -94,6 +96,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 	private final static int MSG_UPDATE_USER_INFO =9;;
 	
 	private final static int MSG_TOAST_FOR_SDCARD_STATUS = 10;
+	
+	private final static int MSG_SHOW_SHRANK_VIEW = 11;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -188,6 +192,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 				break;
 			case MSG_SHOW_EXPAND_VIEW:
 				post(mExpandRunnable);
+				break;
+			case MSG_SHOW_SHRANK_VIEW:
+				post(mShrankRunnable);
 				break;
 			case MSG_CREATE_ROOM:
 				startActivity(new Intent(MainActivity.this,RoomCreateActivity.class));
@@ -351,7 +358,22 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1500, 1.0f, 0.0f));
 			startShowAnimation(mView, AnimationProvider.getExpandAnimation
 					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE,2000));
-			mHandler.sendEmptyMessageDelayed(MSG_CREATE_ROOM, 2000);
+			mHandler.sendEmptyMessageDelayed(type, 2000);
+		}
+	};
+	
+	private Runnable mShrankRunnable  =new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			startShowAnimation(AnimationProvider.getAlphaAnimation
+					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1000, 0.0f, 1.0f),
+						btnCreate,btnHelp,btnJoin,btnMarket,btnMoney,btnSelf,btnTransfer);
+			startShowAnimation(imgLight, AnimationProvider.getAlphaAnimation
+					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE, 1500, 0.0f, 1.0f));
+			startShowAnimation(mView, AnimationProvider.getShrankAnimation
+					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE,2000));
 		}
 	};
 	
@@ -402,10 +424,12 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			}
 			break;
 		case R.id.main_btn_cretae:
+			type = MSG_CREATE_ROOM;
 			mHandler.sendEmptyMessage(MSG_SHOW_EXPAND_VIEW);
 			break;
 		case R.id.main_btn_join:
-			mHandler.sendEmptyMessage(MGS_ENTER_ROOM);
+			type = MGS_ENTER_ROOM;
+			mHandler.sendEmptyMessage(MSG_SHOW_EXPAND_VIEW);
 			break;
 		case R.id.main_btn_market:
 			
@@ -603,6 +627,17 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			}
 		});
     }
+
+    
+    
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(type!=0){
+			mHandler.sendEmptyMessage(MSG_SHOW_SHRANK_VIEW);
+		}
+	}
 
 	@Override
 	protected void onDestroy() {

@@ -172,6 +172,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	}
 	
 	protected void sendMessage(BaseMessage message){
+		Log.e("frankchan", "发送");
 		String strMessage = null;
 		if(message instanceof PeopleMessage){
 			strMessage = new Gson().toJson(message,PeopleMessage.class);
@@ -295,8 +296,8 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 						if(System.currentTimeMillis()-timeMap.get(key)>INTERVAL_MAX_ACK){
 							Log.e("frankchan", "用户地址为"+key+"的用户没有及时应答");
 							//frankchan 丢失用户的处理Socket和Client回调，交由子类实现
-//							removeClientByTag(key);
-//							clientDecrease(key);
+							removeClientByTag(key);
+							clientDecrease(key);
 						}else{
 							Log.i("frankchan", key+"客户端按时应答");
 							timeMap.put(key, Long.valueOf(System.currentTimeMillis()));
@@ -306,8 +307,8 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 					long mInterval = System.currentTimeMillis()-mReceiveTime;
 					if(mInterval>INTERVAL_MAX_ACK){
 						Log.e("frankchan", "没有及时收到服务器的消息");
-//						app.getClient().stopAcceptMessage();
-//						disconnectFromServer((int)mInterval/1000);
+						app.getClient().stopAcceptMessage();
+						disconnectFromServer((int)mInterval/1000);
 					}else{
 						Log.i("frankchan", "Server及时应答");
 						
@@ -342,8 +343,13 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		if(app.isServer()){
 			app.getServer().stopListner();
 			app.getServer().clearServer();
+			app.setServer(null);
+		}else{
+			app.getClient().stopAcceptMessage();
+			app.getClient().clearClient();
+			app.setServer(null);
 		}
-		
+		android.os.Process.killProcess(android.os.Process.myPid());
         final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());  
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
         startActivity(intent);  

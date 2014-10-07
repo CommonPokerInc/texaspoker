@@ -119,6 +119,7 @@ public class SocketServer {
 								if (!joinForbidden&&!socketMap.containsValue(socket)) {
 									//socketQueue.add(socket);
 									socketMap.put(socket.getInetAddress().getHostName(), socket);
+									Log.i("frankchan", socket.getInetAddress().getHostName()+"加入");
 									if(null!=clientListener){
 										clientListener.clientIncrease(socket.getInetAddress().getHostName());
 									}
@@ -134,9 +135,8 @@ public class SocketServer {
 		}).start();
 	}
 
-	//�Ե����ͻ��˷�����Ϣ,�����ڿ�ʼ������Ϊ��ſ�ִ��
 	public void sendMessage(final Socket client, final String msg) {
-		Log.i(TAG, "into sendMsg(final Socket client,final ChatMessage msg) msg = " + msg);
+		Log.i(TAG, "服务器开始发送" + msg);
 		PrintWriter out = null;
 		if (client.isConnected()) {
 			if (!client.isOutputShutdown()) {
@@ -144,20 +144,19 @@ public class SocketServer {
 					out = new PrintWriter(client.getOutputStream());
 					out.println(msg);
 					out.flush();
+					Log.i(TAG, "服务器发送成功" + msg);
 					if(listener!=null){
 						listener.onSendSuccess();
 					}
-					Log.i(TAG, "into sendMsg(final Socket client,final ChatMessage msg) msg = " + msg + " success!");
 				} catch (IOException e) {
 					e.printStackTrace();
+					Log.i(TAG, "服务器发送失败" + msg);
 					if(listener!=null){
 						listener.onSendFailure(e.getMessage());
 					}
-					Log.d(TAG, "into sendMsg(final Socket client,final ChatMessage msg) fail!");
 				}
 			}
 		}
-		Log.i(TAG, "out sendMsg(final Socket client,final ChatMessage msg) msg = " + msg);
 	}
 
 	public CommunicationListener getListener() {

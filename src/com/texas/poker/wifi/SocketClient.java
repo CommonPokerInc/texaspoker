@@ -81,7 +81,7 @@ public class SocketClient {
 	}
 
 	public String sendMessage(final String msg) {
-		Log.i(TAG, "into sendMsgsendMsg(final ChatMessage msg)  msg =" + msg);
+		Log.i(TAG, "客户端开始发送" + msg);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -91,15 +91,16 @@ public class SocketClient {
 							PrintWriter out = new PrintWriter(client.getOutputStream());
 							out.println(msg);
 							out.flush();
+							Log.i(TAG, "客户端发送成功" + msg);
 							if(null!=listener)
 								listener.onSendSuccess();
 						}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
+					Log.i(TAG, "客户端发送失败" + msg);
 					if(null!=listener)
-						listener.onStringReceive(e.getMessage());
-					Log.d(TAG, "client snedMsg error!");
+						listener.onSendFailure(e.getMessage());
 				}
 			}
 		}).start();
