@@ -16,19 +16,29 @@ public class SearchResult {
 	private int money;
 	private String fullName;
 	
+	private final String[]NAME = {"小玩城","豪赌城","小赌城"};
+	
 	public SearchResult(String result){
 		fullName = result;
 		try{
-			name = result.substring(WifiApConst.WIFI_AP_HEADER.length()-1);
 			type = Integer.parseInt(result.substring((result.length()-1)));
+			name = NAME[type-1];
 		}catch(Exception ex){
 			type = RoomCreator.TYPE_ONE;
+			name = NAME[0];
 		}
 		switch(type){
 		case RoomCreator.TYPE_ONE:
 			money = 1000;
 			break;
+		case RoomCreator.TYPE_TWO:
+			money = 10000;
+			break;
+		case RoomCreator.TYPE_THREE:
+			money = 4000;
+			break;
 		default:
+			money = 1000;
 			break;
 		}
 	}

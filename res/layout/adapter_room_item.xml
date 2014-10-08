@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:gravity="center" >
     <LinearLayout android:id="@+id/room_item_block"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="@drawable/room_create_item_bg">
         <TextView android:id="@+id/room_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
@@ -15,7 +16,7 @@
         <TextView android:id="@+id/room_item_money"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:drawableLeft="@drawable/ic_launcher"
+            android:drawableLeft="@drawable/room_img_bet"
             android:text="@string/default_money"
             android:gravity="center"/>
     </LinearLayout>

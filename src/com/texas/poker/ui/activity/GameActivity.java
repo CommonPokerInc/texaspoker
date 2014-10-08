@@ -204,7 +204,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
             playerList.add(currentPlayer); 
             updateRoom(room, true);
         }
-		minChip = room.getBasicChips()/200;
+		minChip = room.getBasicChips()/100;
 		playerView1.showAsFirst(app.user.convertToUserInfo(),room);
 		mConfirmDialog = new ConfirmDialog(this, 300, Effectstype.Shake, this);
 	}
@@ -239,7 +239,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
 			// TODO Auto-generated method stub
-			if(fromUser){
 				if(playerView1.getMoney()<=progress*minChip){
 					mCurAddBet = playerView1.getMoney();
 					btnAdd.setText(getString(R.string.game_all_in));
@@ -248,7 +247,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 					btnAdd.setText(mCurAddBet+"");
 				}
 				
-			}
+			
 		}
 	};
 	
@@ -760,7 +759,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
         new Handler().postDelayed(new Runnable(){    
             public void run() {    
                 if(app.isServer()){
-                    if(aroundIndex<room.getInnings()&&checkMoneyEnough()){
+                	if(room.getInnings() == -1||(aroundIndex<room.getInnings()&&checkMoneyEnough())){
 //                        if(room.getInnings()!=-1)
 //                            aroundIndex++;
                         if(isInOrOut||DIndex == -1){
@@ -1039,7 +1038,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 		if (msg.isExit()) {
         	if("server exit".equals(msg.getExtra())){
         		Toast.makeText(getApplicationContext(), "Server exit", 1000).show();
-                //finish();//！！！服务器退出，差异点Y
         		restartApplication();
         	}
         	playerList.remove(msg.getPlayerList().get(0));
@@ -1195,12 +1193,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
     				doQuit();
     			}
     		}
-    		isAllowClick = false;
     	}
 	}
 	
     public void followAction(){
-    	 int money = 0;
+    	 int money = -1;
 		   if(currentPlayer.getInfo().getAroundChip()<playerList.get(maxChipIndex).getInfo().getAroundChip()){
 		        if(currentPlayer.getInfo().getBaseMoney()<(playerList.get(maxChipIndex).getInfo().getAroundChip()
 		                -currentPlayer.getInfo().getAroundChip())){
@@ -1329,11 +1326,12 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 		Log.i("frankchan", "操作栏滑入");
 		isAllowClick = true;
 		actionView.setVisibility(View.VISIBLE);
+		btnAdd.setText(getString(R.string.game_action_add));
 	}
 	//操作栏滑出
 	private void hideActionView(){
 		Log.i("frankchan", "操作栏滑出");
-		isAllowClick = false;
+		isAllowClick = true;
 		actionView.setVisibility(View.INVISIBLE);
 	}
 	
@@ -1342,8 +1340,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.game_btn_add:
-			if(seekbar.getVisibility()==View.INVISIBLE){
+			if(seekView.getVisibility()==View.GONE){
 				seekView.setVisibility(View.VISIBLE);
+				seekbar.setProgress(1);
 			}else{
 				btnAdd.setText(getString(R.string.game_action_add));
 				seekView.setVisibility(View.GONE);
@@ -1372,6 +1371,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 			break;
 		case R.id.game_btn_exit:
 			//CQF弹窗提示后进行下面的代码
+			mConfirmDialog.setTopic(app.isGameStarted?getString(R.string.game_exit_open):getString(R.string.game_exit_stop));
 			mConfirmDialog.show();
 			break;
 		default:
@@ -1387,6 +1387,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK)  
         {  
+			mConfirmDialog.setTopic(app.isGameStarted?getString(R.string.game_exit_open):getString(R.string.game_exit_stop));
 			mConfirmDialog.show();
         }
 		return false;

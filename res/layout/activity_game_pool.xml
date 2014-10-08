@@ -7,85 +7,73 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="2dp">
-        <ImageView 
-            android:layout_width="@dimen/game_img_bet_side"
-            android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_bet"
-            android:contentDescription="@string/app_name"/>
-        <TextView android:id="@+id/game_pool1"
+        <TextView android:id="@+id/game_pool5"
             android:layout_width="@dimen/game_pool_width"
             android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_pool"/>
+            android:drawableLeft="@drawable/game_img_bet"
+            style="@style/game_txt_style_small"
+            android:gravity="center"
+            android:visibility="invisible"/>
     </TableRow>
 	<TableRow android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="2dp">
-        <ImageView 
-            android:layout_width="@dimen/game_img_bet_side"
-            android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_bet"
-            android:contentDescription="@string/app_name"/>
-        <TextView android:id="@+id/game_pool2"
-            android:layout_width="@dimen/game_pool_width"
-            android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_pool"/>
-    </TableRow>
-    <TableRow android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="2dp">
-        <ImageView 
-            android:layout_width="@dimen/game_img_bet_side"
-            android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_bet"
-            android:contentDescription="@string/app_name"/>
         <TextView android:id="@+id/game_pool3"
             android:layout_width="@dimen/game_pool_width"
             android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_pool"/>
+            android:drawableLeft="@drawable/game_img_bet"
+            style="@style/game_txt_style_small"
+            android:gravity="center"
+            android:visibility="invisible"/>
     </TableRow>
     <TableRow android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="2dp">
-        <ImageView 
-            android:layout_width="@dimen/game_img_bet_side"
+        <TextView android:id="@+id/game_pool1"
+            android:layout_width="@dimen/game_pool_width"
             android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_bet"
-            android:contentDescription="@string/app_name"/>
+            android:drawableLeft="@drawable/game_img_bet"
+            style="@style/game_txt_style_small"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </TableRow>
+    <TableRow android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="2dp">
+        <TextView android:id="@+id/game_pool2"
+            android:layout_width="@dimen/game_pool_width"
+            android:layout_height="@dimen/game_img_bet_side"
+            android:drawableLeft="@drawable/game_img_bet"
+            style="@style/game_txt_style_small"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </TableRow>
+    <TableRow android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="2dp">
         <TextView android:id="@+id/game_pool4"
             android:layout_width="@dimen/game_pool_width"
             android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_pool"/>
+            android:drawableLeft="@drawable/game_img_bet"
+            style="@style/game_txt_style_small"
+            android:gravity="center"
+            android:visibility="invisible"/>
     </TableRow>
     <TableRow android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="2dp">
-        <ImageView 
-            android:layout_width="@dimen/game_img_bet_side"
-            android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_bet"
-            android:contentDescription="@string/app_name"/>
-        <TextView android:id="@+id/game_pool5"
-            android:layout_width="@dimen/game_pool_width"
-            android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_pool"/>
-    </TableRow>
-    <TableRow android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="2dp">
-        <ImageView 
-            android:layout_width="@dimen/game_img_bet_side"
-            android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_bet"
-            android:contentDescription="@string/app_name"/>
         <TextView android:id="@+id/game_pool6"
             android:layout_width="@dimen/game_pool_width"
             android:layout_height="@dimen/game_img_bet_side"
-            android:background="@drawable/game_img_pool"/>
+            android:drawableLeft="@drawable/game_img_bet"
+            style="@style/game_txt_style_small"
+            android:gravity="center"
+            android:visibility="invisible"/>
     </TableRow>
     
 </TableLayout>

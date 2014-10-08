@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:id="@+id/dialog_common_bg">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="180dp"
+        android:background="@drawable/dialog_img_bg" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/dialog_layout_inner_bg" >
+
+            <LinearLayout
+                android:id="@+id/dialog_btn_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:padding="5dp"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/dialog_btn_confirm"
+                    style="@style/dialog_txt_style_point"
+                    android:layout_width="120dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/dialog_btn_comfirm"
+                    android:text="@string/room_create_title" />
+            </LinearLayout>
+            <TextView android:id="@+id/dialog_room_name"
+                style="@style/dialog_txt_style_big_point"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_above="@+id/dialog_room_money"
+                android:text="@string/main_transfer_to_friends"/>
+            <TextView android:id="@+id/dialog_room_money"
+                style="@style/dialog_txt_style_big_point"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_above="@id/dialog_btn_layout"
+                android:text="@string/main_transfer_to_friends"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -124,5 +124,6 @@
     <string name="game_player_not_enough">人数还不足以开始游戏</string>
     <string name="title_activity_user">UserActivity</string>
     <string name="title_activity_market">MarketActivity</string>
-
+	<string name="game_exit_stop">正在准备开始\n确定退出游戏吗</string>
+	<string name="game_exit_open">游戏正在进行中\n确定退出游戏吗</string>
 </resources>

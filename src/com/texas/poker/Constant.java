@@ -17,11 +17,13 @@ public class Constant {
 	
 	public final static int SOCKET_PORT = 9527; 
 	
+	public final static int WBESERVICE_PORT = 9273;
+	
 	public final static String  DIRECTORY = Environment.getExternalStorageDirectory().getPath()+"/.texas/";
 	
 	public final static String USER_INFO_NAME = "userinfo";
 	
-	public final static String APK_NAME = "TexasPoker.apk";
+	public final static String APK_NAME = "texaspoker.apk";
 	
 	public final static String APP_PACKAGE_NAME = "com.texas.poker";
 	

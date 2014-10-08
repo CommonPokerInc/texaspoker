@@ -72,6 +72,8 @@
             android:label="@string/title_activity_market"
             android:screenOrientation="landscape" >
         </activity>
+        <service android:name="com.texas.poker.wifi.transfer.WebService" >
+        </service>
     </application>
 
 </manifest>

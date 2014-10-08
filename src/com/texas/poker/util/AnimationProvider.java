@@ -72,6 +72,7 @@ public class AnimationProvider {
 		AlphaAnimation aa = new AlphaAnimation(from, to);
 		aa.setInterpolator(getInterpolator(interplatorType));
 		aa.setDuration(duration);
+		aa.setFillAfter(true);
 		return aa;
 	}
 	

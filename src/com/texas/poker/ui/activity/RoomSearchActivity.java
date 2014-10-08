@@ -10,6 +10,7 @@ import com.texas.poker.entity.Room;
 import com.texas.poker.entity.SearchResult;
 import com.texas.poker.entity.UserInfo;
 import com.texas.poker.ui.AbsBaseActivity;
+import com.texas.poker.util.AnimationProvider;
 import com.texas.poker.util.RoomCreator;
 import com.texas.poker.util.SystemUtil;
 import com.texas.poker.wifi.SocketClient;
@@ -52,6 +53,8 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
 	
 	private GridView mRoomView;
 	
+	private View mView;
+	
 	private final static int MSG_CONNECT_SOCKET_SUCCESS = 3;
 	
 	private final static int MSG_CONNECT_SOCKET_FAILURE = 4;
@@ -59,10 +62,15 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
 	private final static int MSG_CONNECT_ROOM_OVER_TIME = 5;
 	
 	private final static int MGS_BEGIN_CONNECT_SERVER_SOCKET = 6;
+
+	private final static int MSG_BEGIN_SCAN = 7;
+	
+	private final static int MSG_BACKGROUND_LIGHT = 8;
 	
 	private boolean isSearching = false;
 	
 	private boolean isConnecting = false;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +78,14 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
 		setContentView(R.layout.activity_room_search);
 		initViews();
 		initBroadcast();
-		startWifiScan();
+		handler.post(mShowRunnable);
 	}
-
+	
 	@Override
 	protected void initViews() {
 		// TODO Auto-generated method stub
 		mRoomView = (GridView) findViewById(R.id.grid_room);
+		mView = findViewById(R.id.room_search_bg);
 		mAdapter = new RoomAdapter(this, this);
 		mRoomView.setAdapter(mAdapter);
 		mWifiApList = new ArrayList<SearchResult>();
@@ -93,6 +102,18 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
 			}
 		});
 	}
+	
+	private Runnable mShowRunnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			mView.startAnimation(AnimationProvider.getAlphaAnimation
+					(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE, 2000, 0.5f, 1.0f));
+			handler.sendEmptyMessageDelayed(MSG_BACKGROUND_LIGHT,2000);
+			handler.sendEmptyMessageDelayed(MSG_BEGIN_SCAN, 2000);
+		}
+	};
 	
 
 	/** 动态注册广播 */
@@ -239,6 +260,12 @@ public class RoomSearchActivity extends AbsBaseActivity implements OnGridItemCli
             	break;
             case MGS_BEGIN_CONNECT_SERVER_SOCKET:
             	connectServerSocket();
+            	break;
+            case MSG_BEGIN_SCAN:
+            	startWifiScan();
+            	break;
+            case MSG_BACKGROUND_LIGHT:
+            	mView.setBackgroundResource(R.drawable.room_img_bg_foucus);
             	break;
             default:
                 break;

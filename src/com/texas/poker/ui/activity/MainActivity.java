@@ -29,6 +29,8 @@ import com.texas.poker.util.DatabaseUtil;
 import com.texas.poker.util.ImageUtil;
 import com.texas.poker.util.SettingHelper;
 import com.texas.poker.wifi.WifiApConst;
+import com.texas.poker.wifi.transfer.CopyUtil;
+import com.texas.poker.wifi.transfer.WebService;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,6 +70,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 	private SettingHelper settingHelper;
 
 	private ExecutorService mPool;
+	
+	private Intent intent;
 
 	private int type = 0;
 	
@@ -113,9 +117,16 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			mPool.execute(copyRunnable);
 		}
 		mPool.execute(mUserRunnable);
+		initFiles();
+		intent = new Intent(this, WebService.class);
+		startService(intent);
 		registerGameReceiver();
 	}
 
+	private void initFiles() {
+		new CopyUtil(this).assetsCopy();
+	}
+	
 	private void registerGameReceiver(){
 		IntentFilter filter = new IntentFilter(Constant.ACTON_CLOSE_MAIN);
 		registerReceiver(mReceiver, filter);
@@ -555,7 +566,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 
 			String strFile = Constant.DIRECTORY+Constant.APK_NAME;
 			File target =new File(strFile);
-			createImage(Constant.LOCAL_HOST+Constant.SOCKET_PORT+target.getPath());
+			createImage(Constant.LOCAL_HOST+WebService.PORT+target.getPath());
 		}
 	};
     
@@ -575,7 +586,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			File file = new File(path);
 			
 			if(file.exists()){
-				createImage(Constant.LOCAL_HOST+Constant.SOCKET_PORT+path);
+				createImage(Constant.LOCAL_HOST+WebService.PORT+path);
 			}
 		}
 	};
@@ -640,6 +651,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 		super.onResume();
 		if(type!=0){
 			mHandler.sendEmptyMessage(MSG_SHOW_SHRANK_VIEW);
+			type = 0;
 		}
 	}
 
@@ -647,6 +659,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		unregisterReceiver(mReceiver);
+		stopService(intent);
 		super.onDestroy();
 	}
     

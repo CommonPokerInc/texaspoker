@@ -65,7 +65,6 @@ public class RoomCreateActivity extends AbsBaseActivity implements DialogConfirm
 	}
 	
 
-
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -268,7 +267,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements DialogConfirm
 		case WifiApConst.CREATE:
 			isCreating = true;
 			mWifiUtils.closeWifi();
-			String roomName = getLocalHostName()+mRoomType;
+			String roomName = ""+mRoomType;
 			mSSID = WifiApConst.WIFI_AP_HEADER + roomName;
 			room = RoomCreator.getRoom(mRoomType, roomName);
             mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
