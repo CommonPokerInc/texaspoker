@@ -114,7 +114,8 @@
         android:layout_margin="@dimen/main_btn_margin"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:clickable="true">
 	    <ImageView android:id="@+id/main_img_avatar"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"

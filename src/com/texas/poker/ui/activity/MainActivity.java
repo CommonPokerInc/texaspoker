@@ -447,7 +447,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
 			startActivity(new Intent(MainActivity.this,MarketActivity.class));
 			break;
 		case R.id.main_btn_self	:
-			
+			startActivity(new Intent(MainActivity.this,UserActivity.class));
 			break;
 		default:
 			break;
@@ -538,6 +538,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener,Dia
                     3, "ap"), false);
 			mTransferDialog.hide();
 		}else{
+			stopService(intent);
 			this.finish();
 			System.exit(0);
 		}

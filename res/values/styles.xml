@@ -134,4 +134,15 @@
         <item name="android:textStyle">normal</item>
         <item name="android:lineSpacingExtra">3dp</item> 
     </style>
+    
+    <style name="user_txt_style">
+        <item name="android:textColor">@color/main_txt_color</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="user_txt_style_black">
+        <item name="android:textColor">@color/dialog_txt_color</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:clickable">true</item>
+    </style>
 </resources>

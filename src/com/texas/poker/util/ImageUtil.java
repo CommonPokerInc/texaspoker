@@ -27,6 +27,10 @@ public class ImageUtil {
 	
 	public static int[]PROPERTY_BIG = {R.drawable.market_bg1,R.drawable.market_bg2,R.drawable.market_bg3,R.drawable.market_bg4,R.drawable.market_bg5,0};
 	
+	
+	public static int[] A = {R.drawable.a1,R.drawable.a2,R.drawable.a3,R.drawable.a4,R.drawable.a5};
+	
+	public static int[] LEVEL = {R.drawable.level0,R.drawable.level1,R.drawable.level2,R.drawable.level3};
 }
 
 

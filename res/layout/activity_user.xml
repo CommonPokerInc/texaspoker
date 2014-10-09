@@ -1,16 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_common_bg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".UserActivity" >
+    android:layout_height="match_parent" >
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/dialog_help_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/dialog_img_bg"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/dialog_layout_inner_bg" >
+
+            <ScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="10dp"
+                android:scrollbars="none" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" >
+
+                            <ImageView
+                                android:id="@+id/user_img_avatar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/user_avatar_bg"
+                                android:padding="6dp"
+                                android:src="@drawable/a5" />
+
+                            <TextView
+                                android:id="@+id/user_btn_edit_avatar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_toRightOf="@id/user_img_avatar"
+                                android:drawableTop="@drawable/user_btn_edit"
+                                android:text="修改头像"
+                                style="@style/user_txt_style" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                style="@style/user_txt_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="昵称：" />
+
+                            <TextView
+                                android:id="@+id/user_txt_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/user_txt_style_black" />
+
+                            <ImageButton
+                                android:id="@+id/user_btn_edit_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/user_btn_edit_name" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="筹码："
+                                style="@style/user_txt_style" />
+
+                            <TextView
+                                android:id="@+id/user_txt_moeny"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/user_txt_style_black" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="成就："
+                                style="@style/user_txt_style" />
+
+                            <TextView
+                                android:id="@+id/user_txt_level"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/user_brand"
+                                android:gravity="center"
+                                android:text="初出江湖"
+                                style="@style/user_txt_style_black" />
+
+                            <TextView
+                                android:id="@+id/user_txt_more"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:text="更多"
+                                style="@style/user_txt_style_black" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="5dp" >
+
+                        <TextView
+                            android:layout_width="254dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="道具" 
+                            style="@style/user_txt_style"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/user_desc_bg"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp" >
+
+                            <TextView
+                                android:id="@+id/user_txt_property"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/girl1"
+                                android:gravity="bottom|center_horizontal"
+                                android:text="德州小妹"
+                                style="@style/user_txt_style_black" />
+
+                            <TextView
+                                android:id="@+id/user_txt_none"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:singleLine="false"
+                                android:text="道具有隐藏属性一般人我是不会告诉他的"
+                                style="@style/user_txt_style_black" />
+
+                            <LinearLayout
+                                android:id="@+id/user_property_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/user_txt_property"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignTop="@+id/user_txt_property"
+                                android:layout_toRightOf="@+id/user_txt_property"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp" >
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="技能"
+                                    style="@style/user_txt_style_black" />
+
+                                <TextView
+                                    android:id="@+id/user_txt_desc"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:singleLine="false"
+                                    android:text="技能"
+                                    style="@style/user_txt_style_black" />
+
+                                <TextView
+                                    android:id="@+id/user_txt_cost"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="技能"
+                                    style="@style/user_txt_style_black" />
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/user_btn_property"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/user_btn_property"
+                            android:text="管理道具"
+                            android:gravity="center"
+                            style="@style/user_txt_style" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/dialog_layout_bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="10dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/dialog_img_bottom"
+                android:orientation="horizontal" >
+
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/user_btn_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentRight="true"
+        android:background="@drawable/dialog_btn_close"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        style="@style/main_txt_style"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/dialog_img_header"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="8dp"
+        android:text="个人中心" />
 
 </RelativeLayout>
