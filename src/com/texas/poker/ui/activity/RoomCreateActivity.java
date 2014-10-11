@@ -50,6 +50,8 @@ public class RoomCreateActivity extends AbsBaseActivity implements DialogConfirm
 	
 	private boolean isCreating = false;
 	
+	private View mBtn1,mBtn2,mBtn3;
+	
 	private final static int MSG_CREATE_SERVER_SOCKET = 8;
 	
 	private final static int MSG_SUCCESS_JUMP_GAME =10;
@@ -69,6 +71,18 @@ public class RoomCreateActivity extends AbsBaseActivity implements DialogConfirm
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		// 如果不支持热点创建
+		switch(v.getId()){
+		case R.id.room_item_block1:
+			mRoomType = RoomCreator.TYPE_ONE;
+			break;
+		case R.id.room_item_block2:
+			mRoomType = RoomCreator.TYPE_TWO;
+			break;
+		case R.id.room_item_block3:
+			mRoomType = RoomCreator.TYPE_THREE;
+			break;
+		}
+		
         if (mWifiUtils.getWifiApStateInt() == 4) {
             showToast(R.string.room_create_not_support);
             return;
@@ -105,13 +119,17 @@ public class RoomCreateActivity extends AbsBaseActivity implements DialogConfirm
         wifiapOperateEnum = WifiApConst.CREATE;
         mDialog.setTopic(getString(R.string.room_create_close_wifi));
         mDialog.show();
-        return;
 	}
 	
 	@Override
 	protected void initViews() {
 		// TODO Auto-generated method stub
-		findViewById(R.id.btn_create_room).setOnClickListener(this);
+		mBtn1= findViewById(R.id.room_item_block1);
+		mBtn2= findViewById(R.id.room_item_block2);
+		mBtn3= findViewById(R.id.room_item_block3);
+		mBtn1.setOnClickListener(this);
+		mBtn2.setOnClickListener(this);
+		mBtn3.setOnClickListener(this);
 		mProgressDialog = new ProgressDialog(this);
 		mProgressDialog.setCancelable(false);
 		mProgressDialog.setMessage(getString(R.string.room_create_waiting));
@@ -197,7 +215,9 @@ public class RoomCreateActivity extends AbsBaseActivity implements DialogConfirm
                 	mProgressDialog.setMessage(getString(R.string.room_create_build_server));
                 	sendEmptyMessage(MSG_CREATE_SERVER_SOCKET);
                 	//CQF按钮不可用，防止手快者点击多一次按钮
-                    findViewById(R.id.btn_create_room).setEnabled(false);
+                	mBtn1.setEnabled(false);
+                	mBtn2.setEnabled(false);
+                	mBtn3.setEnabled(false);
                 } else {
                     //创建失败
                 	Log.i("frankchan", "fail to create Ap");
@@ -267,9 +287,10 @@ public class RoomCreateActivity extends AbsBaseActivity implements DialogConfirm
 		case WifiApConst.CREATE:
 			isCreating = true;
 			mWifiUtils.closeWifi();
-			String roomName = ""+mRoomType;
+			String roomName = TextUtils.getRandomNumStr(2)+mRoomType;
 			mSSID = WifiApConst.WIFI_AP_HEADER + roomName;
-			room = RoomCreator.getRoom(mRoomType, roomName);
+			String[]names = {"","小玩城","豪赌城","小赌城"};
+			room = RoomCreator.getRoom(mRoomType, names[mRoomType]+roomName);
             mWifiUtils.createWiFiAP(mWifiUtils.createWifiInfo(
                     mSSID,WifiApConst.WIFI_AP_PASSWORD, 3, "ap"), true);
             if (mCreateApProcess == null) {

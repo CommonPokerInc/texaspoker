@@ -349,11 +349,13 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 			app.getClient().clearClient();
 			app.setServer(null);
 		}
-		android.os.Process.killProcess(android.os.Process.myPid());
         final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());  
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
         startActivity(intent);  
         this.finish();
+        app.exit();
+        System.exit(0);
+        
 	}
 	@Override
 	protected void onDestroy() {

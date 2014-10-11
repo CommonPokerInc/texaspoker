@@ -32,6 +32,8 @@ public class PersonView extends RelativeLayout {
 	
 	private ImageView mCard1,mCard2;
 	
+	private ImageView imgType;
+	
 	private String mName;
 	
 	private int mMoney;
@@ -44,6 +46,7 @@ public class PersonView extends RelativeLayout {
 		mCard1 = (ImageView) findViewById(R.id.game_me_card1);
 		mCard2 = (ImageView) findViewById(R.id.game_me_card2);
 		txtBet = (TextView) view.findViewById(R.id.game_me_bet);
+		imgType = (ImageView) view.findViewById(R.id.game_img_type);
 		int stardardWidth = SystemUtil.getScreenHeightPx()/5;
 		mBrand.getLayoutParams().width = stardardWidth;
 		changeLayout(imgGirl, stardardWidth, 0.72f, 0.74f);
@@ -96,6 +99,14 @@ public class PersonView extends RelativeLayout {
 	
 	public int getMoney(){
 		return mMoney; 
+	}
+	
+	public void showPokerType(){
+		imgType.setVisibility(View.INVISIBLE);
+	}
+	
+	public void hidePokerType(){
+		imgType.setVisibility(View.VISIBLE);
 	}
 	
 	public void setCards(Poker poker1,Poker poker2){

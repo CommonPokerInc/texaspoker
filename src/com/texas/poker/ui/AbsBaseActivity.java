@@ -35,6 +35,7 @@ public abstract class AbsBaseActivity extends FragmentActivity {
         wakeLock = this.powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "My Lock");
         app = (PokerApplication) getApplication();
         mWifiUtils = WifiUtils.getInstance(app);
+        app.addActivity(this);
 	}
 
 	@Override
@@ -51,7 +52,15 @@ public abstract class AbsBaseActivity extends FragmentActivity {
 		 wakeLock.acquire();
 	}
     
+	
+	
     @Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+
+	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// TODO Auto-generated method stub
 		super.onConfigurationChanged(newConfig);

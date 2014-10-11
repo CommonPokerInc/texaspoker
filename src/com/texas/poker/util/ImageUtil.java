@@ -31,6 +31,8 @@ public class ImageUtil {
 	public static int[] A = {R.drawable.a1,R.drawable.a2,R.drawable.a3,R.drawable.a4,R.drawable.a5};
 	
 	public static int[] LEVEL = {R.drawable.level0,R.drawable.level1,R.drawable.level2,R.drawable.level3};
+	
+	public static int[] TYPE = {R.drawable.w1,R.drawable.w2,R.drawable.w3,R.drawable.w4,R.drawable.w5,R.drawable.w6,R.drawable.w7,R.drawable.w8,R.drawable.w9};
 }
 
 

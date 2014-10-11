@@ -3,9 +3,11 @@ package com.texas.poker.custom;
 
 import com.texas.poker.R;
 import com.texas.poker.entity.LocalUser;
+import com.texas.poker.entity.Poker;
 import com.texas.poker.entity.Room;
 import com.texas.poker.entity.UserInfo;
 import com.texas.poker.util.ImageUtil;
+import com.texas.poker.util.PokerUtil;
 import com.texas.poker.util.SystemUtil;
 
 import android.content.Context;
@@ -24,6 +26,7 @@ public class PlayerView extends RelativeLayout {
 
 	private View innerView,outView;
 	private TextView bigBrand,smallBrand,txtBet,txtMoney,bigAvatar,smallAvatar,imgGirl;
+	private ImageView c1,c2,imgType;
 	
 	private void initView(Context context){
 		View view = LayoutInflater.from(context).inflate(R.layout.view_player_others, this);
@@ -36,6 +39,10 @@ public class PlayerView extends RelativeLayout {
 		txtBet =(TextView) view.findViewById(R.id.game_player_round_bet);
 		txtMoney = (TextView) view.findViewById(R.id.game_player_money);
 		imgGirl = (TextView) view.findViewById(R.id.game_player_avatar_girl);
+		c1 = (ImageView) view.findViewById(R.id.game_card1);
+		c2= (ImageView) view.findViewById(R.id.game_card2);
+		imgType = (ImageView) view.findViewById(R.id.game_card_type);
+		
 		
 		int stardardWith = SystemUtil.getScreenHeightPx()/5;
 		changeLayout(bigAvatar, stardardWith, 0.63f, 0.63f);
@@ -43,12 +50,14 @@ public class PlayerView extends RelativeLayout {
 		changeLayout(imgGirl, stardardWith, 0.60f, 0.56f);
 		changeLayout(smallBrand, stardardWith, 0.56f, 0.17f);
 		changeLayout(txtMoney, stardardWith, 0.30f, 0.14f);
+		changeLayout(c1, stardardWith, 0.31f, 0.38f);
+		changeLayout(c1, stardardWith, 0.31f, 0.38f);
 	}
 	
 
 
 
-	private void changeLayout(TextView txtView,int stardard,float wRate,float hRate){
+	private void changeLayout(View txtView,int stardard,float wRate,float hRate){
 		txtView.getLayoutParams().width= (int) (stardard*wRate);
 		txtView.getLayoutParams().height= (int) (stardard*hRate);
 	}
@@ -86,8 +95,27 @@ public class PlayerView extends RelativeLayout {
 		txtMoney.setText(String.valueOf(room.getBasicChips()));
 		txtBet.setText("0");
 		setVisibility(View.VISIBLE);
+		hidePoker();
 	}
 
+	public void setPoker(Poker p1,Poker p2){
+		c1.setBackgroundResource(PokerUtil.pokersImg[p1.getPokerImageId()]);
+		c2.setBackgroundResource(PokerUtil.pokersImg[p2.getPokerImageId()]);
+	}
+	
+	public void showPoker(int type){
+		c1.setVisibility(View.VISIBLE);
+		c2.setVisibility(View.VISIBLE);
+		imgType.setBackgroundResource(ImageUtil.TYPE[type]);
+		imgType.setVisibility(View.VISIBLE);
+	}
+	
+	public void hidePoker(){
+		c1.setVisibility(View.INVISIBLE);
+		c2.setVisibility(View.INVISIBLE);
+		imgType.setVisibility(View.INVISIBLE);
+	}
+	
 	public void showAsFocus(){
 		innerView.setVisibility(View.INVISIBLE);
 		outView.setVisibility(View.VISIBLE);

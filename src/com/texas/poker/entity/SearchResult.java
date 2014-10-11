@@ -1,6 +1,7 @@
 
 package com.texas.poker.entity;
 
+import com.texas.poker.Constant;
 import com.texas.poker.util.RoomCreator;
 import com.texas.poker.wifi.WifiApConst;
 
@@ -22,7 +23,7 @@ public class SearchResult {
 		fullName = result;
 		try{
 			type = Integer.parseInt(result.substring((result.length()-1)));
-			name = NAME[type-1];
+			name = NAME[type-1]+fullName.substring(Constant.WIFI_SUFFIX.length());
 		}catch(Exception ex){
 			type = RoomCreator.TYPE_ONE;
 			name = NAME[0];

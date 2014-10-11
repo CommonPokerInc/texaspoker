@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,11 +9,89 @@
     tools:context=".RoomCreateActivity"
     android:background="@drawable/room_img_bg_default"
     android:id="@+id/room_create_bg"
-    android:alpha="0.5" >
+    android:orientation="horizontal">
     
-	<Button android:id="@+id/btn_create_room"
+	<!-- <Button android:id="@+id/btn_create_room"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:text="@string/app_name"
-	    android:layout_centerInParent="true"/>
-</RelativeLayout>
+	    android:layout_centerInParent="true"/> -->
+
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+    <LinearLayout
+        android:id="@+id/room_item_block1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/room_create_item_bg"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小玩城" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/room_img_bet"
+            android:gravity="center"
+            android:text="@string/default_money" />
+    </LinearLayout>
+    </LinearLayout>
+	<LinearLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|bottom">
+    <LinearLayout
+        android:id="@+id/room_item_block2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/room_create_item_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="豪赌城" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/room_img_bet"
+            android:gravity="center"
+            android:text="10000" />
+    </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+    <LinearLayout
+        android:id="@+id/room_item_block3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/room_create_item_bg"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小赌城" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/room_img_bet"
+            android:gravity="center"
+            android:text="4000" />
+    </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

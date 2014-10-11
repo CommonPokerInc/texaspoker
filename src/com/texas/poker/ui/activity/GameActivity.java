@@ -18,6 +18,7 @@ import com.texas.poker.ui.dialog.ConfirmDialog.DialogConfirmInterface;
 import com.texas.poker.ui.dialog.Effectstype;
 import com.texas.poker.util.AnimationProvider;
 import com.texas.poker.util.PokerUtil;
+import com.texas.poker.util.SoundPlayer;
 import com.texas.poker.util.SystemUtil;
 import com.texas.poker.wifi.WifiApConst;
 import com.texas.poker.wifi.message.GameMessage;
@@ -130,6 +131,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 		adaptToScreen();
 		sendBroadcastToMain();
 		registerListener();
+		SoundPlayer.init(getApplicationContext());
 	}
 
 	private void sendBroadcastToMain(){
@@ -242,6 +244,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 				if(playerView1.getMoney()<=progress*minChip){
 					mCurAddBet = playerView1.getMoney();
 					btnAdd.setText(getString(R.string.game_all_in));
+					SoundPlayer.playMusic(1, false);
 				}else{
 					mCurAddBet = progress*minChip;
 					btnAdd.setText(mCurAddBet+"");
@@ -429,6 +432,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
                     break;
                 case MSG_RESET_ROUND://差异，重新设置开局，必须加上
                     resetAllPlayerAroundChip();
+                    
                     closeWinView();
                     resetAllPoker();
                     resetChipPool();
@@ -458,6 +462,14 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
     	setChairChip((DIndex+1)%playerList.size(),room.getMinStake()/2,View.VISIBLE);
     	this.currentOptionPerson = (maxChipIndex+1)%playerList.size();
     	playerView1.setCards(allPokerList.get(index*2), allPokerList.get(index*2+1));
+    	PlayerView[] players = {playerView6,playerView2,playerView3,playerView4,playerView5};
+    	for(PlayerView pView:players){
+    		int mIndex = Integer.parseInt(pView.getTag().toString());
+    		if(mIndex==-1){
+    			break;
+    		}
+    		pView.setPoker(allPokerList.get(mIndex*2), allPokerList.get(mIndex*2+1));
+    	}
 //        seat_one.ownPokerAnim();
 //        seat_two.ownPokerAnim();
 //        seat_three.ownPokerAnim();
@@ -513,6 +525,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
     	if(choice){
     		//CQF如果是轮到自己此处应有震动
     		showActionView();
+    		SystemUtil.Vibrate(this, 500);
     	}else{
     		hideActionView();
     	}
@@ -752,6 +765,15 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
         //CQF此处显示自己的牌型
         //setText(PokerUtil.getCardTypeString(playerList.get(index).getInfo().getCardType()));
         //setVisibility(View.VISIBLE);
+        playerView1.showPokerType();
+        PlayerView[] players = {playerView6,playerView2,playerView3,playerView4,playerView5};
+    	for(PlayerView pView:players){
+    		int mIndex = Integer.parseInt(pView.getTag().toString());
+    		if(mIndex==-1){
+    			break;
+    		}
+    		pView.showPoker(PokerUtil.getCardType(playerList.get(mIndex).getInfo().getCardType()));
+    	}
         if(room.getInnings()!=-1)
             aroundIndex++;
         wHandler.removeMessages(WorkHandler.MSG_GAME_ROUND_TEXT);
@@ -854,6 +876,14 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
         poker5.setVisibility(View.INVISIBLE);
         playerView1.hideCards();
         //CQF其他人的牌型也要消失
+        PlayerView[] players = {playerView6,playerView2,playerView3,playerView4,playerView5};
+    	for(PlayerView pView:players){
+    		int mIndex = Integer.parseInt(pView.getTag().toString());
+    		if(mIndex==-1){
+    			break;
+    		}
+    		pView.hidePoker();
+    	}
     }
     //共有，需要移植，奖池重新出现
     public void resetChipPool(){
@@ -1197,6 +1227,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 	}
 	
     public void followAction(){
+    	SoundPlayer.playMusic(2, false);
     	 int money = -1;
 		   if(currentPlayer.getInfo().getAroundChip()<playerList.get(maxChipIndex).getInfo().getAroundChip()){
 		        if(currentPlayer.getInfo().getBaseMoney()<(playerList.get(maxChipIndex).getInfo().getAroundChip()
@@ -1258,6 +1289,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
     	if(money == 0){
     	    followAction();
     	}else{
+    		SoundPlayer.playMusic(0, false);
     	    money += playerList.get(maxChipIndex).getInfo().getAroundChip();
             if(playerList.get(currentOptionPerson).getInfo().getBaseMoney()<=money){
                 money = playerList.get(currentOptionPerson).getInfo().getBaseMoney()+playerList.get(currentOptionPerson).getInfo().getAroundChip();
@@ -1297,6 +1329,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener,Dia
 	
     public void doQuit(){
         Log.i("Rinfon", currentOptionPerson+"");
+        SoundPlayer.playMusic(3, false);
         //CQF此处加以震动
         sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ABANDOM, -1, String.valueOf(currentOptionPerson)));
         if(app.isServer()){

@@ -2,7 +2,10 @@ package com.texas.poker.util;
 
 import com.texas.poker.PokerApplication;
 
+import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
+import android.os.Vibrator;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
@@ -45,5 +48,10 @@ public class SystemUtil {
         final float scale = PokerApplication.getContext().getResources().getDisplayMetrics().density;   
         return (int) (pxValue / scale + 0.5f);   
     }  
+    
+    public static void Vibrate(final Activity activity, long milliseconds) {
+        Vibrator vib = (Vibrator) activity.getSystemService(Service.VIBRATOR_SERVICE);
+        vib.vibrate(milliseconds);
+    }
 
 }

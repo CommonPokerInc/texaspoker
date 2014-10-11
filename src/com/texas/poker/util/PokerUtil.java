@@ -418,9 +418,33 @@ public class PokerUtil {
 	            case KING_KONG:
                     return "四条";
 	            case FLUSH:
-                    return "皇家同花顺";
+                    return "同花顺";
 	        }
 	        return "高牌";
 	}
+	
+	public static int getCardType(int cardType){
+        switch(cardType/1000){
+            case HIGH_CARD:
+                return 0;
+            case PAIR:
+                return 1;
+            case TWO_PAIR:
+                return 2;
+            case THREE:
+                return 3;
+            case STRAIGHT:
+                return 4;
+            case ROYAL_FLUSH:
+                return 5;
+            case GOURD:
+                return 6;
+            case KING_KONG:
+                return 7;
+            case FLUSH:
+                return 8;
+        }
+        return 9;
+}
 
 }
